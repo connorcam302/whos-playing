@@ -1,13 +1,14 @@
-package com.example.whosplaying;
+package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-public class WhosplayingApplication {
+@RestController
+public class DemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WhosplayingApplication.class, args);
+		SpringApplication.run(DemoApplication.class, args);
 	}
-
 }
