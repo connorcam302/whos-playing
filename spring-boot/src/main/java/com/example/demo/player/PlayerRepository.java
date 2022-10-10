@@ -12,6 +12,9 @@ public interface PlayerRepository extends JpaRepository<Player, Long>{
     @Query("SELECT p FROM Player p WHERE p.mainId = ?1")
     Optional<Player> findPlayerByMainId(Integer mainId);
 
-    @Query("SELECT p FROM Player p WHERE p.mainId = ?1")
+    @Query("SELECT p FROM Player p WHERE p.smurfId = ?1")
     Optional<Player> findPlayerBySmurfId(Integer SmurfId);
+
+    @Query("SELECT p FROM Player p WHERE p.id = ?1")
+    Player findPlayerById(Long id);
 }

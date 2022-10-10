@@ -16,30 +16,35 @@ public class PlayerService {
         this.playerRepository = playerRepository;
     }
 
-    public List<Player> getPlayers() {
+    public List<Player> getAllPlayers() {
         return playerRepository.findAll();
     }
 
-    public void addNewPlayer(Player player) {
+    public Player getPlayer(Long id) {
+        return playerRepository.findPlayerById(id);
+    }
+
+    public Player addNewPlayer(Player player) {
         //Optional<Player> playerOptional = playerRepository.findPlayerByEmail(player.getEmail());
         Optional<Player> mainIdCheck = playerRepository.findPlayerByMainId(player.getMainId());
         if (mainIdCheck.isPresent()) {
             throw new IllegalStateException("MainID already exists.");
         }
-        Optional<Player> smurfIdCheck = playerRepository.findPlayerByMainId(player.getMainId());
+        Optional<Player> smurfIdCheck = playerRepository.findPlayerBySmurfId(player.getSmurfId());
         if (smurfIdCheck.isPresent()) {
             throw new IllegalStateException("SmurfID already exists.");
         }
         playerRepository.save(player);
-        System.out.println(player);
+        return player;
     }
 
-    public void deletePlayer(Long playerId) {
+    public Long deletePlayer(Long playerId) {
         boolean exists = playerRepository.existsById(playerId);
         if (!exists) {
             throw new IllegalStateException("Player with ID " + playerId + " does not exist.");
         }
         playerRepository.deleteById(playerId);
+        return playerId;
     }
 
     // @Transactional
