@@ -1,4 +1,5 @@
 import { Card, CardHeader, CardBody, CardFooter, Image, Stack, Text, Divider, ButtonGroup, Button, Heading} from '@chakra-ui/react'
+import Link from 'next/link'
 
 export default function MatchCard(props) {
 return(
@@ -10,11 +11,13 @@ return(
       borderRadius='lg'
     />
     <Stack mt='6' spacing='3'>
-      <Heading size='md'>Living room Sofa</Heading>
+      <Heading size='md'>{props.matchid}</Heading>
       <Text>
-        This sofa is perfect for modern tropical spaces, baroque inspired
-        spaces, earthy toned spaces and for people who love a chic design with a
-        sprinkle of vintage design.
+        <Link href={"https://www.opendota.com/matches/"+props.matchid} passHref legacyBehavior>
+          <a target="_blank" rel="noopener noreferrer">
+            OpenDota
+         </a>
+      </Link>
       </Text>
       <Text color='blue.600' fontSize='2xl'>
         $450

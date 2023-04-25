@@ -18,19 +18,11 @@ const colors = {
     reg: '#edf2f4'
   },
   red:{
-    reg: '#ef233c',
-    strong: '#d90429'
+    reg: '#8d99ae'
   },
 }
 
-const theme = extendTheme({ 
-    colors,
-    Text: {
-        baseStyle: props => ({
-            colour: "grey.reg"
-        })
-    }
-})
+const theme = extendTheme({ colors })
 
 // 3. Pass the `theme` prop to the `ChakraProvider`
 function MyApp({ Component, pageProps }) {
