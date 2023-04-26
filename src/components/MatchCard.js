@@ -1,39 +1,54 @@
-import { Card, CardHeader, CardBody, CardFooter, Image, Stack, Text, Divider, ButtonGroup, Button, Heading} from '@chakra-ui/react'
-import Link from 'next/link'
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Image,
+  Stack,
+  Text,
+  Divider,
+  ButtonGroup,
+  Button,
+  Heading,
+} from "@chakra-ui/react";
+import Link from "next/link";
 
 export default function MatchCard(props) {
-return(
-<Card maxW='sm'>
-  <CardBody>
-    <Image
-      src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-      alt='Green double couch with wooden legs'
-      borderRadius='lg'
-    />
-    <Stack mt='6' spacing='3'>
-      <Heading size='md'>{props.matchid}</Heading>
-      <Text>
-        <Link href={"https://www.opendota.com/matches/"+props.matchid} passHref legacyBehavior>
-          <a target="_blank" rel="noopener noreferrer">
-            OpenDota
-         </a>
-      </Link>
-      </Text>
-      <Text color='blue.600' fontSize='2xl'>
-        $450
-      </Text>
-    </Stack>
-  </CardBody>
-  <Divider />
-  <CardFooter>
-    <ButtonGroup spacing='2'>
-      <Button variant='solid' colorScheme='blue'>
-        Buy now
-      </Button>
-      <Button variant='ghost' colorScheme='blue'>
-        Add to cart
-      </Button>
-    </ButtonGroup>
-  </CardFooter>
-</Card>
-)}
+  return (
+    <Card maxW="sm">
+      <CardBody>
+        <Stack mt="6" spacing="3">
+          <Image src={props.match.hero.img}/>
+          <Heading size="md">{props.match.player.name}</Heading>
+          <Text>{props.match.date_string}</Text>
+          <Text>{props.match.match_id}</Text>
+        </Stack>
+      </CardBody>
+      <Divider />
+      <CardFooter>
+        <Text>
+          <Link
+            href={"https://www.opendota.com/matches/" + props.match.match_id}
+            passHref
+            legacyBehavior
+          >
+            <a target="_blank" rel="noopener noreferrer">
+              OpenDota
+            </a>
+          </Link>
+        </Text>
+        <Text>
+          <Link
+            href={"https://www.dotabuff.com/matches/" + props.match.match_id}
+            passHref
+            legacyBehavior
+          >
+            <a target="_blank" rel="noopener noreferrer">
+              Dotabuff
+            </a>
+          </Link>
+        </Text>
+      </CardFooter>
+    </Card>
+  );
+}

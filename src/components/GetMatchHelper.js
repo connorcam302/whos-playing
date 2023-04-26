@@ -1,13 +1,19 @@
 import { React, useEffect, useState } from "react";
 import AllMatchCard from "./AllMatchCard";
+import {
+  Box,
+  Center,
+  Flex,
+  Stack,
+  Wrap,
+  WrapItem,
+} from "@chakra-ui/react";
 
 const GetMatchHelper = (props) => {
   const [matches, setMatches] = useState([]);
 
-  const BASEURL = "https://api.opendota.com/api/";
-
   const getMatches = () => {
-    fetch(BASEURL + "players/229886086/matches?date=90")
+    fetch(`/api/matches/player/${props.playerid}`)
       .then((res) => res.json())
       .then((data) => {
         setMatches(data);
@@ -20,11 +26,12 @@ const GetMatchHelper = (props) => {
     getMatches();
   }, []);
 
-  console.log(matches)
   return (
-    <>
-      {matches!==[] && <AllMatchCard matches={matches} />}
-    </>
+    <Box>
+      <Center>
+        <AllMatchCard matches={matches} />
+      </Center>
+    </Box>
   );
 };
 export default GetMatchHelper;

@@ -7,7 +7,6 @@ import GetMatchHelper from "@/components/GetMatchHelper";
 export default function HomePage() {
 
   return (
-    // <MatchCard target="_blank" matchid="6949819337"></MatchCard>
-    <GetMatchHelper/>
+    <GetMatchHelper playerid="all"/>
   );
 }
