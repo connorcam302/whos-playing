@@ -1,7 +1,12 @@
 import playerArray from "../../../data/players";
 
+const valveSteamApi = require("valve-steam-web-api");
+const dotaSteamApi = new valveSteamApi.dotaSteamApi(
+  "A72AAE412E7B080CF3D8E561BBBE949D"
+);
+
 const OPENDOTA_URL = "https://api.opendota.com/api/";
-const BASEURL = "http://localhost:3000/api/"
+const BASEURL = "http://localhost:3000/api/";
 
 export default async function handler({ query: { id } }, res) {
   let time = new Date();
@@ -11,7 +16,7 @@ export default async function handler({ query: { id } }, res) {
   );
   const filtered = playerArray.filter((player) => player.id == id);
   var heroData;
-  await fetchHeroData().then(heroes => heroData = heroes)
+  await fetchHeroData().then((heroes) => (heroData = heroes));
   await fetchUserData(filtered[0].id).then((matches) => {
     function dateString(epoch) {
       let date = new Date(epoch * 1000).getDate().toString();
@@ -35,23 +40,40 @@ export default async function handler({ query: { id } }, res) {
         return i + "th";
       }
 
-      return `${getSuffix(date)} ${month} ${year}`
+      return `${getSuffix(date)} ${month} ${year}`;
     }
-    console.log(heroData)
-    matches.map((match) => (match.hero = heroData.find(hero => hero.id == match.hero_id)))
-    matches.map((match) => (match.player = filtered[0]));
-    matches.map((match) => (match.date_string = dateString(match.start_time)));
+    matches.map(
+      (match) =>
+        (match.hero = heroData.find(
+          (hero) => hero.id == match.hero_id
+        ))
+    );
+    matches.map((match) => {
+      match.hero = heroData.find((hero) => hero.id == match.hero_id);
+      match.player = filtered[0];
+      match.date_string = dateString(match.start_time);
+      // Radiant slots are 0-127, Dire is 128-255
+      if (
+        (match.player_slot <= 127 && match.radiant_win === true) ||
+        (match.player_slot >= 128 && match.radiant_win === false)
+      ) {
+        match.winner = true;
+      } else {
+        match.winner = false;
+      }
+      dotaSteamApi
+        .getMatchDetails(match.id)
+        .then((data) => console.log(data));
+    });
 
     if (filtered.length > 0) {
       console.log("\x1b[31m   status - \x1b[0m 200");
       res.status(200).json(matches);
     } else {
       console.log("\x1b[31m   status - \x1b[0m 404");
-      res
-        .status(404)
-        .json({
-          message: `Matches for player with id ${id} not found.`,
-        });
+      res.status(404).json({
+        message: `Matches for player with id ${id} not found.`,
+      });
     }
   });
 }
@@ -74,8 +96,22 @@ async function fetchUserData(id) {
 
 async function fetchHeroData(id) {
   try {
+    const result = await fetch(BASEURL + "hero/all", {
+      method: "GET",
+    });
+
+    return await result.json();
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
+async function fetchMatchData(id) {
+  try {
     const result = await fetch(
-      BASEURL + "hero/all",
+      "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/v1?key=A72AAE412E7B080CF3D8E561BBBE949D&match_id=" +
+        id,
       {
         method: "GET",
       }
