@@ -19,7 +19,7 @@ import Link from "next/link";
 
 export default function MatchCard(props) {
   return (
-    <Card width="15em">
+    <Card width="15em" bgColor="blue.reg">
       <Image
         objectFit="cover"
         width="70em"
@@ -28,39 +28,41 @@ export default function MatchCard(props) {
       />
       <CardBody paddingTop="0.5em">
         <Stack spacing="3">
-          <Flex><Center>
-            <Heading size="md">{props.match.player.name}</Heading>
+          <Flex>
+            <Center>
+              <Heading size="md">{props.match.player.name}</Heading>
             </Center>
             <Spacer />
             <Box>
-            <Heading size="md" textAlign="right">
-              {makeWinnerText(props.match.winner)}
-              {props.match.kills}/{props.match.deaths}/{props.match.assists}
-            </Heading>
+              <Heading size="md" textAlign="right">
+                {makeWinnerText(props.match.winner)}
+                {props.match.kills}/{props.match.deaths}/
+                {props.match.assists}
+              </Heading>
             </Box>
           </Flex>
-          <Text>{calculateTime(props.match.start_time, props.match.duration)}</Text>
+          <Text>
+            {calculateTime(
+              props.match.start_time,
+              props.match.duration
+            )}
+          </Text>
+          <Flex>
+            {makeItemBox(props.match.items[0].img)}
+            {makeItemBox(props.match.items[1].img)}
+            {makeItemBox(props.match.items[2].img)}
+          </Flex>
+          <Flex style={{ marginTop: 0 }}>
+            {makeItemBox(props.match.items[3].img)}
+            {makeItemBox(props.match.items[4].img)}
+            {makeItemBox(props.match.items[5].img)}
+          </Flex>
         </Stack>
       </CardBody>
       <Divider />
-      <CardFooter>
+      <Box padding="20px" bg="#1e1f2e" borderBottomRadius="6px">
         <Flex>
-          <Text>
-            <Link
-              href={
-                "https://www.opendota.com/matches/" +
-                props.match.match_id
-              }
-              passHref
-              legacyBehavior
-            >
-              <a target="_blank" rel="noopener noreferrer">
-                OpenDota
-              </a>
-            </Link>
-          </Text>
-          <Spacer />
-          <Text>
+          <Text color="#ef3a1b" fontWeight="bold">
             <Link
               href={
                 "https://www.dotabuff.com/matches/" +
@@ -74,8 +76,23 @@ export default function MatchCard(props) {
               </a>
             </Link>
           </Text>
+          <Spacer />
+          <Text color="#00c59e" fontWeight="bold">
+            <Link
+              href={
+                "https://www.opendota.com/matches/" +
+                props.match.match_id
+              }
+              passHref
+              legacyBehavior
+            >
+              <a target="_blank" rel="noopener noreferrer">
+                OpenDota
+              </a>
+            </Link>
+          </Text>
         </Flex>
-      </CardFooter>
+      </Box>
     </Card>
   );
 }
@@ -91,18 +108,30 @@ function makeWinnerText(bool) {
 function calculateTime(epoch, duration) {
   var now = new Date();
   var matchDate = new Date(epoch * 1000);
-  var diffMs = (now - matchDate);
-  var diffMins = Math.round((diffMs/60000) - (duration/60));
+  var diffMs = now - matchDate;
+  var diffMins = Math.round(diffMs / 60000 - duration / 60);
   if (diffMins < 59) {
     return `${diffMins} minute${diffMins > 1 ? "s" : ""} ago.`;
   } else if (diffMins < 1440) {
-    var hours = Math.floor(diffMins / 60)
+    var hours = Math.floor(diffMins / 60);
     return `${hours} hour${hours > 1 ? "s" : ""} ago.`;
   } else if (diffMins < 44639) {
-    var days = Math.floor(diffMins / (60*24))
+    var days = Math.floor(diffMins / (60 * 24));
     return `${days} day${days > 1 ? "s" : ""} ago.`;
   } else {
-    var months = Math.floor(diffMins / (60*24*31))
+    var months = Math.floor(diffMins / (60 * 24 * 31));
     return `${months} month${days > 1 ? "s" : ""} ago.`;
+  }
+}
+
+function makeItemBox(item) {
+  if (item === null) {
+    return <Box bg="radial-gradient(#8D99AE, #212121);" w="5em" />;
+  } else {
+    return (
+      <Box bg="#212121" w="5em">
+        <Image src={item} />
+      </Box>
+    );
   }
 }

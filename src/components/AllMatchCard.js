@@ -2,10 +2,11 @@ import { React } from "react";
 import MatchCard from "./MatchCard";
 import { Box, Center, Flex, Wrap, WrapItem } from "@chakra-ui/react";
 
+
 const newCard = (match) => {
   return (
     <WrapItem>
-      <MatchCard match={match} key={match.match_id} />
+      <MatchCard match={match} key={match.player.id + "-" + match.match_id} />
     </WrapItem>
   );
 };

@@ -17,6 +17,7 @@ export default async function handler({ query: { id } }, res) {
   const filtered = playerArray.filter((player) => player.id == id);
   var heroData;
   await fetchHeroData().then((heroes) => (heroData = heroes));
+  var allMatches;
   await fetchUserData(filtered[0].id).then((matches) => {
     function dateString(epoch) {
       let date = new Date(epoch * 1000).getDate().toString();
@@ -61,21 +62,58 @@ export default async function handler({ query: { id } }, res) {
       } else {
         match.winner = false;
       }
-      dotaSteamApi
-        .getMatchDetails(match.id)
-        .then((data) => console.log(data));
     });
-
-    if (filtered.length > 0) {
-      console.log("\x1b[31m   status - \x1b[0m 200");
-      res.status(200).json(matches);
-    } else {
-      console.log("\x1b[31m   status - \x1b[0m 404");
-      res.status(404).json({
-        message: `Matches for player with id ${id} not found.`,
-      });
-    }
+    allMatches = matches;
   });
+  var itemData;
+  await fetchItemData().then((items) => (itemData = items));
+  for (let index = 0; index < allMatches.length; index++) {
+    await fetchMatchData(allMatches[index].match_id).then(
+      (matchData) => {
+        // allMatches[index].match_data = matchData
+        let players = matchData.result.players;
+        let itemArray = [];
+        var player = players.find((x) => x.account_id == id);
+
+        itemArray.push({
+          id: player.item_0,
+          img: itemData.find((item) => item.id == player.item_0).img,
+        });
+        itemArray.push({
+          id: player.item_1,
+          img: itemData.find((item) => item.id == player.item_1).img,
+        });
+        itemArray.push({
+          id: player.item_2,
+          img: itemData.find((item) => item.id == player.item_2).img,
+        });
+        itemArray.push({
+          id: player.item_3,
+          img: itemData.find((item) => item.id == player.item_3).img,
+        });
+        itemArray.push({
+          id: player.item_4,
+          img: itemData.find((item) => item.id == player.item_4).img,
+        });
+        itemArray.push({
+          id: player.item_5,
+          img: itemData.find((item) => item.id == player.item_5).img,
+        });
+
+        allMatches[index].items = itemArray;
+      }
+    );
+  }
+
+  if (filtered.length > 0) {
+    console.log("\x1b[31m   status - \x1b[0m 200");
+    res.status(200).json(allMatches);
+  } else {
+    console.log("\x1b[31m   status - \x1b[0m 404");
+    res.status(404).json({
+      message: `Matches for player with id ${id} not found.`,
+    });
+  }
 }
 
 async function fetchUserData(id) {
@@ -96,7 +134,7 @@ async function fetchUserData(id) {
 
 async function fetchHeroData(id) {
   try {
-    const result = await fetch(BASEURL + "hero/all", {
+    const result = await fetch(BASEURL + "gamedata/heroes", {
       method: "GET",
     });
 
@@ -117,6 +155,16 @@ async function fetchMatchData(id) {
       }
     );
 
+    return await result.json();
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
+async function fetchItemData() {
+  try {
+    const result = await fetch(BASEURL + `gamedata/items`);
     return await result.json();
   } catch (err) {
     console.log(err);
