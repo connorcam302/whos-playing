@@ -29,7 +29,7 @@ const GetMatchHelper = (props) => {
   return (
     <Box>
       <Center>
-        <AllMatchCard matches={matches} />
+        <AllMatchCard matches={matches} displayCard={props.displayCard}/>
       </Center>
     </Box>
   );

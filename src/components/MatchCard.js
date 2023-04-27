@@ -18,83 +18,83 @@ import {
 import Link from "next/link";
 
 export default function MatchCard(props) {
-  return (
-    <Card width="15em" bgColor="blue.reg">
-      <Image
-        objectFit="cover"
-        width="70em"
-        src={props.match.hero.img}
-        alt={props.match.hero.name}
-      />
-      <CardBody paddingTop="0.5em">
-        <Stack spacing="3">
+    return (
+      <Card width="15em" bgColor={props.match.winner == true? "#0b3014" : "#471210"}>
+        <Image
+          objectFit="cover"
+          width="70em"
+          src={props.match.hero.img}
+          alt={props.match.hero.name}
+        />
+        <CardBody paddingTop="0.5em">
+          <Stack spacing="3">
+            <Flex>
+              <Center>
+                <Heading size="md">{props.match.player.name}</Heading>
+              </Center>
+              <Spacer />
+              <Box>
+                <Heading size="md" textAlign="right">
+                  {makeWinnerText(props.match.winner)}
+                  {props.match.kills}/{props.match.deaths}/
+                  {props.match.assists}
+                </Heading>
+              </Box>
+            </Flex>
+            <Flex>
+              {makeItemBox(props.match.items[0].img)}
+              {makeItemBox(props.match.items[1].img)}
+              {makeItemBox(props.match.items[2].img)}
+            </Flex>
+            <Flex style={{ marginTop: 0 }}>
+              {makeItemBox(props.match.items[3].img)}
+              {makeItemBox(props.match.items[4].img)}
+              {makeItemBox(props.match.items[5].img)}
+            </Flex>
+            <Text textAlign="right">
+              {calculateTime(
+                props.match.start_time,
+                props.match.duration
+              )}
+            </Text>
+          </Stack>
+        </CardBody>
+        <Divider />
+        <Box padding="20px" bg="#1e1f2e" borderBottomRadius="6px">
           <Flex>
-            <Center>
-              <Heading size="md">{props.match.player.name}</Heading>
-            </Center>
+            <Text color="#ef3a1b" fontWeight="bold">
+              <Link
+                href={
+                  "https://www.dotabuff.com/matches/" +
+                  props.match.match_id
+                }
+                passHref
+                legacyBehavior
+              >
+                <a target="_blank" rel="noopener noreferrer">
+                  Dotabuff
+                </a>
+              </Link>
+            </Text>
             <Spacer />
-            <Box>
-              <Heading size="md" textAlign="right">
-                {makeWinnerText(props.match.winner)}
-                {props.match.kills}/{props.match.deaths}/
-                {props.match.assists}
-              </Heading>
-            </Box>
+            <Text color="#00c59e" fontWeight="bold">
+              <Link
+                href={
+                  "https://www.opendota.com/matches/" +
+                  props.match.match_id
+                }
+                passHref
+                legacyBehavior
+              >
+                <a target="_blank" rel="noopener noreferrer">
+                  OpenDota
+                </a>
+              </Link>
+            </Text>
           </Flex>
-          <Text>
-            {calculateTime(
-              props.match.start_time,
-              props.match.duration
-            )}
-          </Text>
-          <Flex>
-            {makeItemBox(props.match.items[0].img)}
-            {makeItemBox(props.match.items[1].img)}
-            {makeItemBox(props.match.items[2].img)}
-          </Flex>
-          <Flex style={{ marginTop: 0 }}>
-            {makeItemBox(props.match.items[3].img)}
-            {makeItemBox(props.match.items[4].img)}
-            {makeItemBox(props.match.items[5].img)}
-          </Flex>
-        </Stack>
-      </CardBody>
-      <Divider />
-      <Box padding="20px" bg="#1e1f2e" borderBottomRadius="6px">
-        <Flex>
-          <Text color="#ef3a1b" fontWeight="bold">
-            <Link
-              href={
-                "https://www.dotabuff.com/matches/" +
-                props.match.match_id
-              }
-              passHref
-              legacyBehavior
-            >
-              <a target="_blank" rel="noopener noreferrer">
-                Dotabuff
-              </a>
-            </Link>
-          </Text>
-          <Spacer />
-          <Text color="#00c59e" fontWeight="bold">
-            <Link
-              href={
-                "https://www.opendota.com/matches/" +
-                props.match.match_id
-              }
-              passHref
-              legacyBehavior
-            >
-              <a target="_blank" rel="noopener noreferrer">
-                OpenDota
-              </a>
-            </Link>
-          </Text>
-        </Flex>
-      </Box>
-    </Card>
-  );
+        </Box>
+      </Card>
+    );
 }
 
 function makeWinnerText(bool) {

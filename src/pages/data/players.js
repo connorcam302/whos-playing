@@ -5,9 +5,10 @@ class Player {
   }
 }
 
-let connor = new Player("colfox", 294548916);
-let tifty = new Player("tifty", 229886086)
-
-let playerArray = [connor, tifty]
+let playerArray = [
+  new Player("colfox", 294548916),
+  new Player("tifty", 229886086),
+  new Player("Shane", 328412884) 
+];
 
 export default playerArray;
