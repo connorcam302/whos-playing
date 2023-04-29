@@ -14,6 +14,7 @@ import {
   Spacer,
   Box,
   Center,
+  Tooltip,
 } from "@chakra-ui/react";
 import Link from "next/link";
 
@@ -129,9 +130,11 @@ function makeItemBox(item) {
     return <Box bg="radial-gradient(#8D99AE, #212121);" w="5em" />;
   } else {
     return (
-      <Box bg="#212121" w="5em">
-        <Image src={item} />
-      </Box>
+      <Tooltip label={item.name}>
+        <Box bg="#212121" w="5em">
+          <Image src={item.img} alt={item.name}/>
+        </Box>
+    </Tooltip>
     );
   }
 }

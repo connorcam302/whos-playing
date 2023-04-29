@@ -6,7 +6,6 @@ import GetMatchHelper from "@/components/GetMatchHelper";
 import PlayerOptions from "@/components/PlayerOptions";
 import { Play } from "@next/font/google";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import e from "cors";
 
 var displayCard = false;
 
@@ -17,7 +16,7 @@ export default function HomePage() {
       <Button onClick={toggleView()}>
         <HamburgerIcon />
       </Button>
-      <GetMatchHelper playerid="all" displayCard="false"/>
+      <GetMatchHelper playerid="all" displayCard="true"/>
     </Box>
   );
 }

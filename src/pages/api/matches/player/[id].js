@@ -78,26 +78,32 @@ export default async function handler({ query: { id } }, res) {
         itemArray.push({
           id: player.item_0,
           img: itemData.find((item) => item.id == player.item_0).img,
+          name: itemData.find((item) => item.id == player.item_0).dname
         });
         itemArray.push({
           id: player.item_1,
           img: itemData.find((item) => item.id == player.item_1).img,
+          name: itemData.find((item) => item.id == player.item_1).dname
         });
         itemArray.push({
           id: player.item_2,
           img: itemData.find((item) => item.id == player.item_2).img,
+          name: itemData.find((item) => item.id == player.item_2).dname
         });
         itemArray.push({
           id: player.item_3,
           img: itemData.find((item) => item.id == player.item_3).img,
+          name: itemData.find((item) => item.id == player.item_3).dname
         });
         itemArray.push({
           id: player.item_4,
           img: itemData.find((item) => item.id == player.item_4).img,
+          name: itemData.find((item) => item.id == player.item_4).dname
         });
         itemArray.push({
           id: player.item_5,
           img: itemData.find((item) => item.id == player.item_5).img,
+          name: itemData.find((item) => item.id == player.item_5).dname
         });
 
         allMatches[index].items = itemArray;
@@ -119,7 +125,7 @@ export default async function handler({ query: { id } }, res) {
 async function fetchUserData(id) {
   try {
     const result = await fetch(
-      OPENDOTA_URL + "players/" + id + "/matches?date=90",
+      OPENDOTA_URL + "players/" + id + "/matches?date=14",
       {
         method: "GET",
       }

@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Heading, Image, LinkBox, Spacer, Text, Wrap } from '@chakra-ui/react'
+import { Box, Center, Flex, Heading, Image, LinkBox, Spacer, Text, Tooltip, Wrap } from '@chakra-ui/react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -17,12 +17,12 @@ export default function MatchRow(props) {
         <Center><Heading size="md"><Box w="5em">                  {props.match.kills}/{props.match.deaths}/
                   {props.match.assists}</Box></Heading></Center>
         <Center><Wrap spacing="0px">
-        {makeItemBox(props.match.items[0].img)}
-        {makeItemBox(props.match.items[1].img)}
-        {makeItemBox(props.match.items[2].img)}
-        {makeItemBox(props.match.items[3].img)}
-        {makeItemBox(props.match.items[4].img)}
-        {makeItemBox(props.match.items[5].img)}
+        {makeItemBox(props.match.items[0])}
+        {makeItemBox(props.match.items[1])}
+        {makeItemBox(props.match.items[2])}
+        {makeItemBox(props.match.items[3])}
+        {makeItemBox(props.match.items[4])}
+        {makeItemBox(props.match.items[5])}
         </Wrap></Center>
         <Box paddingRight="10px" paddingLeft="10px">
             <Text color="#ef3a1b" fontWeight="bold" textAlign="right">
@@ -94,12 +94,15 @@ function makeWinnerText(bool) {
   
   function makeItemBox(item) {
     if (item === null) {
-      return <Box bg="radial-gradient(#8D99AE, #212121);" w="5em" />;
+      return <Box bg="radial-gradient(#8D99AE, #212121);" w="3em" />;
     } else {
+      console.log(item.name)
       return (
-        <Box bg="#212121" w="4em">
-          <Image src={item} />
-        </Box>
+        <Tooltip label={item.name}>
+          <Box bg="#212121" w="3em">
+            <Image src={item.img} alt={item.name}/>
+          </Box>
+        </Tooltip>
       );
     }
   }

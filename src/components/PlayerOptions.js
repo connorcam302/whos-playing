@@ -8,7 +8,6 @@ const PlayerOptions = (props) => {
         fetch(`/api/player/all`)
           .then((res) => res.json())
           .then((data) => {
-            console.log(data)
             setOptionList(data);
           })
           .catch((error) => {
