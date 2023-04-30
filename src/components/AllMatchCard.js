@@ -10,11 +10,11 @@ function AllMatchCard(props) {
     if(displayCard) {
       return (
         <WrapItem>
-          <MatchCard match={match} key={match.player.id + "-" + match.match_id} />
+          <MatchCard match={match} key={match.player + "-" + match.match_id} />
         </WrapItem>
       )} else {
         return (
-          <MatchRow match={match} key={match.player.id + "-" + match.match_id}></MatchRow>
+          <MatchRow match={match} key={match.player + "-" + match.match_id}></MatchRow>
         )
       }
   };

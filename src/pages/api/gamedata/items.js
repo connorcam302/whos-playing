@@ -12,18 +12,12 @@ export default async function handler(req, res) {
     items.push(itemsJson[i]);
   }
 
-  // items.map((item) => {
-  //   let itemId = item.img.slice(36, item.img.indexOf("."));
-  //   console.log(item.img)
-  //   console.log(itemId)
-  //   item.img = `https://cdn.dota2.com/apps/dota2/images/items/${itemId}_lg.png`;
-  // });
   items.push({ id: 0, img: null, hint: "Empty item slot." });
   if (items.length > 0) {
     console.log("\x1b[31m   status - \x1b[0m 200");
     res.status(200).json(items);
   } else {
     console.log("\x1b[31m   status - \x1b[0m 404");
-    res.status(404).json({ message: `Items not returned from OpenDota API` });
+    res.status(404).json({ message: `Items file not found.` });
   }
 }

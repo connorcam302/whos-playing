@@ -31,7 +31,7 @@ export default function MatchCard(props) {
           <Stack spacing="3">
             <Flex>
               <Center>
-                <Heading size="md">{props.match.player.name}</Heading>
+                <Heading size="md">{props.match.username}</Heading>
               </Center>
               <Spacer />
               <Box>
