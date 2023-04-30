@@ -17,6 +17,6 @@ export default async function handler(req, res) {
     res.status(200).json(heroes);
   } else {
     console.log("\x1b[31m   status - \x1b[0m 404");
-    res.status(404).json({ message: `Heroes not returned from OpenDota API` });
+    res.status(404).json({ message: `Heroes file not found` });
   }
 }

@@ -12,7 +12,7 @@ export default function MatchRow(props) {
         </Center>
         <Center>
         <Wrap>
-        <Center><Box w="10em"><Heading size="md">{props.match.player.name}</Heading></Box></Center>
+        <Center><Box w="10em"><Heading size="md">{props.match.username}</Heading></Box></Center>
         <Center><Box w="6em"><Heading size="md">{makeWinnerText(props.match.winner)}</Heading></Box></Center>
         <Center><Heading size="md"><Box w="5em">                  {props.match.kills}/{props.match.deaths}/
                   {props.match.assists}</Box></Heading></Center>
