@@ -45,7 +45,7 @@ async function getMatchHistory(id) {
 
   for (let index = 0; index < allMatches.length; index++) {
     if (allMatches[index].average_rank === null) {
-      allMatches[index].average_rank = -1;
+      allMatches[index].average_rank = 99;
     }
     allMatches[index].player = id;
     // Radiant slots are 0-127, Dire is 128-255
@@ -103,7 +103,7 @@ async function pushMatch(match) {
     return -1;
   } else {
     const insertMatchData = await pool.query(
-      `INSERT INTO match_data (player_id, match_id, hero, winner, item_0, item_1, item_2, item_3, item_4, item_5, kills, deaths, assists) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+      `INSERT INTO match_data (player_id, match_id, hero_id, winner, item_0, item_1, item_2, item_3, item_4, item_5, kills, deaths, assists) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
       [
         match.player,
         match.match_id,
@@ -167,11 +167,9 @@ async function pushAll() {
         process.stdout.moveCursor(0, -1)
         process.stdout.clearLine(1)
       }
-      console.log(`\x1b[34m${index} players pushed. ${allPlayers.length-index} remaining.\x1b[0m`);
+      console.log(`\x1b[34m${allPlayers[index].username} pushed. ${allPlayers.length-(index-1)} players remaining.\x1b[0m`);
     });
   }
-  process.stdout.moveCursor(0, -1)
-  process.stdout.clearLine(1)
   console.log(`\x1b[32mData scrape complete. \x1b[0m\x1b[34m${totalMatches} matches pushed.\x1b[0m`);
 }
 
@@ -202,7 +200,7 @@ async function fetchMatchData(id) {
 
 async function fetchUserData(id) {
   try {
-    const result = await fetch(process.env.OPENDOTAURL + "players/" + id + "/matches?date=14", {
+    const result = await fetch(process.env.OPENDOTAURL + "players/" + id + "/matches?date=7", {
       method: "GET",
     });
 

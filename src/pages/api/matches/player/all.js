@@ -1,4 +1,3 @@
-import playerArray from "../../../data/players";
 const BASEURL = "http://localhost:3000/";
 
 export default async function handler(req, res) {
@@ -9,8 +8,11 @@ export default async function handler(req, res) {
   );
   console.log("\x1b[31m   status - \x1b[0m 200");
   let allMatches = [];
-  for (const player of playerArray) {
-    await fetchUserData(player.id).then((matches) => {
+  var allPlayers = await fetchPlayers();
+
+  for (let index = 0; index < allPlayers.length; index++) {
+    await fetchUserData(allPlayers[index].id).then((matches) => {
+      console.log(allPlayers[index].username)
       allMatches = allMatches.concat(matches);
     });
   }
@@ -32,6 +34,16 @@ export default async function handler(req, res) {
 async function fetchUserData(id) {
   try {
     const result = await fetch(BASEURL + `/api/matches/player/${id}`);
+    return await result.json();
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
+async function fetchPlayers() {
+  try {
+    const result = await fetch(BASEURL + `/api/player/all`);
     return await result.json();
   } catch (err) {
     console.log(err);

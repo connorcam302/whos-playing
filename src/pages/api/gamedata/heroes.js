@@ -1,4 +1,3 @@
-import playerArray from "../../data/players";
 import heroesJson from "../../data/heroes.json";
 
 export default async function handler(req, res) {

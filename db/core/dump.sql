@@ -17,7 +17,7 @@ CREATE TABLE match_data (
 	id serial NOT NULL,
 	player_id bigint NOT NULL,
 	match_id bigint NOT NULL,
-	hero bigint NOT NULL,
+	hero_id bigint NOT NULL,
 	winner BOOLEAN NOT NULL,
 	kills bigint NOT NULL,
 	deaths bigint NOT NULL,
@@ -46,3 +46,4 @@ INSERT INTO players (username, id) VALUES ('Frenchy', 258517108);
 INSERT INTO players (username, id) VALUES ('Phil', 132939229);
 INSERT INTO players (username, id) VALUES ('Steve', 132022693);
 INSERT INTO players (username, id) VALUES ('Dom', 110099229);
+INSERT INTO players (username, id) VALUES ('Sighboys', 312271581);

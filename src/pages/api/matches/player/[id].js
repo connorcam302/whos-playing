@@ -22,7 +22,7 @@ export default async function handler({ query: { id } }, res) {
   var matchData = await getMatchData(id);
 
   for (let index = 0; index < matchData.length; index++) {
-    matchData[index].hero = heroData.find((hero) => hero.id == matchData[index].hero);
+    matchData[index].hero = heroData.find((hero) => hero.id == matchData[index].hero_id);
 
     var itemArray = [
       {
@@ -59,8 +59,6 @@ export default async function handler({ query: { id } }, res) {
 
     matchData[index].items = itemArray;
   }
-
-  // console.log(matchData);
 
   if (matchData[0] != null) {
     console.log("\x1b[31m   status - \x1b[0m 200");
