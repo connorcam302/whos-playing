@@ -1,5 +1,3 @@
-const BASEURL = "http://localhost:3000/";
-
 export default async function handler(req, res) {
   let time = new Date();
   console.log(`\x1b[34m   time - \x1b[0m ${time.toLocaleString()}`);
@@ -35,7 +33,7 @@ export default async function handler(req, res) {
 
 async function fetchUserData(id) {
   try {
-    const result = await fetch(BASEURL + `/api/matches/player/${id}`);
+    const result = await fetch(process.env.BASEURL + `/api/matches/player/${id}`);
     return await result.json();
   } catch (err) {
     console.log(err);
@@ -45,7 +43,7 @@ async function fetchUserData(id) {
 
 async function fetchPlayers() {
   try {
-    const result = await fetch(BASEURL + `/api/player/all`);
+    const result = await fetch(process.env.BASEURL + `/api/player/all`);
     return await result.json();
   } catch (err) {
     console.log(err);
