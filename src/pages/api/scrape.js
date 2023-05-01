@@ -4,10 +4,7 @@ dotenv.config();
 
 const { createClient } = require("@supabase/supabase-js");
 
-const supabaseUrl = "https://lredifgqyhmohiblchrt.supabase.co";
-const supabaseKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxyZWRpZmdxeWhtb2hpYmxjaHJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODI5NDEwMzgsImV4cCI6MTk5ODUxNzAzOH0.HxoX7Ohrk61zFGYs_ATW7JrpuES3sF8Biu3ICixM5TM";
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 
 async function checkDb() {
   var data = await supabase.from("players").select("*");
