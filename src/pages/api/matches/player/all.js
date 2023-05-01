@@ -16,7 +16,8 @@ export default async function handler(req, res) {
       }
     });
   }
-
+  
+  console.log(allMatches.length)
   if (allMatches.length > 0) {
     console.log("\x1b[31m   status - \x1b[0m 200");
     var sortedMatches = allMatches.sort(
