@@ -103,7 +103,7 @@ async function pushMatch(match) {
     return -1;
   } else {
     const insertMatchData = await pool.query(
-      `INSERT INTO match_data (player_id, match_id, hero_id, winner, item_0, item_1, item_2, item_3, item_4, item_5, kills, deaths, assists) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+      `INSERT INTO match_data (player_id, match_id, hero_id, winner, item_0, item_1, item_2, item_3, item_4, item_5, kills, deaths, assists, party_size) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`,
       [
         match.player,
         match.match_id,
@@ -118,6 +118,7 @@ async function pushMatch(match) {
         match.kills,
         match.deaths,
         match.assists,
+        match.party_size
       ],
       (err, res) => {
         if (debug) {
@@ -141,6 +142,7 @@ async function pushMatch(match) {
               kills: match.kills,
               deaths: match.deaths,
               assits: match.assists,
+              party_size: match.party_size
             });
           }
         }

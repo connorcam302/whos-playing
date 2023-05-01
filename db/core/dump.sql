@@ -28,6 +28,7 @@ CREATE TABLE match_data (
 	item_3 bigint NOT NULL,
 	item_4 bigint NOT NULL,
 	item_5 bigint NOT NULL,
+	party_size bigint NOT NULL,
 	CONSTRAINT match_data_pk PRIMARY KEY (id),
 	UNIQUE(player_id, match_id)
 );

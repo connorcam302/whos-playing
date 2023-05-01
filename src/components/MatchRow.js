@@ -13,7 +13,7 @@ export default function MatchRow(props) {
         </Center>
         <Center>
         <Wrap>
-        <Center><Box w="10em"><Heading size="md">{props.match.username}</Heading></Box></Center>
+        <Center><Flex w="10em"paddingRight="10px"><Heading size="md">{props.match.username}</Heading><Spacer/><Text> {props.match.party_size > 1? `x ${props.match.party_size}`: ""}</Text></Flex></Center>
         <Center><Box w="5em"><Heading size="md">{makeWinnerText(props.match.winner)}</Heading></Box></Center>        
         <Center>
           <Box w="7em" paddingRight="10px" paddingLeft="10px">
