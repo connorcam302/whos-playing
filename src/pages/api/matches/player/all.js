@@ -12,15 +12,17 @@ export default async function handler(req, res) {
 
   for (let index = 0; index < allPlayers.length; index++) {
     await fetchUserData(allPlayers[index].id).then((matches) => {
-      console.log(allPlayers[index].username)
-      allMatches = allMatches.concat(matches);
+      if(matches.status !== 404){
+        console.log(allPlayers[index].username)
+        allMatches = allMatches.concat(matches);
+      }
     });
   }
 
   if (allMatches.length > 0) {
     console.log("\x1b[31m   status - \x1b[0m 200");
     var sortedMatches = allMatches.sort(
-      ({ start_time: a }, { start_time: b }) => b - a
+      ({ match_id: a }, { match_id: b }) => b - a
     );
     res.status(200).json(sortedMatches);
   } else {
