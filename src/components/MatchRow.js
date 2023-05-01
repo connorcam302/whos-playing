@@ -4,6 +4,7 @@ import React from 'react'
 
 export default function MatchRow(props) {
   if(props.match.status != 404){
+  console.log(new Date(props.match.start_time* 1000))
   return (
     <Box bgColor={props.match.winner == true? "#0b3014" : "#471210"} borderRightRadius="6px">
     <Flex marginBottom="10px">
@@ -107,7 +108,6 @@ function makeWinnerText(bool) {
     if (item === null) {
       return <Box bg="radial-gradient(#8D99AE, #212121);" w="3em" />;
     } else {
-      console.log(item.name)
       return (
         <Tooltip label={item.name}>
           <Box bg="#212121" w="3em">

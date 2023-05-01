@@ -1,16 +1,8 @@
-const { Pool } = require("pg");
+const { createClient } = require("@supabase/supabase-js");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const pool = new Pool({
-  user: process.env.PGUSER,
-  host: process.env.PGHOST,
-  database: process.env.PGDATABASE,
-  password: process.env.PGPASSWORD,
-  port: process.env.PGPORT,
-});
-
-pool.options.max = 1;
+const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 
 export default async function handler({ query: { id } }, res) {
   let time = new Date();
@@ -21,53 +13,55 @@ export default async function handler({ query: { id } }, res) {
   var itemData = await fetchItemData();
   var matchData = await getMatchData(id);
 
-  for (let index = 0; index < matchData.length; index++) {
-    matchData[index].hero = heroData.find((hero) => hero.id == matchData[index].hero_id);
+  if (matchData !== -1) {
+    for (let index = 0; index < matchData.length; index++) {
+      matchData[index].hero = heroData.find((hero) => hero.id == matchData[index].hero_id);
 
-    var itemArray = [
-      {
-        id: matchData[index].item_0,
-        img: itemData.find((item) => item.id == matchData[index].item_0).img,
-        name: itemData.find((item) => item.id == matchData[index].item_0).dname,
-      },
-      {
-        id: matchData[index].item_1,
-        img: itemData.find((item) => item.id == matchData[index].item_1).img,
-        name: itemData.find((item) => item.id == matchData[index].item_1).dname,
-      },
-      {
-        id: matchData[index].item_2,
-        img: itemData.find((item) => item.id == matchData[index].item_2).img,
-        name: itemData.find((item) => item.id == matchData[index].item_2).dname,
-      },
-      {
-        id: matchData[index].item_3,
-        img: itemData.find((item) => item.id == matchData[index].item_3).img,
-        name: itemData.find((item) => item.id == matchData[index].item_3).dname,
-      },
-      {
-        id: matchData[index].item_4,
-        img: itemData.find((item) => item.id == matchData[index].item_4).img,
-        name: itemData.find((item) => item.id == matchData[index].item_4).dname,
-      },
-      {
-        id: matchData[index].item_5,
-        img: itemData.find((item) => item.id == matchData[index].item_5).img,
-        name: itemData.find((item) => item.id == matchData[index].item_5).dname,
-      },
-    ];
+      var itemArray = [
+        {
+          id: matchData[index].item_0,
+          img: itemData.find((item) => item.id == matchData[index].item_0).img,
+          name: itemData.find((item) => item.id == matchData[index].item_0).dname,
+        },
+        {
+          id: matchData[index].item_1,
+          img: itemData.find((item) => item.id == matchData[index].item_1).img,
+          name: itemData.find((item) => item.id == matchData[index].item_1).dname,
+        },
+        {
+          id: matchData[index].item_2,
+          img: itemData.find((item) => item.id == matchData[index].item_2).img,
+          name: itemData.find((item) => item.id == matchData[index].item_2).dname,
+        },
+        {
+          id: matchData[index].item_3,
+          img: itemData.find((item) => item.id == matchData[index].item_3).img,
+          name: itemData.find((item) => item.id == matchData[index].item_3).dname,
+        },
+        {
+          id: matchData[index].item_4,
+          img: itemData.find((item) => item.id == matchData[index].item_4).img,
+          name: itemData.find((item) => item.id == matchData[index].item_4).dname,
+        },
+        {
+          id: matchData[index].item_5,
+          img: itemData.find((item) => item.id == matchData[index].item_5).img,
+          name: itemData.find((item) => item.id == matchData[index].item_5).dname,
+        },
+      ];
 
-    matchData[index].items = itemArray;
+      matchData[index].items = itemArray;
+    }
   }
 
-  if (matchData[0] != null) {
+  if (matchData !== -1) {
     console.log("\x1b[31m   status - \x1b[0m 200");
     res.status(200).json(matchData);
   } else {
     console.log("\x1b[31m   status - \x1b[0m 404");
     res.status(404).json({
       message: `Matches for player with id ${id} not found.`,
-      status: 404 
+      status: 404,
     });
   }
 }
@@ -96,10 +90,17 @@ async function fetchItemData() {
 }
 
 async function getMatchData(id) {
-  try {
-    const res = await pool.query(`SELECT * FROM match_data JOIN matches ON match_data.match_id = matches.id JOIN players ON match_data.player_id = players.id WHERE player_id=$1`, [id]);
-    return res.rows;
-  } catch (err) {
-    return err.stack;
-  }
+  var data = await supabase.from("match_data").select("*, matches(*), players(*)").eq("player_id", id);
+  if (data.error == null && data.data.length > 0) {
+    for (let index = 0; index < data.data.length; index++) {
+      data.data[index].start_time = data.data[index].matches.start_time;
+      data.data[index].rank = data.data[index].matches.rank;
+      data.data[index].duration = data.data[index].matches.duration;
+      delete data.data[index].matches;
+  
+      data.data[index].username = data.data[index].players.username
+      delete data.data[index].players
+    }
+    return await data.data;
+  } else return -1;
 }
