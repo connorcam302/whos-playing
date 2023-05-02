@@ -34,7 +34,7 @@ export default async function handler(req, res) {
 
 async function fetchUserData(id) {
   try {
-    const result = await fetch(process.env.BASEURL + `/api/matches/player/${id}`);
+    const result = await fetch(process.env.BASEURL + `/matches/player/${id}`);
     return await result.json();
   } catch (err) {
     console.log(err);
@@ -44,7 +44,7 @@ async function fetchUserData(id) {
 
 async function fetchPlayers() {
   try {
-    const result = await fetch(process.env.BASEURL + `/api/player/all`);
+    const result = await fetch(process.env.BASEURL + `/player/all`);
     return await result.json();
   } catch (err) {
     console.log(err);
