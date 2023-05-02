@@ -4,7 +4,6 @@ import React from 'react'
 
 export default function MatchRow(props) {
   if(props.match.status != 404){
-  console.log(new Date(props.match.start_time* 1000))
   return (
     <Box bgColor={props.match.winner == true? "#0b3014" : "#471210"} borderRightRadius="6px">
     <Flex marginBottom="10px">
