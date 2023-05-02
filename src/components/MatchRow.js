@@ -4,12 +4,12 @@ import React from 'react'
 
 export default function MatchRow(props) {
   if(props.match.status != 404){
-  console.log(new Date(props.match.start_time* 1000))
+
   return (
     <Box bgColor={props.match.winner == true? "#0b3014" : "#471210"} borderRightRadius="6px">
     <Flex marginBottom="10px">
         <Center>
-        <Image w="8em" paddingRight="30px"           src={props.match.hero.img}
+        <Image w="130px" minW="130px" objectFit='contain' paddingRight="30px"           src={props.match.hero.img}
           alt={props.match.hero.name} />
         </Center>
         <Center>

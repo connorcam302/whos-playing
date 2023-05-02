@@ -43,14 +43,14 @@ export default function MatchCard(props) {
               </Box>
             </Flex>
             <Flex>
-              {makeItemBox(props.match.items[0].img)}
-              {makeItemBox(props.match.items[1].img)}
-              {makeItemBox(props.match.items[2].img)}
+              {makeItemBox(props.match.items[0])}
+              {makeItemBox(props.match.items[1])}
+              {makeItemBox(props.match.items[2])}
             </Flex>
             <Flex style={{ marginTop: 0 }}>
-              {makeItemBox(props.match.items[3].img)}
-              {makeItemBox(props.match.items[4].img)}
-              {makeItemBox(props.match.items[5].img)}
+              {makeItemBox(props.match.items[3])}
+              {makeItemBox(props.match.items[4])}
+              {makeItemBox(props.match.items[5])}
             </Flex>
             <Text textAlign="right">
               {calculateTime(
@@ -127,14 +127,14 @@ function calculateTime(epoch, duration) {
 
 function makeItemBox(item) {
   if (item === null) {
-    return <Box bg="radial-gradient(#8D99AE, #212121);" w="5em" />;
+    return <Box bg="radial-gradient(#8D99AE, #212121);" w="4em" />;
   } else {
     return (
       <Tooltip label={item.name}>
-        <Box bg="#212121" w="5em">
+        <Box bg="#212121" w="4em">
           <Image src={item.img} alt={item.name}/>
         </Box>
-    </Tooltip>
+      </Tooltip>
     );
   }
 }

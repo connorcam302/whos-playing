@@ -12,7 +12,7 @@ var displayCard = false;
 export default function HomePage() {
   return (
     <Box>
-      <GetMatchHelper playerid="all" displayCard="true"/>
+      <GetMatchHelper playerid="all" card="true"/>
     </Box>
   );
 }
