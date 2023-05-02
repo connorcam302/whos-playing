@@ -10,7 +10,8 @@ export default async function handler(req, res) {
       }
     });
   }
-
+  
+  console.log(allMatches.length)
   if (allMatches.length > 0) {
     var sortedMatches = allMatches.sort(
       ({ match_id: a }, { match_id: b }) => b - a
