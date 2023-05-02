@@ -8,7 +8,7 @@ export default function MatchRow(props) {
     <Box bgColor={props.match.winner == true? "#0b3014" : "#471210"} borderRightRadius="6px">
     <Flex marginBottom="10px">
         <Center>
-        <Image w="8em" paddingRight="30px"           src={props.match.hero.img}
+        <Image w="130px" minW="130px" objectFit='contain' paddingRight="30px"           src={props.match.hero.img}
           alt={props.match.hero.name} />
         </Center>
         <Center>

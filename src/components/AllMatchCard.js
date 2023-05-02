@@ -4,17 +4,16 @@ import { Box, Center, Flex, Wrap, WrapItem } from "@chakra-ui/react";
 import MatchRow from "./MatchRow";
 
 function AllMatchCard(props) {
-  var displayCard = false
-
+  var displayCard = props.card
   const newCard = (match) => {
     if(displayCard) {
       return (
         <WrapItem>
-          <MatchCard match={match} key={match.player + "-" + match.match_id} />
+          <MatchCard match={match} key={match.player_id + "-" + match.match_id} />
         </WrapItem>
       )} else {
         return (
-          <MatchRow match={match} key={match.player + "-" + match.match_id}></MatchRow>
+          <MatchRow match={match} key={match.player_id + "-" + match.match_id}></MatchRow>
         )
       }
   };

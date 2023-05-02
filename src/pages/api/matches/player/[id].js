@@ -5,10 +5,6 @@ dotenv.config();
 const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 
 export default async function handler({ query: { id } }, res) {
-  let time = new Date();
-  console.log(`\x1b[34m   time - \x1b[0m ${time.toLocaleString()}`);
-  console.log(`\x1b[32m   endpoint - \x1b[0m /api/matches/player/${id}`);
-
   var heroData = await fetchHeroData();
   var itemData = await fetchItemData();
   var matchData = await getMatchData(id);
@@ -55,10 +51,8 @@ export default async function handler({ query: { id } }, res) {
   }
 
   if (matchData !== -1) {
-    console.log("\x1b[31m   status - \x1b[0m 200");
     res.status(200).json(matchData);
   } else {
-    console.log("\x1b[31m   status - \x1b[0m 404");
     res.status(404).json({
       message: `Matches for player with id ${id} not found.`,
       status: 404,
