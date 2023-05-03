@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { ReactNode } from "react";
 import {
   IconButton,
