@@ -20,7 +20,6 @@ export default async function handler({ query: { days, limit } }, res) {
     .select("start_time, match_data(hero_id, winner)")
     .gte("start_time", Math.floor(d.valueOf() / 1000));
   matches = matches.data;
-  console.log(matches[0].match_data)
 
   matches = matches.filter((item) => item.match_data.length > 0);
 

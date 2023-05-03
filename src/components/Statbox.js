@@ -20,8 +20,7 @@ const Statbox = (props) => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  console.log(loaded);
+  
   if (loaded) {
     return (
       <Box margin={10} borderColor='white.reg' borderWidth='0.5px' borderRadius={10} padding='15px' width={500}>
@@ -55,9 +54,7 @@ const Statbox = (props) => {
 export default Statbox;
 
 function makeBars(stats, props) {
-  console.log(stats);
   let max = stats[0].wins + stats[0].losses;
-  console.log(max);
   let bars = [];
   bars.push(
     <GridItem colSpan={4}>
@@ -82,7 +79,6 @@ function makeBars(stats, props) {
   );
 
   for (let index = 0; index < stats.length; index++) {
-    console.log(stats[index].name + ": " + (stats[index].wins + stats[index].losses));
     var matchValue = ((stats[index].wins + stats[index].losses) / max) * 100;
     bars.push(
       <GridItem colSpan={4}>
@@ -121,7 +117,7 @@ function makeBars(stats, props) {
       </GridItem>
     );
     bars.push(<GridItem colSpan={1} />);
-    var winRate = Math.round(((stats[index].wins / (stats[index].wins + stats[index].losses)) * 100) * 10) / 10
+    var winRate = stats[index].wins + stats[index].losses !== 0 ? Math.round(((stats[index].wins / (stats[index].wins + stats[index].losses)) * 100) * 10) / 10 : 0
     bars.push(
       <GridItem colSpan={10}>
         <Text fontSize='12pt'>{winRate}%</Text>
