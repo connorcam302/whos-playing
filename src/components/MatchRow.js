@@ -2,6 +2,7 @@ import { Box, Center, Flex, Heading, Image, LinkBox, Spacer, Text, Tooltip, Wrap
 import Link from 'next/link'
 import React from 'react'
 
+
 export default function MatchRow(props) {
   if(props.match.status != 404){
   return (
