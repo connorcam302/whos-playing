@@ -4,6 +4,7 @@ import {
   Box,
   Center,
   Flex,
+  Spinner,
   Stack,
   Wrap,
   WrapItem,
@@ -11,12 +12,14 @@ import {
 
 const GetMatchHelper = (props) => {
   const [matches, setMatches] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   const getMatches = () => {
     fetch(`/api/matches/player/${props.playerid}?page=${props.pageNumber}`)
       .then((res) => res.json())
       .then((data) => {
         setMatches(data);
+        setLoaded(true)
       })
       .catch((error) => {
         console.log(error);
@@ -25,13 +28,19 @@ const GetMatchHelper = (props) => {
   useEffect(() => {
     getMatches();
   }, []);
-
+  if(loaded){
   return (
     <Box>
       <Center>
         <AllMatchCard matches={matches} card={props.card}/>
       </Center>
     </Box>
-  );
+  )} else {
+    return (
+      <Center paddingTop={10}>
+        <Spinner color='white.reg' size='xl' />
+      </Center>
+    )
+  }
 };
 export default GetMatchHelper;

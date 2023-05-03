@@ -184,7 +184,7 @@ async function fetchMatchData(id) {
 
 async function fetchUserData(id) {
   try {
-    const result = await fetch(process.env.OPENDOTAURL + "players/" + id + "/matches?date=4", {
+    const result = await fetch(process.env.OPENDOTAURL + "players/" + id + "/matches?date=14", {
       method: "GET",
     });
 

@@ -26,7 +26,7 @@ export default function MatchRow(props) {
             </Text>
           </Box>
         </Center>
-        <Center><Box w="3em"><Image src={ranks[props.match.rank]}/></Box></Center>   
+        <Center><Box w="3em"><Image src={ranks[props.match.rank]} alt={props.match.rank}/></Box></Center>   
         <Center><Wrap spacing="0px">
         {makeItemBox(props.match.items[0])}
         {makeItemBox(props.match.items[1])}
