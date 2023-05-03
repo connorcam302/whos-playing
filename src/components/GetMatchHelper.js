@@ -13,7 +13,7 @@ const GetMatchHelper = (props) => {
   const [matches, setMatches] = useState([]);
 
   const getMatches = () => {
-    fetch(`/api/matches/player/${props.playerid}`)
+    fetch(`/api/matches/player/${props.playerid}?page=${props.pageNumber}`)
       .then((res) => res.json())
       .then((data) => {
         setMatches(data);

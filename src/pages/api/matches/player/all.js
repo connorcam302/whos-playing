@@ -1,7 +1,11 @@
-export default async function handler(req, res) {
+export default async function handler({ query: { page } }, res) {
   let time = new Date();
   let allMatches = [];
   var allPlayers = await fetchPlayers();
+
+  if(page === undefined){
+    page = 0;
+  }
 
   for (let index = 0; index < allPlayers.length; index++) {
     await fetchUserData(allPlayers[index].id).then((matches) => {
@@ -10,13 +14,14 @@ export default async function handler(req, res) {
       }
     });
   }
-  
-  console.log(allMatches.length)
+
+  console.log(page)
   if (allMatches.length > 0) {
     var sortedMatches = allMatches.sort(
       ({ match_id: a }, { match_id: b }) => b - a
     );
-    res.status(200).json(sortedMatches);
+    let cutMatches = sortedMatches.slice(page*20,((page*20)+19))
+    res.status(200).json(cutMatches);
   } else {
     res.status(404).json({
       message: `No Matches Found.`,
