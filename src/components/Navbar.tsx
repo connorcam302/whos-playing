@@ -31,7 +31,7 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, dest: "/" },
   { name: "Matches", icon: IoIosApps, dest: "/matches"  },
-  { name: "Stats", icon: IoIosStats, dest: "#"  },
+  { name: "Stats", icon: IoIosStats, dest: "/stats"  },
   { name: "Top Matches", icon: AiFillStar, dest: "#"  },
 ];
 

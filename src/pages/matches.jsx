@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 
 export default function MatchPage() {
   const router = useRouter()
-  console.log(router)
+  // console.log(router)
 
   const [page, setPage] = useState(0);
 
@@ -22,7 +22,7 @@ export default function MatchPage() {
   }
 
   useEffect(() => {
-    console.log(page)
+    // console.log(page)
   }, [page]);
 
 

@@ -1945,6 +1945,7 @@
   {
     "id": 1106,
     "img": "https://cdn.dota2.com/apps/dota2/images/items/recipe_lg.png",
+    "dname": "Recipe",
     "cost": 200,
     "notes": "",
     "attrib": [],
