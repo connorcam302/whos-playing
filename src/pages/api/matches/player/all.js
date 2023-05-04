@@ -63,7 +63,6 @@ export default async function handler({ query: { page } }, res) {
       (a, b) => b.start_time + b.duration - (a.start_time + a.duration)
     );
     let cutMatches = sortedMatches.slice(page*20,((page*20)+19))
-    console.log(cutMatches)
     res.status(200).send(cutMatches);
   } else {
     res.status(404).json({
