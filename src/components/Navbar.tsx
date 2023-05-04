@@ -32,7 +32,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, dest: "/" },
   { name: "Matches", icon: IoIosApps, dest: "/matches"  },
   { name: "Stats", icon: IoIosStats, dest: "/stats"  },
-  { name: "Top Matches", icon: AiFillStar, dest: "#"  },
+  { name: "Top Matches", icon: AiFillStar, dest: "/top-matches"  },
 ];
 
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
