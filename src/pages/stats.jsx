@@ -9,45 +9,61 @@ import Statbox from "@/components/Statbox";
 import { Helmet } from "react-helmet";
 
 export default function MatchPage() {
-  const router = useRouter();
-  // console.log(router)
+  function useWindowSize() {
+    const [windowSize, setWindowSize] = useState({
+      width: undefined,
+      height: undefined,
+    });
 
-  const [page, setPage] = useState(0);
+    useEffect(() => {
+      function handleResize() {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
 
-  const increasePage = () => {
-    setPage(page + 1);
-  };
-  const decreasePage = () => {
-    if (!page == 0) {
-      setPage(page - 1);
-    }
-  };
+      window.addEventListener("resize", handleResize);
 
-  useEffect(() => {
-    // console.log(page)
-  }, [page]);
+      handleResize();
 
-  return (
-    <>
-      <Helmet>
-        <title>Stats</title>
-      </Helmet>
-      <Navbar>
-        <BrowserView>
-          <Center>
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+    return windowSize;
+  }
+  var width = useWindowSize().width;
+
+  if (width >= 1365) {
+    return (
+      <>
+        <Helmet>
+          <title>Who&apos;s Playing</title>
+        </Helmet>
+        <Navbar>
+          <Center margin={5}>
             <Wrap>
-              <Statbox type='player' days='50' limit='50' title='Player Stats' />
-              <Statbox type='hero' days='50' limit='140' title='Hero Stats' />
+              <Statbox type='player' days='50' limit='999' title='Player Stats' />
+              <Statbox type='hero' days='50' limit='999' title='Hero Stats' />
             </Wrap>
           </Center>
-        </BrowserView>
-        <MobileView>
-          <Wrap>
-            <Statbox type='player' days='50' limit='50' title='Player Stats' />
-            <Statbox type='hero' days='50' limit='140' title='Hero Stats' />
-          </Wrap>
-        </MobileView>
-      </Navbar>
-    </>
-  );
+        </Navbar>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Helmet>
+          <title>Who&apos;s Playing</title>
+        </Helmet>
+        <Navbar>
+          <Center margin={5}>
+            <Wrap>
+              <Statbox type='player' days='50' limit='999' title='Player Stats' />
+              <Statbox type='hero' days='50' limit='999' title='Hero Stats' />
+            </Wrap>
+          </Center>
+        </Navbar>
+      </>
+    );
+  }
 }

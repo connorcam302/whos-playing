@@ -25,21 +25,52 @@ export default function MatchPage() {
   useEffect(() => {
     // console.log(page)
   }, [page]);
+  function useWindowSize() {
+    const [windowSize, setWindowSize] = useState({
+      width: undefined,
+      height: undefined,
+    });
 
+    useEffect(() => {
+      function handleResize() {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+
+      window.addEventListener("resize", handleResize);
+
+      handleResize();
+
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+    return windowSize;
+  }
+  var width = useWindowSize().width
+
+  if (width >= 1365) {
   return (
     <>
       <Helmet>
         <title>Matches</title>
       </Helmet>
       <Navbar>
-        <BrowserView>
           <GetMatchHelper key={page} playerid='all' pageNumber={page} />
           <PageButtons increase={increasePage} decrease={decreasePage} />
-        </BrowserView>
-        <MobileView>
-          <GetMatchHelper playerid='all' card='true' />
-        </MobileView>
       </Navbar>
     </>
-  );
+  )} else {
+    return (
+      <>
+        <Helmet>
+          <title>Matches</title>
+        </Helmet>
+        <Navbar>
+            <GetMatchHelper key={page} playerid='all' pageNumber={page} card='true' />
+            <PageButtons increase={increasePage} decrease={decreasePage} />
+        </Navbar>
+      </>
+    );
+  }
 }

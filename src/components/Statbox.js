@@ -1,5 +1,21 @@
 import Head from "@/app/head";
-import { Box, Center, Grid, GridItem, Heading, Progress, Select, SimpleGrid, Spacer, Spinner, Stack, Text, Tooltip, Wrap, WrapItem } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Grid,
+  GridItem,
+  Heading,
+  Progress,
+  Select,
+  SimpleGrid,
+  Spacer,
+  Spinner,
+  Stack,
+  Text,
+  Tooltip,
+  Wrap,
+  WrapItem,
+} from "@chakra-ui/react";
 import Image from "next/image";
 import { React, useEffect, useState } from "react";
 
@@ -21,13 +37,39 @@ const Statbox = (props) => {
     fetchData();
   }, []);
 
+  function useWindowSize() {
+    const [windowSize, setWindowSize] = useState({
+      width: undefined,
+      height: undefined,
+    });
+
+    useEffect(() => {
+      function handleResize() {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+
+      window.addEventListener("resize", handleResize);
+
+      handleResize();
+
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return windowSize;
+  }
+  var width = useWindowSize().width
+
   if (loaded) {
+    
     return (
       <Box margin={10} borderColor='white.reg' borderWidth='0.5px' borderRadius={10} padding='15px' width={500}>
         <Stack>
           <Wrap>
             <Heading>{props.title}</Heading>
-            <Spacer/>
+            <Spacer />
             <Text
               style={{
                 // do your styles depending on your needs.
@@ -39,7 +81,7 @@ const Statbox = (props) => {
               Last {props.days} Days
             </Text>
           </Wrap>
-          {makeBars(stats, props)}
+          {makeBars(stats, props, width)}
         </Stack>
       </Box>
     );
@@ -53,25 +95,26 @@ const Statbox = (props) => {
 
 export default Statbox;
 
-function makeBars(stats, props) {
+function makeBars(stats, props, width) {
+  console.log(width <= 1365 ? 4 : 8)
   let max = stats[0].wins + stats[0].losses;
   let bars = [];
   bars.push(
-    <GridItem colSpan={4}>
+    <GridItem colSpan={width <= 1365 ? 8 : 4}>
       <Center>
         <Text>Hero</Text>
       </Center>
     </GridItem>
   );
   bars.push(
-    <GridItem colSpan={10}>
+    <GridItem colSpan={width <= 1365 ? 8 : 10}>
       <Center>
         <Text>Matches</Text>
       </Center>
     </GridItem>
   );
   bars.push(
-    <GridItem colSpan={10}>
+    <GridItem colSpan={width <= 1365 ? 8 : 10}>
       <Center>
         <Text>Win Rate</Text>
       </Center>
@@ -81,7 +124,7 @@ function makeBars(stats, props) {
   for (let index = 0; index < stats.length; index++) {
     var matchValue = ((stats[index].wins + stats[index].losses) / max) * 100;
     bars.push(
-      <GridItem colSpan={4}>
+      <GridItem colSpan={width <= 1365 ? 8 : 4}>
         {props.type == "player" ? (
           <Text
             fontSize='md'
@@ -112,15 +155,16 @@ function makeBars(stats, props) {
     );
     bars.push(<GridItem colSpan={1} />);
     bars.push(
-      <GridItem colSpan={10}>
+      <GridItem colSpan={width <= 1365 ? 8 : 10}>
         <Text fontSize='12pt'>{stats[index].wins + stats[index].losses}</Text>
         <Progress size='xs' value={matchValue} colorScheme='teal' marginTop='9px' />
       </GridItem>
     );
     bars.push(<GridItem colSpan={1} />);
-    var winRate = stats[index].wins + stats[index].losses !== 0 ? Math.round(((stats[index].wins / (stats[index].wins + stats[index].losses)) * 100) * 10) / 10 : 0
+    var winRate =
+      stats[index].wins + stats[index].losses !== 0 ? Math.round((stats[index].wins / (stats[index].wins + stats[index].losses)) * 100 * 10) / 10 : 0;
     bars.push(
-      <GridItem colSpan={10}>
+      <GridItem colSpan={width <= 1365 ? 8 : 10}>
         <Text fontSize='12pt'>{winRate}%</Text>
         <Progress size='xs' value={winRate} colorScheme={getColor(winRate)} marginTop='9px' />
       </GridItem>

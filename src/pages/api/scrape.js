@@ -1,4 +1,4 @@
-const debug = false;
+const debug = true;
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -32,42 +32,66 @@ async function getMatchHistory(id) {
     throw new Error(`Error. \nCode: ${data.error.code} \nMessage: ${data.error.message}`);
   }
 
+  var openDotaData = await fetchOpenDotaData(id)
   var allMatches = [];
-  await fetchUserData(id).then((matches) => (allMatches = matches));
-
-  for (let index = 0; index < allMatches.length; index++) {
-    if (allMatches[index].average_rank === null) {
-      allMatches[index].average_rank = 99;
-    }
-    allMatches[index].player = id;
-    // Radiant slots are 0-127, Dire is 128-255
-    if (
-      (allMatches[index].player_slot <= 127 && allMatches[index].radiant_win === true) ||
-      (allMatches[index].player_slot >= 128 && allMatches[index].radiant_win === false)
-    ) {
-      allMatches[index].winner = true;
-    } else {
-      allMatches[index].winner = false;
-    }
+  var allMatchId = [];
+  var userData = await fetchUserData(id);
+  var data = userData.result.matches;
+  for (let index = 0; index < data.length; index++) {
+    allMatchId.push(data[index].match_id);
   }
 
-  for (let index = 0; index < allMatches.length; index++) {
-    await fetchMatchData(allMatches[index].match_id).then((match) => {
-      let players = match.result.players;
+  for (let index = 0; index < allMatchId.length; index++) {
+    
+    await fetchMatchData(allMatchId[index]).then((match) => {
+
+      match = match.result;
+      allMatches[index] = match;
+
+      var openDotaMatch = openDotaData.find((e) => e.match_id == match.match_id);
+      if(openDotaMatch == undefined) {
+        allMatches[index].average_rank = 99;
+      } else {
+        allMatches[index].party_size = openDotaMatch.party_size
+        allMatches[index].average_rank = openDotaMatch.average_rank
+      }
+      
+      let players = match.players;
       var player = players.find((x) => x.account_id == id);
-      var itemArray = [player.item_0, player.item_1, player.item_2, player.item_3, player.item_4, player.item_5];
+      if (
+        // Radiant slots are 0-127, Dire is 128-255
+        (player.player_slot <= 127 && match.radiant_win === true) ||
+        (player.player_slot >= 128 && match.radiant_win === false)
+      ) {
+        allMatches[index].winner = true;
+      } else {
+        allMatches[index].winner = false;
+      }
+
+      var itemArray = [player.item_0, player.item_1, player.item_2, player.item_3, player.item_4, player.item_5, player.item_neutral];
+
       allMatches[index].items = itemArray;
-      allMatches[index].player = id;
+      allMatches[index].last_hits = player.last_hits;
+      allMatches[index].gold_per_min = player.gold_per_min;
+      allMatches[index].xp_per_min = player.xp_per_min;
+      allMatches[index].aghanims_scepter = player.aghanims_scepter;
+      allMatches[index].aghanims_shard = player.aghanims_shard;
+      allMatches[index].player = player.account_id;
+      allMatches[index].kills = player.kills;
+      allMatches[index].deaths = player.deaths;
+      allMatches[index].assists = player.assists;
+      allMatches[index].hero_id = player.hero_id;
+      // allMatches[index].
+
+      delete allMatches[index].players;
+      delete allMatches[index].picks_bans;
     });
   }
-
   return allMatches;
 }
 
 async function pushMatch(match) {
-  var insertMatch = await supabase
-    .from("matches")
-    .insert({ id: match.match_id, rank: match.average_rank, start_time: match.start_time, duration: match.duration });
+  var insertMatch = await supabase.from("matches").insert({ id: match.match_id, rank: match.average_rank, start_time: match.start_time, duration: match.duration });
 
   if (debug) {
     if (insertMatch.error !== null) {
@@ -77,7 +101,6 @@ async function pushMatch(match) {
       console.log("\x1b[32mInserted into matches: \x1b[0m");
       console.table({
         match_id: match.match_id,
-        rank: match.average_rank,
         start_time: match.start_time,
         duration: match.duration,
       });
@@ -95,11 +118,18 @@ async function pushMatch(match) {
     item_3: match.items[3],
     item_4: match.items[4],
     item_5: match.items[5],
+    item_neutral: match.items[6],
+    party_size: match.party_size,
     kills: match.kills,
     deaths: match.deaths,
     assists: match.assists,
-    party_size: match.party_size,
+    last_hits: match.last_hits,
+    gold_per_min: match.gold_per_min,
+    xp_per_min: match.xp_per_min,
+    aghanims_scepter: match.aghanims_scepter,
+    aghanims_shard: match.aghanims_shard,
   });
+
   if (debug) {
     if (insertMatchData == !null) {
       console.log("\x1b[31mInsert failed into match_data: \x1b[0m" + insertMatchData.error);
@@ -108,7 +138,7 @@ async function pushMatch(match) {
     } else {
       console.log("\x1b[32mInserted into match_data: \x1b[0m");
       console.table({
-        player: match.player,
+        player_id: match.player,
         match_id: match.match_id,
         hero_id: match.hero_id,
         winner: match.winner,
@@ -118,10 +148,16 @@ async function pushMatch(match) {
         item_3: match.items[3],
         item_4: match.items[4],
         item_5: match.items[5],
+        item_neutral: match.items[6],
+        party_size: match.party_size,
         kills: match.kills,
         deaths: match.deaths,
-        assits: match.assists,
-        party_size: match.party_size,
+        assists: match.assists,
+        last_hits: match.last_hits,
+        gold_per_min: match.gold_per_min,
+        xp_per_min: match.xp_per_min,
+        aghanims_scepter: match.aghanims_scepter,
+        aghanims_shard: match.aghanims_shard,
       });
     }
   }
@@ -162,10 +198,9 @@ async function main() {
 
 async function fetchMatchData(id) {
   try {
-    const result = await fetch(`${process.env.STEAMURL}/IDOTA2Match_570/GetMatchDetails/v1?key=${process.env.STEAMKEY}&match_id=${id}`, {
+    const result = await fetch(`${process.env.STEAMURL}/IDOTA2Match_570/GetMatchDetails/v1?key=${process.env.STEAMKEY}&match_id=${id}&matches_requested=100`, {
       method: "GET",
     });
-
     return await result.json();
   } catch (err) {
     console.log(err);
@@ -175,11 +210,22 @@ async function fetchMatchData(id) {
 
 async function fetchUserData(id) {
   try {
-    const result = await fetch(process.env.OPENDOTAURL + "players/" + id + "/matches?date=14", {
+    const result = await fetch(`${process.env.STEAMURL}/IDOTA2Match_570/getMatchHistory/v1?key=${process.env.STEAMKEY}&account_id=${id}`, {
       method: "GET",
     });
-
     return await result.json();
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
+async function fetchOpenDotaData(id) {
+  try {
+    const result = await fetch(`${process.env.OPENDOTAURL}/players/${id}/recentMatches`, {
+      method: "GET",
+    });
+    return result.json();
   } catch (err) {
     console.log(err);
     return null;

@@ -35,8 +35,6 @@ export default async function handler({ query: { days, limit } }, res) {
     }
   }
 
-  // console.log(allMatches);
-
   for (let index = 0; index < heroes.length; index++) {
     heroes[index].wins = allMatches.filter((match) => match.hero_id === heroes[index].hero_id && match.winner).length;
     heroes[index].losses = allMatches.filter((match) => match.hero_id === heroes[index].hero_id && !match.winner).length;
