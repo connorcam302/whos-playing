@@ -84,54 +84,45 @@ async function pushMatch(match) {
     }
   }
 
-  var inDb = await supabase.from("players").select("*").match({ id: 294548916, username: "Colfox" });
-  if (inDb.data.length == 0) {
-    console.log("\x1b[31mMatch data already in DB: \x1b[0m");
-    console.log(`\x1b[36mMatch: \x1b[0m${match.match_id}`);
-    console.log(`\x1b[36mPlayer: \x1b[0m${match.player}`);
-
-    return -1;
-  } else {
-    var insertMatchData = await supabase.from("match_data").insert({
-      player_id: match.player,
-      match_id: match.match_id,
-      hero_id: match.hero_id,
-      winner: match.winner,
-      item_0: match.items[0],
-      item_1: match.items[1],
-      item_2: match.items[2],
-      item_3: match.items[3],
-      item_4: match.items[4],
-      item_5: match.items[5],
-      kills: match.kills,
-      deaths: match.deaths,
-      assists: match.assists,
-      party_size: match.party_size,
-    });
-    if (debug) {
-      if (insertMatchData == !null) {
-        console.log("\x1b[31mInsert failed into match_data: \x1b[0m" + insertMatchData.error);
-        console.log(`\x1b[36mMatch: \x1b[0m${match.match_id}`);
-        console.log(`\x1b[36mPlayer: \x1b[0m${match.player}`);
-      } else {
-        console.log("\x1b[32mInserted into match_data: \x1b[0m");
-        console.table({
-          player: match.player,
-          match_id: match.match_id,
-          hero_id: match.hero_id,
-          winner: match.winner,
-          item_0: match.items[0],
-          item_1: match.items[1],
-          item_2: match.items[2],
-          item_3: match.items[3],
-          item_4: match.items[4],
-          item_5: match.items[5],
-          kills: match.kills,
-          deaths: match.deaths,
-          assits: match.assists,
-          party_size: match.party_size,
-        });
-      }
+  var insertMatchData = await supabase.from("match_data").insert({
+    player_id: match.player,
+    match_id: match.match_id,
+    hero_id: match.hero_id,
+    winner: match.winner,
+    item_0: match.items[0],
+    item_1: match.items[1],
+    item_2: match.items[2],
+    item_3: match.items[3],
+    item_4: match.items[4],
+    item_5: match.items[5],
+    kills: match.kills,
+    deaths: match.deaths,
+    assists: match.assists,
+    party_size: match.party_size,
+  });
+  if (debug) {
+    if (insertMatchData == !null) {
+      console.log("\x1b[31mInsert failed into match_data: \x1b[0m" + insertMatchData.error);
+      console.log(`\x1b[36mMatch: \x1b[0m${match.match_id}`);
+      console.log(`\x1b[36mPlayer: \x1b[0m${match.player}`);
+    } else {
+      console.log("\x1b[32mInserted into match_data: \x1b[0m");
+      console.table({
+        player: match.player,
+        match_id: match.match_id,
+        hero_id: match.hero_id,
+        winner: match.winner,
+        item_0: match.items[0],
+        item_1: match.items[1],
+        item_2: match.items[2],
+        item_3: match.items[3],
+        item_4: match.items[4],
+        item_5: match.items[5],
+        kills: match.kills,
+        deaths: match.deaths,
+        assits: match.assists,
+        party_size: match.party_size,
+      });
     }
   }
 }
@@ -196,6 +187,6 @@ async function fetchUserData(id) {
 }
 
 export default async function handler({ query: { id } }, res) {
-    main()
-    res.status(200).send({ message: `Scraping Player Data.`, status: 200 })
+  main();
+  res.status(200).send({ message: `Scraping Player Data.`, status: 200 });
 }

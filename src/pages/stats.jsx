@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import PageButtons from "@/components/PageButtons";
 import { useRouter } from "next/router";
 import Statbox from "@/components/Statbox";
+import { Helmet } from "react-helmet";
 
 export default function MatchPage() {
   const router = useRouter();
@@ -27,21 +28,26 @@ export default function MatchPage() {
   }, [page]);
 
   return (
-    <Navbar>
-      <BrowserView>
-        <Center>
+    <>
+      <Helmet>
+        <title>Stats</title>
+      </Helmet>
+      <Navbar>
+        <BrowserView>
+          <Center>
+            <Wrap>
+              <Statbox type='player' days='50' limit='50' title='Player Stats' />
+              <Statbox type='hero' days='50' limit='140' title='Hero Stats' />
+            </Wrap>
+          </Center>
+        </BrowserView>
+        <MobileView>
           <Wrap>
             <Statbox type='player' days='50' limit='50' title='Player Stats' />
             <Statbox type='hero' days='50' limit='140' title='Hero Stats' />
           </Wrap>
-        </Center>
-      </BrowserView>
-      <MobileView>
-        <Wrap>
-          <Statbox type='player' days='50' limit='50' title='Player Stats' />
-          <Statbox type='hero' days='50' limit='140' title='Hero Stats' />
-        </Wrap>
-      </MobileView>
-    </Navbar>
+        </MobileView>
+      </Navbar>
+    </>
   );
 }
