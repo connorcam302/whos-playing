@@ -1,6 +1,6 @@
 const { createClient } = require("@supabase/supabase-js");
 const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
-import heroesJson from "../../data/heroes.json";
+import heroesJson from "../../../data/heroes.json";
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -42,7 +42,7 @@ export default async function handler({ query: { limit, days} }, res) {
   }
 
   players = players.sort((a, b) => b.wins + b.losses - (a.wins + a.losses));
-  
+
   if(limit > 0) {
     players = players.slice(0, limit)
   } 

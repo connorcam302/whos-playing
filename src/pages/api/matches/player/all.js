@@ -1,7 +1,7 @@
 const { createClient } = require("@supabase/supabase-js");
-const itemImport = require("@/pages/data/itemMap.js");
+const itemImport = require("@/data/itemMap.js");
 const itemMap = itemImport.itemMap
-const heroImport = require("@/pages/data/heroMap.js");
+const heroImport = require("@/data/heroMap.js");
 const heroMap = heroImport.heroMap
 const dotenv = require("dotenv");
 dotenv.config();

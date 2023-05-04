@@ -1,6 +1,8 @@
 const { createClient } = require("@supabase/supabase-js");
-const itemMap = require("@/pages/data/itemMap.js");
-const heroMap = require("@/pages/data/heroMap.js");
+const itemImport = require("@/data/itemMap.js");
+const itemMap = itemImport.itemMap
+const heroImport = require("@/data/heroMap.js");
+const heroMap = heroImport.heroMap
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -9,7 +11,7 @@ const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 export default async function handler({ query: { id } }, res) {
   var matchData = await getMatchData(id);
 
-  console.log(itemMap)
+
 
   if (matchData !== -1) {
     for (let index = 0; index < matchData.length; index++) {
