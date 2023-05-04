@@ -1,6 +1,8 @@
 const { createClient } = require("@supabase/supabase-js");
-import itemMap from "@/pages/data/itemMap.js";
-import heroMap from "@/pages/data/heroMap.js";
+const itemImport = require("@/pages/data/itemMap.js");
+const itemMap = itemImport.itemMap
+const heroImport = require("@/pages/data/heroMap.js");
+const heroMap = heroImport.heroMap
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -8,7 +10,6 @@ const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 
 export default async function handler({ query: { page } }, res) {
   let time = new Date();
-  let allMatches = await getMatchData();
 
   if(page === undefined){
     page = 0;

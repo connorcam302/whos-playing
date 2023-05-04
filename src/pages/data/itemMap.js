@@ -1,10 +1,10 @@
 const itemMap = new Map();
 
 itemMap.set(0, {
-    id: 0,
-    name: "Empty",
-    img: null,
-  });
+  id: 0,
+  name: "Empty",
+  img: null,
+});
 
 itemMap.set(1, {
   id: 1,
@@ -2222,4 +2222,4 @@ itemMap.set(196, {
   img: "https://cdn.dota2.com/apps/dota2/images/items/diffusal_blade_2.png?3",
 });
 
-export default itemMap
+export { itemMap };
