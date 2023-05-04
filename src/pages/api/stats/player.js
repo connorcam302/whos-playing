@@ -31,8 +31,6 @@ export default async function handler({ query: { limit, days} }, res) {
     }
   }
 
-  //   console.log(matches)
-
   var players = await supabase.from("players").select("username, id");
   players = players.data;
 
