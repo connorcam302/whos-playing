@@ -60,7 +60,7 @@ export default async function handler({ query: { page } }, res) {
 
   if (matchData.length > 0) {
     var sortedMatches = matchData.sort(
-      ({ match_id: a }, { match_id: b }) => b - a
+      (a, b) => b.start_time + b.duration - (a.start_time + a.duration)
     );
     let cutMatches = sortedMatches.slice(page*20,((page*20)+19))
     console.log(cutMatches)
