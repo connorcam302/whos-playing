@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <>
     <Helmet>
-      <title>Who's Playing</title>
+      <title>Who&apos;s Playing</title>
     </Helmet>
       <Navbar>
         <BrowserView>
