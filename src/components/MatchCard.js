@@ -126,7 +126,7 @@ function calculateTime(epoch, duration) {
 }
 
 function makeItemBox(item) {
-  if (item === null) {
+  if (item.img === null) {
     return <Box bg="radial-gradient(#8D99AE, #212121);" w="4em" />;
   } else {
     return (

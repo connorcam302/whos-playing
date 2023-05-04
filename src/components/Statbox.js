@@ -20,7 +20,7 @@ const Statbox = (props) => {
   useEffect(() => {
     fetchData();
   }, []);
-  
+
   if (loaded) {
     return (
       <Box margin={10} borderColor='white.reg' borderWidth='0.5px' borderRadius={10} padding='15px' width={500}>
@@ -104,6 +104,7 @@ function makeBars(stats, props) {
               width={70}
               height={90}
               style={{ height: "auto", objectFit: "contain", position: "relative" }}
+              unoptimized
             />
           </Tooltip>
         )}

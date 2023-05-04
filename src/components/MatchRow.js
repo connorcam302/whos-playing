@@ -105,7 +105,7 @@ function makeWinnerText(bool) {
   }
   
   function makeItemBox(item) {
-    if (item === null) {
+    if (item.id == 0) {
       return <Box bg="radial-gradient(#8D99AE, #212121);" w="3em" />;
     } else {
       return (

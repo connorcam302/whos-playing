@@ -1,6 +1,6 @@
 const { createClient } = require("@supabase/supabase-js");
 const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
-import heroesJson from "../../data/heroes.json";
+import heroesJson from "../../../data/heroes.json";
 
 const dotenv = require("dotenv");
 dotenv.config();

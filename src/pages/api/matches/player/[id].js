@@ -1,48 +1,52 @@
 const { createClient } = require("@supabase/supabase-js");
+const itemImport = require("@/data/itemMap.js");
+const itemMap = itemImport.itemMap
+const heroImport = require("@/data/heroMap.js");
+const heroMap = heroImport.heroMap
 const dotenv = require("dotenv");
 dotenv.config();
 
 const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 
 export default async function handler({ query: { id } }, res) {
-  var heroData = await fetchHeroData();
-  var itemData = await fetchItemData();
   var matchData = await getMatchData(id);
+
+
 
   if (matchData !== -1) {
     for (let index = 0; index < matchData.length; index++) {
-      matchData[index].hero = heroData.find((hero) => hero.id == matchData[index].hero_id);
-
+      matchData[index].hero = heroMap.get(matchData[index].hero_id);
+      
       var itemArray = [
         {
           id: matchData[index].item_0,
-          img: itemData.find((item) => item.id == matchData[index].item_0).img,
-          name: itemData.find((item) => item.id == matchData[index].item_0).dname,
+          img: itemMap.get(matchData[index].item_0).img,
+          name: itemMap.get(matchData[index].item_0).dname,
         },
         {
           id: matchData[index].item_1,
-          img: itemData.find((item) => item.id == matchData[index].item_1).img,
-          name: itemData.find((item) => item.id == matchData[index].item_1).dname,
+          img: itemMap.get(matchData[index].item_1).img,
+          name: itemMap.get(matchData[index].item_1).dname,
         },
         {
           id: matchData[index].item_2,
-          img: itemData.find((item) => item.id == matchData[index].item_2).img,
-          name: itemData.find((item) => item.id == matchData[index].item_2).dname,
+          img: itemMap.get(matchData[index].item_2).img,
+          name: itemMap.get(matchData[index].item_2).dname,
         },
         {
           id: matchData[index].item_3,
-          img: itemData.find((item) => item.id == matchData[index].item_3).img,
-          name: itemData.find((item) => item.id == matchData[index].item_3).dname,
+          img: itemMap.get(matchData[index].item_3).img,
+          name: itemMap.get(matchData[index].item_3).dname,
         },
         {
           id: matchData[index].item_4,
-          img: itemData.find((item) => item.id == matchData[index].item_4).img,
-          name: itemData.find((item) => item.id == matchData[index].item_4).dname,
+          img: itemMap.get(matchData[index].item_4).img,
+          name: itemMap.get(matchData[index].item_4).dname,
         },
         {
           id: matchData[index].item_5,
-          img: itemData.find((item) => item.id == matchData[index].item_5).img,
-          name: itemData.find((item) => item.id == matchData[index].item_5).dname,
+          img: itemMap.get(matchData[index].item_5).img,
+          name: itemMap.get(matchData[index].item_5).dname,
         },
       ];
 

@@ -1,4 +1,4 @@
-import itemsJson from "../../data/items.json";
+import itemsJson from "../../../data/items.json";
 
 export default async function handler(req, res) {
   let time = new Date();

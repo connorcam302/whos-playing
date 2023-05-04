@@ -1,26 +1,70 @@
+const { createClient } = require("@supabase/supabase-js");
+const itemImport = require("@/data/itemMap.js");
+const itemMap = itemImport.itemMap
+const heroImport = require("@/data/heroMap.js");
+const heroMap = heroImport.heroMap
+const dotenv = require("dotenv");
+dotenv.config();
+
+const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
+
 export default async function handler({ query: { page } }, res) {
   let time = new Date();
-  let allMatches = [];
-  var allPlayers = await fetchPlayers();
 
   if(page === undefined){
     page = 0;
   }
 
-  for (let index = 0; index < allPlayers.length; index++) {
-    await fetchUserData(allPlayers[index].id).then((matches) => {
-      if(matches.status !== 404){
-        allMatches = allMatches.concat(matches);
-      }
-    });
+  var matchData = await getMatchData();
+
+  if (matchData !== -1) {
+    for (let index = 0; index < matchData.length; index++) {
+      matchData[index].hero = heroMap.get(matchData[index].hero_id);
+      
+      var itemArray = [
+        {
+          id: matchData[index].item_0,
+          img: itemMap.get(matchData[index].item_0).img,
+          name: itemMap.get(matchData[index].item_0).dname,
+        },
+        {
+          id: matchData[index].item_1,
+          img: itemMap.get(matchData[index].item_1).img,
+          name: itemMap.get(matchData[index].item_1).dname,
+        },
+        {
+          id: matchData[index].item_2,
+          img: itemMap.get(matchData[index].item_2).img,
+          name: itemMap.get(matchData[index].item_2).dname,
+        },
+        {
+          id: matchData[index].item_3,
+          img: itemMap.get(matchData[index].item_3).img,
+          name: itemMap.get(matchData[index].item_3).dname,
+        },
+        {
+          id: matchData[index].item_4,
+          img: itemMap.get(matchData[index].item_4).img,
+          name: itemMap.get(matchData[index].item_4).dname,
+        },
+        {
+          id: matchData[index].item_5,
+          img: itemMap.get(matchData[index].item_5).img,
+          name: itemMap.get(matchData[index].item_5).dname,
+        },
+      ];
+
+      matchData[index].items = itemArray;
+    }
   }
 
-  if (allMatches.length > 0) {
-    var sortedMatches = allMatches.sort(
+  if (matchData.length > 0) {
+    var sortedMatches = matchData.sort(
       ({ match_id: a }, { match_id: b }) => b - a
     );
     let cutMatches = sortedMatches.slice(page*20,((page*20)+19))
-    res.status(200).json(cutMatches);
+    console.log(cutMatches)
+    res.status(200).send(cutMatches);
   } else {
     res.status(404).json({
       message: `No Matches Found.`,
@@ -28,22 +72,18 @@ export default async function handler({ query: { page } }, res) {
   }
 }
 
-async function fetchUserData(id) {
-  try {
-    const result = await fetch(process.env.BASEURL + `/matches/player/${id}`);
-    return await result.json();
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-}
-
-async function fetchPlayers() {
-  try {
-    const result = await fetch(process.env.BASEURL + `/player/all`);
-    return await result.json();
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
+async function getMatchData() {
+  var data = await supabase.from("match_data").select("*, matches(*), players(*)");
+  if (data.error == null && data.data.length > 0) {
+    for (let index = 0; index < data.data.length; index++) {
+      data.data[index].start_time = data.data[index].matches.start_time;
+      data.data[index].rank = data.data[index].matches.rank;
+      data.data[index].duration = data.data[index].matches.duration;
+      delete data.data[index].matches;
+  
+      data.data[index].username = data.data[index].players.username
+      delete data.data[index].players
+    }
+    return await data.data;
+  } else return -1;
 }
