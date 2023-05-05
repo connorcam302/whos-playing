@@ -18,8 +18,8 @@ Hosting - Vercel
 
 ### To Do
 
-• Top Matches
-• Player Impact Rating
-• Redo Match Rows
-• About Page
+- Top Matches
+- Player Impact Rating
+- Redo Match Rows
+- About Page
 
