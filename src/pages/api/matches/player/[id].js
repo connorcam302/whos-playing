@@ -10,12 +10,11 @@ const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 
 export default async function handler({ query: { id } }, res) {
   var matchData = await getMatchData(id);
-
-
-
   if (matchData !== -1) {
     for (let index = 0; index < matchData.length; index++) {
       matchData[index].hero = heroMap.get(matchData[index].hero_id);
+
+      console.log(matchData[index].item_neutral)
       
       var itemArray = [
         {
@@ -47,6 +46,11 @@ export default async function handler({ query: { id } }, res) {
           id: matchData[index].item_5,
           img: itemMap.get(matchData[index].item_5).img,
           name: itemMap.get(matchData[index].item_5).dname,
+        },
+        {
+          id: matchData[index].item_neutral,
+          img: itemMap.get(matchData[index].item_neutral).img,
+          name: itemMap.get(matchData[index].item_neutral).dname,
         },
       ];
 
