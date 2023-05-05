@@ -1,38 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Who's Playing
 
-## Getting Started
+A Dota 2 match showcase designed to scrape and show all of the matches played by set accounts
 
-First, run the development server:
+## How does it work?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Matches are pulled from the Steam Web API then combined with the OpenDota API for added detail. This scraper is written in NodeJS and can either be manually triggered on a localbuild using the **/scrape** endpoint, however once a minute the scraper is automatically ran by a AWS LightSail container cron. Once the matches have been scraped they are then written to a Supabase Postgres DB. These can then be read by the app which is hosted and autodeployed onto Vercel. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Stack
 
-You can start editing the page by modifying `app/page.jsx`. The page auto-updates as you edit the file.
+App - NextJS + ChakraUI 
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Database - Supabase Postgres
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Scraper - NodeJS + AWS LightSail
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Hosting - Vercel
 
-## Learn More
+### To Do
 
-To learn more about Next.js, take a look at the following resources:
+• Top Matches
+• Player Impact Rating
+• Redo Match Rows
+• About Page
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
