@@ -13,46 +13,52 @@ export default async function handler({ query: { id } }, res) {
   if (matchData !== -1) {
     for (let index = 0; index < matchData.length; index++) {
       matchData[index].hero = heroMap.get(matchData[index].hero_id);
-
-      console.log(matchData[index].item_neutral)
       
       var itemArray = [
         {
           id: matchData[index].item_0,
           img: itemMap.get(matchData[index].item_0).img,
-          name: itemMap.get(matchData[index].item_0).dname,
+          name: itemMap.get(matchData[index].item_0).name,
         },
         {
           id: matchData[index].item_1,
           img: itemMap.get(matchData[index].item_1).img,
-          name: itemMap.get(matchData[index].item_1).dname,
+          name: itemMap.get(matchData[index].item_1).name,
         },
         {
           id: matchData[index].item_2,
           img: itemMap.get(matchData[index].item_2).img,
-          name: itemMap.get(matchData[index].item_2).dname,
+          name: itemMap.get(matchData[index].item_2).name,
         },
         {
           id: matchData[index].item_3,
           img: itemMap.get(matchData[index].item_3).img,
-          name: itemMap.get(matchData[index].item_3).dname,
+          name: itemMap.get(matchData[index].item_3).name,
         },
         {
           id: matchData[index].item_4,
           img: itemMap.get(matchData[index].item_4).img,
-          name: itemMap.get(matchData[index].item_4).dname,
+          name: itemMap.get(matchData[index].item_4).name,
         },
         {
           id: matchData[index].item_5,
           img: itemMap.get(matchData[index].item_5).img,
-          name: itemMap.get(matchData[index].item_5).dname,
+          name: itemMap.get(matchData[index].item_5).name,
         },
         {
           id: matchData[index].item_neutral,
           img: itemMap.get(matchData[index].item_neutral).img,
-          name: itemMap.get(matchData[index].item_neutral).dname,
+          name: itemMap.get(matchData[index].item_neutral).name,
         },
       ];
+
+      delete matchData[index].item_0
+      delete matchData[index].item_1
+      delete matchData[index].item_2
+      delete matchData[index].item_3
+      delete matchData[index].item_4
+      delete matchData[index].item_5
+      delete matchData[index].item_neutral
 
       matchData[index].items = itemArray;
     }

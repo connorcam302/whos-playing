@@ -47,15 +47,17 @@ async function getMatchHistory(id) {
 
       match = match.result;
       allMatches[index] = match;
-      if(openDotaData.length > 0) {
+      try {
         var openDotaMatch = openDotaData.find((e) => e.match_id == match.match_id);
-        if(openDotaMatch == undefined) {
+        
+        if(openDotaMatch === undefined) {
           allMatches[index].average_rank = 99;
         } else {
           allMatches[index].party_size = openDotaMatch.party_size
           allMatches[index].average_rank = openDotaMatch.average_rank
         }
-      }
+      } catch{}
+      console.log(openDotaMatch)
 
       let players = match.players;
       var player = players.find((x) => x.account_id == id);
@@ -82,7 +84,6 @@ async function getMatchHistory(id) {
       allMatches[index].deaths = player.deaths;
       allMatches[index].assists = player.assists;
       allMatches[index].hero_id = player.hero_id;
-      // allMatches[index].
 
       delete allMatches[index].players;
       delete allMatches[index].picks_bans;
@@ -93,6 +94,11 @@ async function getMatchHistory(id) {
 
 async function pushMatch(match) {
   var insertMatch = await supabase.from("matches").insert({ id: match.match_id, rank: match.average_rank, start_time: match.start_time, duration: match.duration });
+
+  console.table({
+    party: match.party_size,
+    rank: match.average_rank,
+  });
 
   if (debug) {
     if (insertMatch.error !== null) {
@@ -223,7 +229,7 @@ async function fetchUserData(id) {
 
 async function fetchOpenDotaData(id) {
   try {
-    const result = await fetch(`${process.env.OPENDOTAURL}/players/${id}/matches?date=1`, {
+    const result = await fetch(`${process.env.OPENDOTAURL}/players/${id}/matches?date=20`, {
       method: "GET",
     });
     return result.json();
