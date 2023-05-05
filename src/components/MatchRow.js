@@ -5,6 +5,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function MatchRow(props) {
+  console.log(props.match)
   if (props.match.status != 404) {
     return (
       <Box bgColor={props.match.winner == true ? "#0b3014" : "#471210"} borderRightRadius='6px'>
@@ -48,15 +49,31 @@ export default function MatchRow(props) {
                   <Image src={props.match.rank == undefined ? ranks[99] : ranks[props.match.rank]} alt={props.match.rank} />
                 </Box>
               </Center>
+              <Box bg="#212121">
+                <Box>
+                  <Wrap spacing='0px'>
+                    {makeItemBox(props.match.items[0])}
+                    {makeItemBox(props.match.items[1])}
+                    {makeItemBox(props.match.items[2])}
+                  </Wrap>
+                </Box>
+                <Box>
+                  <Wrap spacing='0px'>
+                    {makeItemBox(props.match.items[3])}
+                    {makeItemBox(props.match.items[4])}
+                    {makeItemBox(props.match.items[5])}
+                  </Wrap>
+                </Box>
+              </Box>
               <Center>
-                <Wrap spacing='0px'>
-                  {makeItemBox(props.match.items[0])}
-                  {makeItemBox(props.match.items[1])}
-                  {makeItemBox(props.match.items[2])}
-                  {makeItemBox(props.match.items[3])}
-                  {makeItemBox(props.match.items[4])}
-                  {makeItemBox(props.match.items[5])}
-                </Wrap>
+                <Box w='3em'>
+                  {makeNeutralBox(props.match.items[6])}
+                </Box>
+              </Center>
+              <Center>
+                <Box w='2em'>
+                  {makeAghBox(props.match.aghanims_scepter, props.match.aghanims_shard)}
+                </Box>
               </Center>
               <Box paddingRight='10px' paddingLeft='10px'>
                 <Text color='#ef3a1b' fontWeight='bold' textAlign='right'>
@@ -116,12 +133,27 @@ function calculateTime(epoch, duration) {
 
 function makeItemBox(item) {
   if (item.id == 0) {
-    return <Box bg='radial-gradient(#8D99AE, #212121);' w='3em' />;
+    return <Box bg='radial-gradient(#8D99AE, #212121);' w='2.3em' />;
   } else {
     return (
       <Tooltip label={item.name}>
-        <Box bg='#212121' w='3em'>
-          <Image src={item.img} alt={item.name} />
+        <Box bg='#212121'>
+          <Image src={item.img} alt={item.name} overflow='hidden' w='2.3em' />
+        </Box>
+      </Tooltip>
+    );
+  }
+}
+
+function makeNeutralBox(item) {
+  console.log(item);
+  if (item.id == 0) {
+    return <Box bg='radial-gradient(#8D99AE, #212121);' w='2.3em' borderRadius={100}/>;
+  } else {
+    return (
+      <Tooltip label={item.name}>
+        <Box>
+          <Image src={item.img} alt={item.name} objectFit="cover" overflow='hidden' w='2.5em' h="2.5em"  borderRadius={500}/>
         </Box>
       </Tooltip>
     );
@@ -130,7 +162,7 @@ function makeItemBox(item) {
 
 function makeParty(party) {
   if (party == null) {
-    return <AiOutlineQuestionCircle/>;
+    return <AiOutlineQuestionCircle />;
   } else if (party == 1) {
     return <BsFillPersonFill />;
   } else {
@@ -139,6 +171,18 @@ function makeParty(party) {
         <BsFillPersonFill /> x {party}
       </>
     );
+  }
+}
+
+function makeAghBox(scepter,shard){
+  if(scepter == 0 && shard == 0){
+    return <Box><Image src="scepter_0.png"/><Image src="shard_0.png"/></Box>
+  }else if(scepter == 1 && shard == 0){
+    return <Box><Image src="scepter_1.png"/><Image src="shard_0.png"/></Box>
+  }else if(scepter == 0 && shard == 1){  
+    return <Box><Image src="scepter_0.png"/><Image src="shard_1.png"/></Box>
+  }else{  
+    return <Box><Image src="scepter_1.png"/><Image src="shard_1.png"/></Box>
   }
 }
 
