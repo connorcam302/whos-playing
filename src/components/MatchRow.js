@@ -5,31 +5,31 @@ import Link from "next/link";
 import React from "react";
 
 export default function MatchRow(props) {
-  console.log(props.match)
   if (props.match.status != 404) {
     return (
       <Box bgColor={props.match.winner == true ? "#0b3014" : "#471210"} borderRightRadius='6px'>
         <Flex marginBottom='10px'>
           <Center>
-            <Image w='130px' minW='130px' objectFit='contain' paddingRight='30px' src={props.match.hero.img} alt={props.match.hero.name} />
+            <Tooltip label={props.match.hero.name}>
+              <Image w='130px' minW='130px' objectFit='contain' paddingRight='30px' src={props.match.hero.img} alt={props.match.hero.name} />
+            </Tooltip>
           </Center>
           <Center>
             <Wrap>
               <Center>
-                <Flex w='10em' paddingRight='10px'>
-                  <Center>
-                    <Heading size='md'>{props.match.username}</Heading>
-                  </Center>
-                  <Spacer />
-                  <Center>
-                    <Text fontSize={props.match.party_size > 1 ? "xs" : "lg"} textAlign='center'>
-                      {makeParty(props.match.party_size)}
-                    </Text>
-                  </Center>
-                </Flex>
+                <Link href={"/player/" + props.match.player_id} passHref legacyBehavior>
+                  <a rel='noopener noreferrer'>
+                    <Flex w='7em' paddingRight='10px'>
+                      <Center>
+                        <Heading size='md'>{props.match.username}</Heading>
+                      </Center>
+                      <Spacer />
+                    </Flex>
+                  </a>
+                </Link>
               </Center>
               <Center>
-                <Box w='5em'>
+                <Box w='3em'>
                   <Heading size='md'>{makeWinnerText(props.match.winner)}</Heading>
                 </Box>
               </Center>
@@ -44,12 +44,7 @@ export default function MatchRow(props) {
                   </Text>
                 </Box>
               </Center>
-              <Center>
-                <Box w='3em'>
-                  <Image src={props.match.rank == undefined ? ranks[99] : ranks[props.match.rank]} alt={props.match.rank} />
-                </Box>
-              </Center>
-              <Box bg="#212121">
+              <Box bg='#212121'>
                 <Box>
                   <Wrap spacing='0px'>
                     {makeItemBox(props.match.items[0])}
@@ -66,27 +61,23 @@ export default function MatchRow(props) {
                 </Box>
               </Box>
               <Center>
-                <Box w='3em'>
-                  {makeNeutralBox(props.match.items[6])}
-                </Box>
+                <Box w='3em'>{makeNeutralBox(props.match.items[6])}</Box>
               </Center>
               <Center>
-                <Box w='2em'>
-                  {makeAghBox(props.match.aghanims_scepter, props.match.aghanims_shard)}
-                </Box>
+                <Box w='2em'>{makeAghBox(props.match.aghanims_scepter, props.match.aghanims_shard)}</Box>
               </Center>
               <Box paddingRight='10px' paddingLeft='10px'>
                 <Text color='#ef3a1b' fontWeight='bold' textAlign='right'>
                   <Link href={"https://www.dotabuff.com/matches/" + props.match.match_id} passHref legacyBehavior>
                     <a target='_blank' rel='noopener noreferrer'>
-                      Dotabuff
+                      <Image src='/dotabuff-logo.png' alt='Dotabuff' boxSize='1.5em' display='inline-block' verticalAlign='middle' />
                     </a>
                   </Link>
                 </Text>
                 <Text color='#00c59e' fontWeight='bold' textAlign='right'>
                   <Link href={"https://www.opendota.com/matches/" + props.match.match_id} passHref legacyBehavior>
                     <a target='_blank' rel='noopener noreferrer'>
-                      OpenDota
+                      <Image src='/opendota-logo.png' alt='OpenDota' boxSize='1.5em' display='inline-block' verticalAlign='middle' />
                     </a>
                   </Link>
                 </Text>
@@ -146,14 +137,13 @@ function makeItemBox(item) {
 }
 
 function makeNeutralBox(item) {
-  console.log(item);
   if (item.id == 0) {
-    return <Box bg='radial-gradient(#8D99AE, #212121);' w='2.3em' borderRadius={100}/>;
+    return <Box bg='radial-gradient(#8D99AE, #212121);' w='2em' borderRadius={500} />;
   } else {
     return (
       <Tooltip label={item.name}>
         <Box>
-          <Image src={item.img} alt={item.name} objectFit="cover" overflow='hidden' w='2.5em' h="2.5em"  borderRadius={500}/>
+          <Image src={item.img} alt={item.name} objectFit='cover' overflow='hidden' w='2em' h='2em' borderRadius={500} />
         </Box>
       </Tooltip>
     );
@@ -174,15 +164,35 @@ function makeParty(party) {
   }
 }
 
-function makeAghBox(scepter,shard){
-  if(scepter == 0 && shard == 0){
-    return <Box><Image src="scepter_0.png"/><Image src="shard_0.png"/></Box>
-  }else if(scepter == 1 && shard == 0){
-    return <Box><Image src="scepter_1.png"/><Image src="shard_0.png"/></Box>
-  }else if(scepter == 0 && shard == 1){  
-    return <Box><Image src="scepter_0.png"/><Image src="shard_1.png"/></Box>
-  }else{  
-    return <Box><Image src="scepter_1.png"/><Image src="shard_1.png"/></Box>
+function makeAghBox(scepter, shard) {
+  if (scepter == 0 && shard == 0) {
+    return (
+      <Box>
+        <Image src='/scepter_0.png' />
+        <Image src='/shard_0.png' />
+      </Box>
+    );
+  } else if (scepter == 1 && shard == 0) {
+    return (
+      <Box>
+        <Image src='/scepter_1.png' />
+        <Image src='/shard_0.png' />
+      </Box>
+    );
+  } else if (scepter == 0 && shard == 1) {
+    return (
+      <Box>
+        <Image src='/scepter_0.png' />
+        <Image src='/shard_1.png' />
+      </Box>
+    );
+  } else {
+    return (
+      <Box>
+        <Image src='/scepter_1.png' />
+        <Image src='/shard_1.png' />
+      </Box>
+    );
   }
 }
 
@@ -207,9 +217,9 @@ ranks["42"] = "SeasonalRank4-2.png";
 ranks["43"] = "SeasonalRank4-3.png";
 ranks["44"] = "SeasonalRank4-4.png";
 ranks["45"] = "SeasonalRank4-5.png";
-ranks["51"] = "/SeasonalRank5-1.png";
-ranks["52"] = "/SeasonalRank5-2.png";
-ranks["53"] = "/SeasonalRank5-3.png";
+ranks["51"] = "SeasonalRank5-1.png";
+ranks["52"] = "SeasonalRank5-2.png";
+ranks["53"] = "SeasonalRank5-3.png";
 ranks["54"] = "SeasonalRank5-4.png";
 ranks["55"] = "SeasonalRank5-5.png";
 ranks["61"] = "SeasonalRank6-1.png";

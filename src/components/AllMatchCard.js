@@ -6,7 +6,6 @@ import MatchRow from "./MatchRow";
 function AllMatchCard(props) {
   var displayCard = props.card
   const newCard = (match) => {
-    console.log(match.player_id + "-" + match.match_id)
     if(displayCard) {
       return (
         <WrapItem>

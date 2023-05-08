@@ -217,7 +217,7 @@ async function fetchMatchData(id) {
 
 async function fetchUserData(id) {
   try {
-    const result = await fetch(`${process.env.STEAMURL}/IDOTA2Match_570/getMatchHistory/v1?key=${process.env.STEAMKEY}&account_id=${id}&matches_requested=10`, {
+    const result = await fetch(`${process.env.STEAMURL}/IDOTA2Match_570/getMatchHistory/v1?key=${process.env.STEAMKEY}&account_id=${id}&matches_requested=100`, {
       method: "GET",
     });
     return await result.json();
@@ -229,7 +229,7 @@ async function fetchUserData(id) {
 
 async function fetchOpenDotaData(id) {
   try {
-    const result = await fetch(`${process.env.OPENDOTAURL}/players/${id}/matches?date=20`, {
+    const result = await fetch(`${process.env.OPENDOTAURL}/players/${id}/matches?date=30`, {
       method: "GET",
     });
     return result.json();

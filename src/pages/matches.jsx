@@ -49,7 +49,7 @@ export default function MatchPage() {
   }
   var width = useWindowSize().width
 
-  if (width >= 1365) {
+  if (width >= 1100) {
   return (
     <>
       <Helmet>
