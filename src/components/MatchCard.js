@@ -37,13 +37,13 @@ export default function MatchCard(props) {
         </Center>
         <Spacer />
         <Center>
-          <Text textAlign='right'>{makeWinnerText(props.match.winner)}</Text>
+          <Heading size='md' textAlign='right'>{makeWinnerText(props.match.winner)}</Heading>
         </Center>
         <Spacer />
         <Center>
-          <Text textAlign='right'>
+          <Heading size='md'  textAlign='right'>
             {props.match.kills}/{props.match.deaths}/{props.match.assists}
-          </Text>
+          </Heading>
         </Center>
         <Spacer />
         <Center>
