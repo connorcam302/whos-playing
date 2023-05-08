@@ -2,6 +2,7 @@ import Head from "@/app/head";
 import {
   Box,
   Center,
+  Divider,
   Grid,
   GridItem,
   Heading,
@@ -72,7 +73,6 @@ const Statbox = (props) => {
             <Spacer />
             <Text
               style={{
-                // do your styles depending on your needs.
                 display: "flex",
                 justifyContent: "right",
                 alignItems: "center",
@@ -81,6 +81,7 @@ const Statbox = (props) => {
               Last {props.days} Days
             </Text>
           </Wrap>
+          <Divider />
           {makeBars(stats, props, width)}
         </Stack>
       </Box>
@@ -96,25 +97,24 @@ const Statbox = (props) => {
 export default Statbox;
 
 function makeBars(stats, props, width) {
-  console.log(width <= 1365 ? 4 : 8)
   let max = stats[0].wins + stats[0].losses;
   let bars = [];
   bars.push(
-    <GridItem colSpan={width <= 1365 ? 8 : 4}>
+    <GridItem colSpan={width <= 1100 ? 8 : 4}>
       <Center>
         <Text>Hero</Text>
       </Center>
     </GridItem>
   );
   bars.push(
-    <GridItem colSpan={width <= 1365 ? 8 : 10}>
+    <GridItem colSpan={width <= 1100 ? 8 : 10}>
       <Center>
         <Text>Matches</Text>
       </Center>
     </GridItem>
   );
   bars.push(
-    <GridItem colSpan={width <= 1365 ? 8 : 10}>
+    <GridItem colSpan={width <= 1100 ? 8 : 10}>
       <Center>
         <Text>Win Rate</Text>
       </Center>
@@ -124,7 +124,7 @@ function makeBars(stats, props, width) {
   for (let index = 0; index < stats.length; index++) {
     var matchValue = ((stats[index].wins + stats[index].losses) / max) * 100;
     bars.push(
-      <GridItem colSpan={width <= 1365 ? 8 : 4}>
+      <GridItem colSpan={width <= 1100 ? 8 : 4}>
         {props.type == "player" ? (
           <Text
             fontSize='md'
@@ -155,7 +155,7 @@ function makeBars(stats, props, width) {
     );
     bars.push(<GridItem colSpan={1} />);
     bars.push(
-      <GridItem colSpan={width <= 1365 ? 8 : 10}>
+      <GridItem colSpan={width <= 1100 ? 8 : 10}>
         <Text fontSize='12pt'>{stats[index].wins + stats[index].losses}</Text>
         <Progress size='xs' value={matchValue} colorScheme='teal' marginTop='9px' />
       </GridItem>
@@ -164,7 +164,7 @@ function makeBars(stats, props, width) {
     var winRate =
       stats[index].wins + stats[index].losses !== 0 ? Math.round((stats[index].wins / (stats[index].wins + stats[index].losses)) * 100 * 10) / 10 : 0;
     bars.push(
-      <GridItem colSpan={width <= 1365 ? 8 : 10}>
+      <GridItem colSpan={width <= 1100 ? 8 : 10}>
         <Text fontSize='12pt'>{winRate}%</Text>
         <Progress size='xs' value={winRate} colorScheme={getColor(winRate)} marginTop='9px' />
       </GridItem>

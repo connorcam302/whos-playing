@@ -1,19 +1,19 @@
 const { createClient } = require("@supabase/supabase-js");
 const itemImport = require("@/data/itemMap.js");
-const itemMap = itemImport.itemMap
+const itemMap = itemImport.itemMap;
 const heroImport = require("@/data/heroMap.js");
-const heroMap = heroImport.heroMap
+const heroMap = heroImport.heroMap;
 const dotenv = require("dotenv");
 dotenv.config();
 
 const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 
-export default async function handler({ query: { id } }, res) {
+export default async function handler({ query: { id, page } }, res) {
   var matchData = await getMatchData(id);
   if (matchData !== -1) {
     for (let index = 0; index < matchData.length; index++) {
       matchData[index].hero = heroMap.get(matchData[index].hero_id);
-      
+
       var itemArray = [
         {
           id: matchData[index].item_0,
@@ -52,48 +52,33 @@ export default async function handler({ query: { id } }, res) {
         },
       ];
 
-      delete matchData[index].item_0
-      delete matchData[index].item_1
-      delete matchData[index].item_2
-      delete matchData[index].item_3
-      delete matchData[index].item_4
-      delete matchData[index].item_5
-      delete matchData[index].item_neutral
+      delete matchData[index].item_0;
+      delete matchData[index].item_1;
+      delete matchData[index].item_2;
+      delete matchData[index].item_3;
+      delete matchData[index].item_4;
+      delete matchData[index].item_5;
+      delete matchData[index].item_neutral;
 
       matchData[index].items = itemArray;
     }
   }
 
-  if (matchData !== -1) {
-    res.status(200).json(matchData);
-  } else {
-    res.status(404).json({
-      message: `Matches for player with id ${id} not found.`,
-      status: 404,
-    });
-  }
-}
+  if (matchData.length > 0) {
+    var sortedMatches = matchData.sort((a, b) => b.start_time + b.duration - (a.start_time + a.duration));
 
-async function fetchHeroData() {
-  try {
-    const result = await fetch(process.env.BASEURL + "gamedata/heroes", {
-      method: "GET",
-    });
+    if (page !== undefined) {
+      sortedMatches = sortedMatches.slice(page * 20, page * 20 + 20);
+    }
 
-    return await result.json();
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-}
-
-async function fetchItemData() {
-  try {
-    const result = await fetch(process.env.BASEURL + `gamedata/items`);
-    return await result.json();
-  } catch (err) {
-    console.log(err);
-    return null;
+    if (matchData !== -1) {
+      res.status(200).json(sortedMatches);
+    } else {
+      res.status(404).json({
+        message: `Matches for player with id ${id} not found.`,
+        status: 404,
+      });
+    }
   }
 }
 
@@ -105,9 +90,9 @@ async function getMatchData(id) {
       data.data[index].rank = data.data[index].matches.rank;
       data.data[index].duration = data.data[index].matches.duration;
       delete data.data[index].matches;
-  
-      data.data[index].username = data.data[index].players.username
-      delete data.data[index].players
+
+      data.data[index].username = data.data[index].players.username;
+      delete data.data[index].players;
     }
     return await data.data;
   } else return -1;

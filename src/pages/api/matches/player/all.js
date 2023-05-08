@@ -11,10 +11,6 @@ const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 export default async function handler({ query: { page } }, res) {
   let time = new Date();
 
-  if(page === undefined){
-    page = 0;
-  }
-
   var matchData = await getMatchData();
 
   if (matchData !== -1) {
@@ -75,8 +71,12 @@ export default async function handler({ query: { page } }, res) {
     var sortedMatches = matchData.sort(
       (a, b) => b.start_time + b.duration - (a.start_time + a.duration)
     );
-    let cutMatches = sortedMatches.slice(page*20,((page*20)+19))
-    res.status(200).send(cutMatches);
+
+    if(page !== undefined) {
+      sortedMatches = sortedMatches.slice(page*20,((page*20)+20))
+    }
+
+    res.status(200).send(sortedMatches);
   } else {
     res.status(404).json({
       message: `No Matches Found.`,
