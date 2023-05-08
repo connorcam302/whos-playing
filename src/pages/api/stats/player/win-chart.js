@@ -30,7 +30,6 @@ export default async function handler({ query: { id, days } }, res) {
 }
 
 async function getMatchData(id, date) {
-  console.log(Math.floor(date.valueOf()));
   var data = await supabase
     .from("match_data")
     .select("winner, player_id, match_id, matches(start_time)")
