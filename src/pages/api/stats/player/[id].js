@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 export default async function handler({ query: { id, days } }, res) {
-  if (!days > 0) days = 50;
+  if (!days > 0) days = 9999;
   var d = new Date();
   d.setDate(d.getDate() - days);
 
