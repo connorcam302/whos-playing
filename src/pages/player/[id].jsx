@@ -1,4 +1,4 @@
-import { Box, Center, Heading, Spacer, Spinner, Stack, Text, Wrap } from "@chakra-ui/react";
+import { Box, Center, Divider, Heading, Spacer, Spinner, Stack, Text, Wrap } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import GetMatchHelper from "@/components/GetMatchHelper";
@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Head from "@/app/head";
 import PageButtons from "@/components/PageButtons";
 import { PlayerWinChart } from "@/components/PlayerWinChart";
+import Statbox from "@/components/Statbox";
 
 export default function PlayerPage() {
   const router = useRouter();
@@ -126,27 +127,32 @@ export default function PlayerPage() {
           </Helmet>
           <Navbar>
             <Center margin={10}>
-              <Box w='50em' borderColor='white.reg' borderWidth='0.5px' borderRadius={10} padding='15px' p={5} color='white'>
-                <Stack>
-                  <Wrap marginBottom={10}>
-                    <Heading size='3xl'>{playerData.username}</Heading>
-                    <Spacer />
+              <Wrap>
+                <Box w='40em' borderColor='white.reg' borderWidth='0.5px' borderRadius={10} padding='15px' color='white'>
+                  <Stack>
+                    <Wrap>
+                      <Box>
+                        <Heading margin="4px">{playerData.username}</Heading>
+                      </Box>
+                      <Spacer />
+                      <Center>
+                        <Heading color='green.400'>
+                          {statData.wins}
+                        </Heading>
+                        <Heading>-</Heading>
+                        <Heading color='red.500'>
+                          {statData.losses}
+                        </Heading>
+                      </Center>
+                    </Wrap>
                     <Center>
-                      <Heading size='3xl' color='green.400'>
-                        {statData.wins}
-                      </Heading>
-                      <Heading size='3xl'>-</Heading>
-                      <Heading size='3xl' color='red.500'>
-                        {statData.losses}
-                      </Heading>
+                      <Text>Last 14 Days</Text>
                     </Center>
-                  </Wrap>
-                  <Center>
-                    <Text>Last 14 Days</Text>
-                  </Center>
-                  <PlayerWinChart id={router.query.id} />
-                </Stack>
-              </Box>
+                    <PlayerWinChart id={router.query.id} />
+                  </Stack>
+                </Box>
+                <Statbox type='hero' days='14' limit='8' title='Hero Stats' player={router.query.id} />
+              </Wrap>
             </Center>
             <GetMatchHelper key={page} playerid={router.query.id} pageNumber={page} />
             <PageButtons increase={increasePage} decrease={decreasePage} />
@@ -160,13 +166,13 @@ export default function PlayerPage() {
             <title>{playerData.username}</title>
           </Helmet>
           <Navbar>
-          <Center margin={10}>
+            <Center margin={10}>
               <Box w='50em' borderColor='white.reg' borderWidth='0.5px' borderRadius={10} padding='15px' p={5} color='white'>
                 <Stack>
                   <Wrap marginBottom={10}>
                     <Heading size='3xl'>{playerData.username}</Heading>
                     <Spacer />
-                    <Center textAlign="right">
+                    <Center textAlign='right'>
                       <Heading size='3xl' color='green.400'>
                         {statData.wins}
                       </Heading>
@@ -183,7 +189,7 @@ export default function PlayerPage() {
                 </Stack>
               </Box>
             </Center>
-            <GetMatchHelper key={page} playerid={router.query.id} pageNumber={page} card="true"/>
+            <GetMatchHelper key={page} playerid={router.query.id} pageNumber={page} card='true' />
             <PageButtons increase={increasePage} decrease={decreasePage} />
           </Navbar>
         </>
