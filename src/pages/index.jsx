@@ -44,7 +44,7 @@ export default function HomePage() {
           <Center margin={5}>
             <Wrap align="center">
               <Statbox type='player' days='14' limit="10" title='Player Stats' />
-              <Statbox type='hero' days='14' limit="10" title='Hero Stats' />
+              <Statbox type='hero' days='14' limit="10" title='Hero Stats' player="294548916"/>
             </Wrap>
           </Center>
           <GetMatchHelper playerid='all' pageNumber='0' />
@@ -61,7 +61,7 @@ export default function HomePage() {
           <Center margin={5}>
             <Wrap>
               <Statbox type='player' days='14' limit="10"  title='Player Stats' />
-              <Statbox type='hero' days='14' limit="10"  title='Hero Stats' />
+              <Statbox type='hero' days='14' limit="10"  title='Hero Stats'/>
             </Wrap>
           </Center>
           <GetMatchHelper playerid='all' pageNumber='0' card='true' />

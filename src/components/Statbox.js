@@ -25,7 +25,7 @@ const Statbox = (props) => {
   const [stats, setStats] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const fetchData = () => {
-    fetch(`/api/stats/${props.type}?limit=${props.limit}&days=${props.days}`)
+    fetch(`/api/stats/${props.type}?limit=${props.limit}&days=${props.days}${props.player ? `&player=${props.player}` : ""}`)
       .then((res) => res.json())
       .then((data) => {
         setStats(data);

@@ -5,8 +5,8 @@ import heroesJson from "../../../data/heroes.json";
 const dotenv = require("dotenv");
 dotenv.config();
 
-export default async function handler({ query: { days, limit } }, res) {
-  if (!days > 0) days = 5;
+export default async function handler({ query: { days, limit, player } }, res) {
+  if (!days > 0) days = 999;
   var d = new Date();
   d.setDate(d.getDate() - days);
 
@@ -17,7 +17,7 @@ export default async function handler({ query: { days, limit } }, res) {
 
   var matches = await supabase
     .from("matches")
-    .select("start_time, match_data(hero_id, winner)")
+    .select("start_time, match_data(player_id, hero_id, winner)")
     .gte("start_time", Math.floor(d.valueOf() / 1000));
   matches = matches.data;
 
@@ -30,10 +30,18 @@ export default async function handler({ query: { days, limit } }, res) {
       allMatches.push({
         hero_id: matchData[index2].hero_id,
         winner: matchData[index2].winner,
+        player: matchData[index2].player_id,
         start_time: matches[index].start_time,
       });
     }
   }
+
+  if(player !== undefined) {
+    console.log(player)
+    allMatches = allMatches.filter((match) => match.player == player);
+  }
+
+  console.log(allMatches)
 
   for (let index = 0; index < heroes.length; index++) {
     heroes[index].wins = allMatches.filter((match) => match.hero_id === heroes[index].hero_id && match.winner).length;
