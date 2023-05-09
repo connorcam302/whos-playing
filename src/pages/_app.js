@@ -1,4 +1,5 @@
 // pages/_app.js
+import { Analytics } from '@vercel/analytics/react';
 import { ChakraProvider } from "@chakra-ui/react";
 
 // 1. Import the extendTheme function
@@ -51,6 +52,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider theme={theme}>
       <Component {...pageProps} />
+      <Analytics />
     </ChakraProvider>
   );
 }
