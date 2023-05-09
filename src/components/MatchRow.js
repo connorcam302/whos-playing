@@ -124,7 +124,7 @@ function calculateTime(epoch, duration) {
 
 function makeItemBox(item) {
   if (item.id == 0) {
-    return <Box bg='radial-gradient(#8D99AE, #212121);' w='2.3em' />;
+    return <Box bg='radial-gradient(#333333, #1a1a1a);' w='2.3em' />;
   } else {
     return (
       <Tooltip label={item.name}>

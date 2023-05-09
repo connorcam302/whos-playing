@@ -21,8 +21,8 @@ import Link from "next/link";
 
 export default function MatchCard(props) {
   return (
-    <Box width='24em' bgColor={props.match.winner == true ? "#0b3014" : "#471210"} borderRadius='10px 10px 0 10px'>
-      <Wrap spacing={5} margin={2}>
+    <Box width='23em' bgColor={props.match.winner == true ? "#0b3014" : "#471210"} borderRadius='10px 10px 0 10px'>
+      <Wrap spacing={5} margin={2} paddingLeft={1} paddingRight={1}>
         <Center>
           <Link href={"/player/" + props.match.player_id} passHref legacyBehavior>
             <a rel='noopener noreferrer'>
@@ -58,7 +58,7 @@ export default function MatchCard(props) {
         <Box>
           <Wrap spacing={0}>
             <Image height='3.65em' src={props.match.hero.img} alt={props.match.hero.name} sx={{ margin: 0 }} />
-            <Box w={5} />
+            <Box w={1} />
             <Box>
               <Wrap>
                 <Box>
@@ -133,7 +133,7 @@ function calculateTime(epoch, duration) {
 
 function makeItemBox(item) {
   if (item.img === null) {
-    return <Box bg='radial-gradient(#8D99AE, #212121);' w='2em' />;
+    return <Box bg='radial-gradient(#333333, #1a1a1a);' w='2.5em' />;
   } else {
     return (
       <Tooltip label={item.name}>
