@@ -42,7 +42,7 @@ export default function HomePage() {
         </Helmet>
         <Navbar>
           <Center margin={5}>
-            <Wrap>
+            <Wrap align="center">
               <Statbox type='player' days='14' limit="10" title='Player Stats' />
               <Statbox type='hero' days='14' limit="10" title='Hero Stats' />
             </Wrap>

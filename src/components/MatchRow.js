@@ -21,7 +21,15 @@ export default function MatchRow(props) {
                   <a rel='noopener noreferrer'>
                     <Flex w='7em' paddingRight='10px'>
                       <Center>
-                        <Heading size='md'>{props.match.username}</Heading>
+                        <Heading
+                          _hover={{
+                            color: "#808080",
+                            transition: "0.3s",
+                          }}
+                          size='md'
+                        >
+                          {props.match.username}
+                        </Heading>
                       </Center>
                       <Spacer />
                     </Flex>
