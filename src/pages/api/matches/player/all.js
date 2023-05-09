@@ -85,7 +85,7 @@ export default async function handler({ query: { page } }, res) {
 }
 
 async function getMatchData() {
-  var data = await supabase.from("match_data").select("*, matches(*), players(*)");
+  var data = await supabase.from("match_data").select("*, matches(*), players(*)").order("match_id", { ascending: false });
   if (data.error == null && data.data.length > 0) {
     for (let index = 0; index < data.data.length; index++) {
       data.data[index].start_time = data.data[index].matches.start_time;
