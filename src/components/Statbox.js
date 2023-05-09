@@ -6,6 +6,7 @@ import {
   Grid,
   GridItem,
   Heading,
+  Link,
   Progress,
   Select,
   SimpleGrid,
@@ -61,10 +62,9 @@ const Statbox = (props) => {
 
     return windowSize;
   }
-  var width = useWindowSize().width
+  var width = useWindowSize().width;
 
   if (loaded) {
-    
     return (
       <Box margin={10} borderColor='white.reg' borderWidth='0.5px' borderRadius={10} padding='15px' width={500}>
         <Stack>
@@ -126,18 +126,26 @@ function makeBars(stats, props, width) {
     bars.push(
       <GridItem colSpan={width <= 1100 ? 8 : 4}>
         {props.type == "player" ? (
-          <Text
-            fontSize='md'
-            style={{
-              // do your styles depending on your needs.
-              display: "flex",
-              justifyContent: "left",
-              alignItems: "center",
-            }}
-            h='100%'
-          >
-            {stats[index].username}
-          </Text>
+          <Link href={"/player/" + stats[index].id} passHref legacyBehavior>
+            <a rel='noopener noreferrer'>
+              <Text
+                fontSize='md'
+                style={{
+                  // do your styles depending on your needs.
+                  display: "flex",
+                  justifyContent: "left",
+                  alignItems: "center",
+                }}
+                h='100%'
+                _hover={{
+                  color: "#808080",
+                  transition: "0.3s",
+                }}
+              >
+                {stats[index].username}
+              </Text>
+            </a>
+          </Link>
         ) : (
           <Tooltip label={stats[index].name}>
             <Image
