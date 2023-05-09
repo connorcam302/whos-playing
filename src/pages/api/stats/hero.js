@@ -37,11 +37,9 @@ export default async function handler({ query: { days, limit, player } }, res) {
   }
 
   if(player !== undefined) {
-    console.log(player)
     allMatches = allMatches.filter((match) => match.player == player);
   }
 
-  console.log(allMatches)
 
   for (let index = 0; index < heroes.length; index++) {
     heroes[index].wins = allMatches.filter((match) => match.hero_id === heroes[index].hero_id && match.winner).length;
