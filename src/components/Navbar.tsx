@@ -18,7 +18,8 @@ import {
 } from "@chakra-ui/react";
 import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu } from "react-icons/fi";
 import { IoIosStats, IoIosApps } from "react-icons/io";
-import { AiFillStar } from "react-icons/ai"
+import { AiFillStar } from "react-icons/ai";
+import { FaQuoteLeft} from "react-icons/fa";
 
 import { IconType } from "react-icons";
 import { ReactText } from "react";
@@ -26,13 +27,14 @@ import { ReactText } from "react";
 interface LinkItemProps {
   name: string;
   icon: IconType;
-  dest: string
+  dest: string;
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, dest: "/" },
-  { name: "Matches", icon: IoIosApps, dest: "/matches"  },
-  { name: "Stats", icon: IoIosStats, dest: "/stats"  },
-  { name: "Top Matches", icon: AiFillStar, dest: "/top-matches"  },
+  { name: "Matches", icon: IoIosApps, dest: "/matches" },
+  { name: "Stats", icon: IoIosStats, dest: "/stats" },
+  { name: "Top Matches", icon: AiFillStar, dest: "/top-matches" },
+  { name: "About", icon: FaQuoteLeft, dest: "/about" },
 ];
 
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
@@ -73,11 +75,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <Text fontSize='2xl' fontFamily='monospace' fontWeight='bold'>
           Who's Playing
         </Text>
-        <CloseButton display={{ base: "flex", md: "none" }} color="white" _hover={{bg: "#2a9d8f"}} onClick={onClose} />
+        <CloseButton display={{ base: "flex", md: "none" }} color='white' _hover={{ bg: "#2a9d8f" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon} dest={link.dest}>
-            {link.name}
+          {link.name}
         </NavItem>
       ))}
     </Box>
@@ -87,7 +89,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
-  dest: string
+  dest: string;
 }
 const NavItem = ({ icon, children, dest, ...rest }: NavItemProps) => {
   return (
@@ -133,15 +135,15 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       px={{ base: 4, md: 24 }}
       height='20'
       alignItems='center'
-      bg="blue.reg"
+      bg='blue.reg'
       borderBottomWidth='1px'
       borderBottomColor={useColorModeValue("gray.200", "gray.700")}
       justifyContent='flex-start'
       {...rest}
     >
-      <IconButton bg="blue.reg" onClick={onOpen} aria-label='open menu' color="white" _hover={{bg: "#2a9d8f"}} icon={<FiMenu />} />
+      <IconButton bg='blue.reg' onClick={onOpen} aria-label='open menu' color='white' _hover={{ bg: "#2a9d8f" }} icon={<FiMenu />} />
 
-      <Heading fontSize='2xl' ml='8' fontFamily='monospace' fontWeight='bold' color="white.reg">
+      <Heading fontSize='2xl' ml='8' fontFamily='monospace' fontWeight='bold' color='white.reg'>
         Who's Playing
       </Heading>
     </Flex>

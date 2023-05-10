@@ -57,8 +57,6 @@ async function getMatchHistory(id) {
           allMatches[index].average_rank = openDotaMatch.average_rank
         }
       } catch{}
-      console.log(openDotaMatch)
-
       let players = match.players;
       var player = players.find((x) => x.account_id == id);
       if (
@@ -94,12 +92,6 @@ async function getMatchHistory(id) {
 
 async function pushMatch(match) {
   var insertMatch = await supabase.from("matches").insert({ id: match.match_id, rank: match.average_rank, start_time: match.start_time, duration: match.duration });
-
-  console.table({
-    party: match.party_size,
-    rank: match.average_rank,
-  });
-
   if (debug) {
     if (insertMatch.error !== null) {
       console.log(`\x1b[31mInsert failed into matches. \x1b[0m\nCode: ${insertMatch.error.code} Message: ${insertMatch.error.message}`);
@@ -135,6 +127,7 @@ async function pushMatch(match) {
     xp_per_min: match.xp_per_min,
     aghanims_scepter: match.aghanims_scepter,
     aghanims_shard: match.aghanims_shard,
+    impact: impactCalc(match)
   });
 
   if (debug) {
@@ -165,6 +158,7 @@ async function pushMatch(match) {
         xp_per_min: match.xp_per_min,
         aghanims_scepter: match.aghanims_scepter,
         aghanims_shard: match.aghanims_shard,
+        impact: impactCalc(match)
       });
     }
   }
@@ -243,3 +237,19 @@ export default async function handler({ query: { id } }, res) {
   main();
   res.status(200).send({ message: `Scraping Player Data.`, status: 200 });
 }
+
+const impactCalc = (match) => {
+  var csMin = match.last_hits / (match.duration / 60);
+  var role = csMin > 3.5 ? "core" : "support";
+  if (role === "core") {
+    var kapmRating = ((match.kills * 2.5 + match.assists * 0.5) / (match.duration / 60)) ** 2;
+    var deathRating = 3 / (match.deaths + 1);
+    var csMinRating = csMin ** 1.5 / 20;
+    var impact = kapmRating * 0.4 + deathRating * 0.4 + csMinRating * 0.2;
+  } else {
+    var kapmRating = ((match.kills + match.assists * 1.65) / (match.duration / 60)) ** 2;
+    var deathRating = 5 / (match.deaths + 1.5);
+    var impact = kapmRating * 0.4 + deathRating * 0.6;
+  }
+  return Math.floor(impact * 100) ;
+};

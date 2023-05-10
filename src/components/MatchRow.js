@@ -41,6 +41,20 @@ export default function MatchRow(props) {
                   <Heading size='md'>{makeWinnerText(props.match.winner)}</Heading>
                 </Box>
               </Center>
+              <Flex w='1em' paddingRight='10px'>
+                <Center>
+                  <Heading
+                    _hover={{
+                      color: "#808080",
+                      transition: "0.3s",
+                    }}
+                    size='md'
+                    marginLeft="0.5em"
+                  >
+                    {calcImpact(props.match.impact)}
+                  </Heading>
+                </Center>
+              </Flex>
               <Center>
                 <Box w='7em' paddingRight='10px' paddingLeft='10px'>
                   <Text fontWeight='bold' textAlign='center'>
@@ -242,3 +256,53 @@ ranks["74"] = "SeasonalRank7-4.png";
 ranks["75"] = "SeasonalRank7-5.png";
 ranks["81"] = "SeasonalRankTop0.png";
 ranks["99"] = "SeasonalRank0-0.png";
+
+function calcImpact(impact) {
+  if (impact > 120) {
+    return "S+"
+  }
+  if (impact > 95) {
+    return "S"
+  }
+  if (impact > 90) {
+    return "S-"
+  }
+  if (impact > 85) {
+    return "A+"
+  }
+  if (impact > 80) {
+    return "A"
+  }
+  if (impact > 75) {
+    return "A-"
+  }
+  if (impact > 70) {
+    return "B+"
+  }
+  if (impact > 65) {
+    return "B"
+  }
+  if (impact > 60) {
+    return "B-"
+  }
+  if (impact > 55) {
+    return "C+"
+  }
+  if (impact > 50) {
+    return "C"
+  }
+  if (impact > 45) {
+    return "C-"
+  }
+  if (impact > 40) {
+    return "D+"
+  }
+  if (impact >= 35) {
+    return "D"
+  }
+  if (impact < 35) {
+    return "D-"
+  } else {
+    return "Error"
+  }
+}
