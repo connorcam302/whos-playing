@@ -48,8 +48,10 @@ export default function MatchRow(props) {
                       color: "#808080",
                       transition: "0.3s",
                     }}
+                    color={calcImpact(props.match.impact) == "S+" ? "gold" : "#ffffff"}
                     size='md'
                     marginLeft="0.5em"
+                    sx={calcImpact(props.match.impact) == "S+" ? {textShadow : "1px 1px 20px #fff, 1px 1px 20px #ccc;"} : ""}
                   >
                     {calcImpact(props.match.impact)}
                   </Heading>
