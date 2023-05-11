@@ -21,7 +21,7 @@ import Link from "next/link";
 
 export default function MatchCard(props) {
   return (
-    <Box bgColor={props.match.winner == true ? "#0b3014" : "#471210"} borderRadius='10px 10px 0 0px'>
+    <Box w="21.5em" bgColor={props.match.winner == true ? "#0b3014" : "#471210"} borderRadius='10px 10px 0 0px'>
       <Wrap spacing={5} margin={1} paddingLeft={1} paddingRight={1}>
         <Center>
           <Link href={"/player/" + props.match.player_id} passHref legacyBehavior>
@@ -53,7 +53,7 @@ export default function MatchCard(props) {
           </Text>
         </Center>
       </Wrap>
-      <Divider marginBottom={2} />
+      <Divider marginBottom={1.5} />
       <Wrap spacing={0}>
         <Box>
           <Wrap spacing={0}>
@@ -74,23 +74,23 @@ export default function MatchCard(props) {
                   </Flex>
                 </Box>
                 <Center>
-                  <Box w='2em'>{makeNeutralBox(props.match.items[6])}</Box>
+                  <Box w='1.8em'>{makeNeutralBox(props.match.items[6])}</Box>
                 </Center>
                 <Center>
                   <Box w='2.3em'>{makeAghBox(props.match.aghanims_scepter, props.match.aghanims_shard)}</Box>
                 </Center>
-                <Box paddingRight='10px' paddingLeft='10px'>
+                <Box paddingRight='0.2em' paddingLeft='0.2em'>
                   <Text color='#ef3a1b' fontWeight='bold' textAlign='right'>
                     <Link href={"https://www.dotabuff.com/matches/" + props.match.match_id} passHref legacyBehavior>
                       <a target='_blank' rel='noopener noreferrer'>
-                        <Image src='/dotabuff-logo.png' alt='Dotabuff' boxSize='1.5em' display='inline-block' verticalAlign='middle' />
+                        <Image src='/dotabuff-logo.png' alt='Dotabuff' boxSize='1.2em' display='inline-block' verticalAlign='middle' />
                       </a>
                     </Link>
                   </Text>
                   <Text color='#00c59e' fontWeight='bold' textAlign='right'>
                     <Link href={"https://www.opendota.com/matches/" + props.match.match_id} passHref legacyBehavior>
                       <a target='_blank' rel='noopener noreferrer'>
-                        <Image src='/opendota-logo.png' alt='OpenDota' boxSize='1.5em' display='inline-block' verticalAlign='middle' />
+                        <Image src='/opendota-logo.png' alt='OpenDota' boxSize='1.2em' display='inline-block' verticalAlign='middle' />
                       </a>
                     </Link>
                   </Text>
