@@ -36,7 +36,7 @@ const GetMatchHelper = (props) => {
     );
   } else if (!loaded && !didTimeout) {
     return (
-      <Center paddingTop={10}>11
+      <Center paddingTop={10}>
         <Spinner color='white.reg' size='xl' />
       </Center>
     );
