@@ -21,8 +21,8 @@ import Link from "next/link";
 
 export default function MatchCard(props) {
   return (
-    <Box width='23em' bgColor={props.match.winner == true ? "#0b3014" : "#471210"} borderRadius='10px 10px 0 10px'>
-      <Wrap spacing={5} margin={2} paddingLeft={1} paddingRight={1}>
+    <Box bgColor={props.match.winner == true ? "#0b3014" : "#471210"} borderRadius='10px 10px 0 0px'>
+      <Wrap spacing={5} margin={1} paddingLeft={1} paddingRight={1}>
         <Center>
           <Link href={"/player/" + props.match.player_id} passHref legacyBehavior>
             <a rel='noopener noreferrer'>
@@ -41,9 +41,9 @@ export default function MatchCard(props) {
         </Center>
         <Spacer />
         <Center>
-          <Heading size='md'  textAlign='right'>
+          <Text size='md'  textAlign='right'>
             {props.match.kills}/{props.match.deaths}/{props.match.assists}
-          </Heading>
+          </Text>
         </Center>
         <Spacer />
         <Center>
@@ -57,7 +57,7 @@ export default function MatchCard(props) {
       <Wrap spacing={0}>
         <Box>
           <Wrap spacing={0}>
-            <Image height='3.65em' src={props.match.hero.img} alt={props.match.hero.name} sx={{ margin: 0 }} />
+            <Image height='3.3em' src={props.match.hero.img} alt={props.match.hero.name} sx={{ margin: 0 }} />
             <Box w={1} />
             <Box>
               <Wrap>
@@ -133,11 +133,11 @@ function calculateTime(epoch, duration) {
 
 function makeItemBox(item) {
   if (item.img === null) {
-    return <Box bg='radial-gradient(#333333, #1a1a1a);' w='2.5em' />;
+    return <Box bg='radial-gradient(#333333, #1a1a1a);' w='2.25em' />;
   } else {
     return (
       <Tooltip label={item.name}>
-        <Box bg='#212121' w='2.5em'>
+        <Box bg='#212121' w='2.25em'>
           <Image src={item.img} alt={item.name} />
         </Box>
       </Tooltip>
@@ -148,28 +148,28 @@ function makeItemBox(item) {
 function makeAghBox(scepter, shard) {
   if (scepter == 0 && shard == 0) {
     return (
-      <Box>
+      <Box w="2em">
         <Image src='/scepter_0.png' />
         <Image src='/shard_0.png' />
       </Box>
     );
   } else if (scepter == 1 && shard == 0) {
     return (
-      <Box>
+      <Box w="2em">
         <Image src='/scepter_1.png' />
         <Image src='/shard_0.png' />
       </Box>
     );
   } else if (scepter == 0 && shard == 1) {
     return (
-      <Box>
+      <Box w="2em">
         <Image src='/scepter_0.png' />
         <Image src='/shard_1.png' />
       </Box>
     );
   } else {
     return (
-      <Box>
+      <Box w="2em">
         <Image src='/scepter_1.png' />
         <Image src='/shard_1.png' />
       </Box>

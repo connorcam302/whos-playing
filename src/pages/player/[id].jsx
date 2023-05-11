@@ -29,7 +29,6 @@ export default function PlayerPage() {
   const [statData, setStatData] = useState([]);
   const [statLoaded, setStatLoaded] = useState(false);
   const fetchStatData = () => {
-    console.log("stats");
     fetch(`/api/stats/player/${router.query.id}`)
       .then((res) => res.json())
       .then((statDataRes) => {
@@ -132,17 +131,13 @@ export default function PlayerPage() {
                   <Stack>
                     <Wrap>
                       <Box>
-                        <Heading margin="4px">{playerData.username}</Heading>
+                        <Heading margin='4px'>{playerData.username}</Heading>
                       </Box>
                       <Spacer />
                       <Center>
-                        <Heading color='green.400'>
-                          {statData.wins}
-                        </Heading>
+                        <Heading color='green.400'>{statData.wins}</Heading>
                         <Heading>-</Heading>
-                        <Heading color='red.500'>
-                          {statData.losses}
-                        </Heading>
+                        <Heading color='red.500'>{statData.losses}</Heading>
                       </Center>
                     </Wrap>
                     <Center>
@@ -166,28 +161,31 @@ export default function PlayerPage() {
             <title>{playerData.username}</title>
           </Helmet>
           <Navbar>
-            <Center margin={10}>
-              <Box w='50em' borderColor='white.reg' borderWidth='0.5px' borderRadius={10} padding='15px' p={5} color='white'>
-                <Stack>
-                  <Wrap marginBottom={10}>
-                    <Heading size='3xl'>{playerData.username}</Heading>
-                    <Spacer />
-                    <Center textAlign='right'>
-                      <Heading size='3xl' color='green.400'>
-                        {statData.wins}
-                      </Heading>
-                      <Heading size='3xl'>-</Heading>
-                      <Heading size='3xl' color='red.500'>
-                        {statData.losses}
-                      </Heading>
+            <Center>
+              <Wrap>
+                <Box borderColor='white.reg' borderWidth='0.5px' borderRadius={10} padding='15px' p={5} color='white'>
+                  <Stack>
+                    <Wrap marginBottom={10}>
+                      <Heading size='3xl'>{playerData.username}</Heading>
+                      <Spacer />
+                      <Center textAlign='right'>
+                        <Heading size='3xl' color='green.400'>
+                          {statData.wins}
+                        </Heading>
+                        <Heading size='3xl'>-</Heading>
+                        <Heading size='3xl' color='red.500'>
+                          {statData.losses}
+                        </Heading>
+                      </Center>
+                    </Wrap>
+                    <Center>
+                      <Text>Last 14 Days</Text>
                     </Center>
-                  </Wrap>
-                  <Center>
-                    <Text>Last 14 Days</Text>
-                  </Center>
-                  <PlayerWinChart id={router.query.id} />
-                </Stack>
-              </Box>
+                    <PlayerWinChart id={router.query.id} />
+                  </Stack>
+                </Box>
+                <Statbox type='hero' days='14' limit='8' title='Hero Stats' player={router.query.id} />
+              </Wrap>
             </Center>
             <GetMatchHelper key={page} playerid={router.query.id} pageNumber={page} card='true' />
             <PageButtons increase={increasePage} decrease={decreasePage} />
