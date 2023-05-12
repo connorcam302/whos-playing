@@ -67,11 +67,10 @@ const Statbox = (props) => {
   if (loaded) {
     return (
       <Box boxShadow='0 5px 9px -2px rgba(0,0,0,.8)'>
-      <Box bg="#242c36" padding='15px' maxWidth={500}>
-        <Stack>
-          <Wrap>
-            <Heading>{props.title}</Heading>
-            <Spacer />
+        <Wrap bg='#1b2129' paddingLeft={3} paddingRight={3} paddingTop={2} paddingBottom={2}>
+          <Heading size='lg'>{props.title}</Heading>
+          <Spacer />
+          <Center>
             <Text
               style={{
                 display: "flex",
@@ -81,11 +80,11 @@ const Statbox = (props) => {
             >
               Last {props.days} Days
             </Text>
-          </Wrap>
-          <Divider />
-          {makeBars(stats, props, width)}
-        </Stack>
-      </Box>
+          </Center>
+        </Wrap>
+        <Box bg='#242c36' padding='15px' paddingTop='5px' maxWidth={500}>
+          <Stack>{makeBars(stats, props, width)}</Stack>
+        </Box>
       </Box>
     );
   } else
@@ -103,19 +102,19 @@ function makeBars(stats, props, width) {
   let bars = [];
   bars.push(
     <GridItem colSpan={width <= 1100 ? 8 : 4}>
-        <Text fontWeight="bold">{props.type == "player" ? "Player" : "Hero"}</Text>
+      <Text fontWeight='bold'>{props.type == "player" ? "Player" : "Hero"}</Text>
     </GridItem>
   );
   bars.push(<GridItem colSpan={1} />);
   bars.push(
     <GridItem colSpan={width <= 1100 ? 8 : 10}>
-        <Text fontWeight="bold">Matches</Text>
+      <Text fontWeight='bold'>Matches</Text>
     </GridItem>
   );
   bars.push(<GridItem colSpan={1} />);
   bars.push(
     <GridItem colSpan={width <= 1100 ? 8 : 10}>
-        <Text fontWeight="bold">Win Rate</Text>
+      <Text fontWeight='bold'>Win Rate</Text>
     </GridItem>
   );
 
@@ -177,7 +176,7 @@ function makeBars(stats, props, width) {
     );
   }
   return (
-    <Grid templateColumns='repeat(26, 1fr)' gap={2} >
+    <Grid templateColumns='repeat(26, 1fr)' gap={2}>
       {bars}
     </Grid>
   );
