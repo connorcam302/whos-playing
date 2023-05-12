@@ -7,7 +7,15 @@ import React from "react";
 export default function MatchRow(props) {
   if (props.match.status != 404) {
     return (
-      <Box bgColor={props.match.winner == true ? "#0b3014" : "#471210"} borderRightRadius='6px'>
+      <Box
+        bgColor={props.match.winner == true ? "#0b3014" : "#471210"}
+        _hover={{
+          backgroundColor: props.match.winner == true ? "#0f401b" : "#591715",
+          transition: "0.5s",
+          boxShadow: `0 0 7px 5px gray`,
+        }}
+        borderRightRadius='6px'
+      >
         <Flex marginBottom='10px'>
           <Center>
             <Tooltip label={props.match.hero.name}>
@@ -50,8 +58,8 @@ export default function MatchRow(props) {
                     }}
                     color={calcImpact(props.match.impact) == "S+" ? "gold" : "#ffffff"}
                     size='md'
-                    marginLeft="0.5em"
-                    sx={calcImpact(props.match.impact) == "S+" ? {textShadow : "1px 1px 20px #fff, 1px 1px 20px #ccc;"} : ""}
+                    marginLeft='0.5em'
+                    sx={calcImpact(props.match.impact) == "S+" ? { textShadow: "1px 1px 20px #fff, 1px 1px 20px #ccc;" } : ""}
                   >
                     {calcImpact(props.match.impact)}
                   </Heading>
@@ -64,7 +72,7 @@ export default function MatchRow(props) {
                   </Text>
                   <Text textAlign='center'>
                     {Math.floor(props.match.duration / 60)}:
-                    {Math.round(props.match.duration % 60) > 10 ? Math.round(props.match.duration % 60) : "0" + Math.round(props.match.duration % 60)}
+                    {Math.round(props.match.duration % 60) >= 10 ? Math.round(props.match.duration % 60) : "0" + Math.round(props.match.duration % 60)}
                   </Text>
                 </Box>
               </Center>
@@ -261,50 +269,50 @@ ranks["99"] = "SeasonalRank0-0.png";
 
 function calcImpact(impact) {
   if (impact > 120) {
-    return "S+"
+    return "S+";
   }
   if (impact > 95) {
-    return "S"
+    return "S";
   }
   if (impact > 90) {
-    return "S-"
+    return "S-";
   }
   if (impact > 85) {
-    return "A+"
+    return "A+";
   }
   if (impact > 80) {
-    return "A"
+    return "A";
   }
   if (impact > 75) {
-    return "A-"
+    return "A-";
   }
   if (impact > 70) {
-    return "B+"
+    return "B+";
   }
   if (impact > 65) {
-    return "B"
+    return "B";
   }
   if (impact > 60) {
-    return "B-"
+    return "B-";
   }
   if (impact > 55) {
-    return "C+"
+    return "C+";
   }
   if (impact > 50) {
-    return "C"
+    return "C";
   }
   if (impact > 45) {
-    return "C-"
+    return "C-";
   }
   if (impact > 40) {
-    return "D+"
+    return "D+";
   }
   if (impact >= 35) {
-    return "D"
+    return "D";
   }
   if (impact < 35) {
-    return "D-"
+    return "D-";
   } else {
-    return "Error"
+    return "Error";
   }
 }

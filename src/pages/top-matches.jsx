@@ -11,7 +11,6 @@ export default function MatchPage() {
       <Helmet>
         <title>Top Matches</title>
       </Helmet>
-      <Navbar>
         <BrowserView>
             <Center padding={5} paddingTop={300}>
               <Heading>Under Maintenance</Heading>
@@ -26,7 +25,6 @@ export default function MatchPage() {
             <Text>Will show featured matches from a period.</Text>
           </Center>
         </MobileView>
-      </Navbar>
     </>
   );
 }

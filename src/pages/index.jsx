@@ -40,7 +40,6 @@ export default function HomePage() {
         <Helmet>
           <title>Who&apos;s Playing</title>
         </Helmet>
-        <Navbar>
           <Center margin={5}>
             <Wrap align="center">
               <Statbox type='player' days='14' limit="10" title='Player Stats' />
@@ -48,7 +47,6 @@ export default function HomePage() {
             </Wrap>
           </Center>
           <GetMatchHelper playerid='all' pageNumber='0' />
-        </Navbar>
       </>
     );
   } else {
@@ -57,7 +55,6 @@ export default function HomePage() {
         <Helmet>
           <title>Who&apos;s Playing</title>
         </Helmet>
-        <Navbar>
           <Center margin={5}>
             <Wrap>
               <Statbox type='player' days='14' limit="10"  title='Player Stats' />
@@ -65,7 +62,6 @@ export default function HomePage() {
             </Wrap>
           </Center>
           <GetMatchHelper playerid='all' pageNumber='0' card='true' />
-        </Navbar>
       </>
     );
   }

@@ -94,13 +94,11 @@ export default function PlayerPage() {
         <Helmet>
           <title>Who&apos;s Playing</title>
         </Helmet>
-        <Navbar>
-          <Center margin={5}>
-            <Wrap>
-              <Spinner color='white' size='xl' />;
-            </Wrap>
-          </Center>
-        </Navbar>
+        <Center margin={5}>
+          <Wrap>
+            <Spinner color='white' size='xl' />;
+          </Wrap>
+        </Center>
       </>
     );
   }
@@ -111,11 +109,9 @@ export default function PlayerPage() {
           <Helmet>
             <title>Not Found</title>
           </Helmet>
-          <Navbar>
-            <Center padding={5} paddingTop={300}>
-              <Heading>Player {router.query.id} not found.</Heading>
-            </Center>
-          </Navbar>
+          <Center padding={5} paddingTop={300}>
+            <Heading>Player {router.query.id} not found.</Heading>
+          </Center>
         </>
       );
     } else if (width >= 1100) {
@@ -124,34 +120,34 @@ export default function PlayerPage() {
           <Helmet>
             <title>{playerData.username}</title>
           </Helmet>
-          <Navbar>
-            <Center margin={10}>
-              <Wrap>
-                <Box w='40em' borderColor='white.reg' borderWidth='0.5px' borderRadius={10} padding='15px' color='white'>
-                  <Stack>
-                    <Wrap>
-                      <Box>
-                        <Heading margin='4px'>{playerData.username}</Heading>
-                      </Box>
-                      <Spacer />
-                      <Center>
-                        <Heading color='green.400'>{statData.wins}</Heading>
-                        <Heading>-</Heading>
-                        <Heading color='red.500'>{statData.losses}</Heading>
-                      </Center>
-                    </Wrap>
-                    <Center>
-                      <Text>Last 14 Days</Text>
-                    </Center>
-                    <PlayerWinChart id={router.query.id} />
-                  </Stack>
-                </Box>
-                <Statbox type='hero' days='14' limit='8' title='Hero Stats' player={router.query.id} />
-              </Wrap>
-            </Center>
-            <GetMatchHelper key={page} playerid={router.query.id} pageNumber={page} />
-            <PageButtons increase={increasePage} decrease={decreasePage} />
-          </Navbar>
+          <Center margin={10}>
+            <Wrap>
+              <Stack>
+                <Wrap w='36em' bg='#242c36' padding='15px'>
+                  <Box>
+                    <Heading margin='4px'>{playerData.username}</Heading>
+                  </Box>
+                  <Spacer />
+                  <Center>
+                    <Heading color='green.400'>{statData.wins}</Heading>
+                    <Heading>-</Heading>
+                    <Heading color='red.500'>{statData.losses}</Heading>
+                  </Center>
+                </Wrap>
+                <Stack w='36em' bg='#242c36' padding='15px' h='100%'>
+                  <Spacer />
+                  <Center>
+                    <Text>Last 14 Days</Text>
+                  </Center>
+                  <PlayerWinChart id={router.query.id} h='100%' />
+                  <Spacer />
+                </Stack>
+              </Stack>
+              <Statbox type='hero' days='14' limit='8' title='Hero Stats' player={router.query.id} />
+            </Wrap>
+          </Center>
+          <GetMatchHelper key={page} playerid={router.query.id} pageNumber={page} />
+          <PageButtons increase={increasePage} decrease={decreasePage} />
         </>
       );
     } else {
@@ -160,36 +156,34 @@ export default function PlayerPage() {
           <Helmet>
             <title>{playerData.username}</title>
           </Helmet>
-          <Navbar>
-            <Center>
-              <Wrap>
-                <Box borderColor='white.reg' borderWidth='0.5px' borderRadius={10} padding='15px' p={5} color='white'>
-                  <Stack>
-                    <Wrap marginBottom={10}>
-                      <Heading size='3xl'>{playerData.username}</Heading>
-                      <Spacer />
-                      <Center textAlign='right'>
-                        <Heading size='3xl' color='green.400'>
-                          {statData.wins}
-                        </Heading>
-                        <Heading size='3xl'>-</Heading>
-                        <Heading size='3xl' color='red.500'>
-                          {statData.losses}
-                        </Heading>
-                      </Center>
-                    </Wrap>
-                    <Center>
-                      <Text>Last 14 Days</Text>
-                    </Center>
-                    <PlayerWinChart id={router.query.id} />
-                  </Stack>
+          <Center>
+              <Wrap justify='center' marginTop={2}>
+                <Wrap w='22.5em' bg='#242c36' padding='15px'>
+                  <Box>
+                    <Heading margin='4px'>{playerData.username}</Heading>
+                  </Box>
+                  <Spacer />
+                  <Center>
+                    <Heading color='green.400'>{statData.wins}</Heading>
+                    <Heading>-</Heading>
+                    <Heading color='red.500'>{statData.losses}</Heading>
+                  </Center>
+                </Wrap>
+                <Stack w='22.5em' bg='#242c36' padding='15px' h='100%'>
+                  <Spacer />
+                  <Center>
+                    <Text>Last 14 Days</Text>
+                  </Center>
+                  <PlayerWinChart id={router.query.id} h='100%' />
+                  <Spacer />
+                </Stack>
+                <Box w='22.5em'>
+                  <Statbox type='hero' days='14' limit='8' title='Hero Stats' player={router.query.id} />
                 </Box>
-                <Statbox type='hero' days='14' limit='8' title='Hero Stats' player={router.query.id} />
               </Wrap>
-            </Center>
-            <GetMatchHelper key={page} playerid={router.query.id} pageNumber={page} card='true' />
-            <PageButtons increase={increasePage} decrease={decreasePage} />
-          </Navbar>
+          </Center>
+          <GetMatchHelper key={page} playerid={router.query.id} pageNumber={page} card='true' />
+          <PageButtons increase={increasePage} decrease={decreasePage} />
         </>
       );
     }

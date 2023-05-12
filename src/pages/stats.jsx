@@ -39,14 +39,12 @@ export default function MatchPage() {
         <Helmet>
           <title>Who&apos;s Playing</title>
         </Helmet>
-        <Navbar>
-          <Center margin={5}>
-            <Wrap>
-              <Statbox type='player' days='50' limit='999' title='Player Stats' />
-              <Statbox type='hero' days='50' limit='999' title='Hero Stats' />
-            </Wrap>
-          </Center>
-        </Navbar>
+        <Center margin={5}>
+          <Wrap>
+            <Statbox type='player' days='50' limit='999' title='Player Stats' />
+            <Statbox type='hero' days='50' limit='999' title='Hero Stats' />
+          </Wrap>
+        </Center>
       </>
     );
   } else {
@@ -55,14 +53,12 @@ export default function MatchPage() {
         <Helmet>
           <title>Who&apos;s Playing</title>
         </Helmet>
-        <Navbar>
-          <Center margin={5}>
-            <Wrap>
-              <Statbox type='player' days='50' limit='999' title='Player Stats' />
-              <Statbox type='hero' days='50' limit='999' title='Hero Stats' />
-            </Wrap>
-          </Center>
-        </Navbar>
+        <Center margin={5}>
+          <Wrap>
+            <Statbox type='player' days='50' limit='999' title='Player Stats' />
+            <Statbox type='hero' days='50' limit='999' title='Hero Stats' />
+          </Wrap>
+        </Center>
       </>
     );
   }

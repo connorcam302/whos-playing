@@ -28,9 +28,8 @@ export default function MatchPage() {
       <Helmet>
         <title>About</title>
       </Helmet>
-      <Navbar>
         <Center>
-          <Stack w='50em' spacing={8}>
+          <Stack w='50em' spacing={8} marginTop={3}>
             <Heading size='2xl'>General</Heading>
             <Box>
               <Heading size='lg' alignContent='left'>
@@ -125,7 +124,6 @@ export default function MatchPage() {
           </Stack>
         </Center>
         <Box h="3em"/>
-      </Navbar>
     </>
   );
 }
