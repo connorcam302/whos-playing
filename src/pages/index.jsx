@@ -1,4 +1,4 @@
-import { Box, Button, Center, Select, Text, Wrap } from "@chakra-ui/react";
+import { Box, Button, Center, Select, Stack, Text, Wrap } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import GetMatchHelper from "@/components/GetMatchHelper";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -41,12 +41,15 @@ export default function HomePage() {
           <title>Who&apos;s Playing</title>
         </Helmet>
           <Center margin={5}>
-            <Wrap align="center">
-              <Statbox type='player' days='14' limit="10" title='Player Stats' />
-              <Statbox type='hero' days='14' limit="10" title='Hero Stats' player="294548916"/>
+            <Wrap>
+            <GetMatchHelper playerid='all' pageNumber='0' />
+              <Stack w={430}>
+                <Statbox type='player' days='14' limit="10" title='Player Stats' />
+                <Statbox type='hero' days='14' limit="10" title='Hero Stats'/>
+              </Stack>
             </Wrap>
           </Center>
-          <GetMatchHelper playerid='all' pageNumber='0' />
+         
       </>
     );
   } else {
