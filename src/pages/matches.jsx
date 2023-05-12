@@ -47,29 +47,27 @@ export default function MatchPage() {
     }, []);
     return windowSize;
   }
-  var width = useWindowSize().width
+  var width = useWindowSize().width;
 
   if (width >= 1100) {
-  return (
-    <>
-      <Helmet>
-        <title>Matches</title>
-      </Helmet>
-      <Navbar>
-          <GetMatchHelper key={page} playerid='all' pageNumber={page} />
-          <PageButtons increase={increasePage} decrease={decreasePage} />
-      </Navbar>
-    </>
-  )} else {
     return (
       <>
         <Helmet>
           <title>Matches</title>
         </Helmet>
-        <Navbar>
-            <GetMatchHelper key={page} playerid='all' pageNumber={page} card='true' />
-            <PageButtons increase={increasePage} decrease={decreasePage} />
-        </Navbar>
+        <Box h='3em' />
+        <GetMatchHelper key={page} playerid='all' pageNumber={page} />
+        <PageButtons increase={increasePage} decrease={decreasePage} />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Helmet>
+          <title>Matches</title>
+        </Helmet>
+        <GetMatchHelper key={page} playerid='all' pageNumber={page} card='true' />
+        <PageButtons increase={increasePage} decrease={decreasePage} />
       </>
     );
   }

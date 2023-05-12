@@ -66,7 +66,8 @@ const Statbox = (props) => {
 
   if (loaded) {
     return (
-      <Box margin={10} borderColor='white.reg' borderWidth='0.5px' borderRadius={10} padding='15px' width={500}>
+      <Box boxShadow='0 5px 9px -2px rgba(0,0,0,.8)'>
+      <Box bg="#242c36" padding='15px' maxWidth={500}>
         <Stack>
           <Wrap>
             <Heading>{props.title}</Heading>
@@ -85,6 +86,7 @@ const Statbox = (props) => {
           {makeBars(stats, props, width)}
         </Stack>
       </Box>
+      </Box>
     );
   } else
     return (
@@ -101,23 +103,19 @@ function makeBars(stats, props, width) {
   let bars = [];
   bars.push(
     <GridItem colSpan={width <= 1100 ? 8 : 4}>
-      <Center>
-        <Text>Hero</Text>
-      </Center>
+        <Text fontWeight="bold">{props.type == "player" ? "Player" : "Hero"}</Text>
     </GridItem>
   );
+  bars.push(<GridItem colSpan={1} />);
   bars.push(
     <GridItem colSpan={width <= 1100 ? 8 : 10}>
-      <Center>
-        <Text>Matches</Text>
-      </Center>
+        <Text fontWeight="bold">Matches</Text>
     </GridItem>
   );
+  bars.push(<GridItem colSpan={1} />);
   bars.push(
     <GridItem colSpan={width <= 1100 ? 8 : 10}>
-      <Center>
-        <Text>Win Rate</Text>
-      </Center>
+        <Text fontWeight="bold">Win Rate</Text>
     </GridItem>
   );
 
@@ -179,7 +177,7 @@ function makeBars(stats, props, width) {
     );
   }
   return (
-    <Grid templateColumns='repeat(26, 1fr)' gap={2}>
+    <Grid templateColumns='repeat(26, 1fr)' gap={2} >
       {bars}
     </Grid>
   );

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital@1&display=swap');
 .main {
   display: flex;
   flex-direction: column;
@@ -5,6 +6,7 @@
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 .description {
