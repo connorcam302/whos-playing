@@ -37,13 +37,15 @@ export default function HomePage() {
         </Helmet>
         <Center margin={5}>
           <Wrap>
-            <Box padding={5}>
+            <Box padding={3}>
               <GetMatchHelper playerid='all' pageNumber='0' />
             </Box>
-            <Stack w={430}>
-              <Statbox type='player' days='14' limit='10' title='Player Stats' />
-              <Statbox type='hero' days='14' limit='10' title='Hero Stats' />
-            </Stack>
+            <Box paddingTop={3}>
+              <Stack w={430}>
+                <Statbox type='player' days='14' limit='10' title='Player Stats' />
+                <Statbox type='hero' days='14' limit='10' title='Hero Stats' />
+              </Stack>
+            </Box>
           </Wrap>
         </Center>
       </>
