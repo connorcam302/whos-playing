@@ -1,128 +1,143 @@
-import { Box, Center, Flex, Heading, Image, LinkBox, Spacer, Text, Tooltip, Wrap } from "@chakra-ui/react";
-import { BsFillPersonFill } from "react-icons/bs";
-import { AiOutlineQuestionCircle } from "react-icons/ai";
+import { Box, Center, Flex, Heading, Image, Spacer, Text, Tooltip, Wrap } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
+import { BsFillPersonFill } from "react-icons/bs";
+import MatchModal from "./MatchModal";
 
 export default function MatchRow(props) {
   if (props.match.status != 404) {
     return (
-      <Box
-        bgColor={props.match.winner == true ? "#0b3014" : "#471210"}
-        _hover={{
-          backgroundColor: props.match.winner == true ? "#0f401b" : "#591715",
-          transition: "0.5s",
-          boxShadow: `0 0 7px 5px gray`,
-        }}
-        borderRightRadius='6px'
-      >
-        <Flex marginBottom='10px'>
-          <Center>
-            <Tooltip label={props.match.hero.name}>
-              <Image w='130px' minW='130px' objectFit='contain' paddingRight='30px' src={props.match.hero.img} alt={props.match.hero.name} />
-            </Tooltip>
-          </Center>
-          <Center>
-            <Wrap>
-              <Center>
-                <Link href={"/player/" + props.match.player_id} passHref legacyBehavior>
-                  <a rel='noopener noreferrer'>
-                    <Flex w='7em' paddingRight='10px'>
-                      <Center>
-                        <Heading
-                          _hover={{
-                            color: "#808080",
-                            transition: "0.3s",
-                          }}
-                          size='md'
-                        >
-                          {props.match.username}
-                        </Heading>
-                      </Center>
-                      <Spacer />
-                    </Flex>
-                  </a>
-                </Link>
-              </Center>
-              <Center>
-                <Box w='3em'>
-                  <Heading size='md'>{makeWinnerText(props.match.winner)}</Heading>
-                </Box>
-              </Center>
-              <Flex w='1em' paddingRight='10px'>
+      <MatchModal matchid={props.match.match_id}>
+        <Box
+          // bgColor={"linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c)"}
+          bg={
+            props.match.winner == true
+              ? "linear-gradient(to left, #242c36, #242c36, #2f4c39)"
+              : "linear-gradient(to left, #242c36, #242c36, #AA4344)"
+          }
+          border='2px'
+          _hover={{
+            background:
+              props.match.winner == true
+                ? "linear-gradient(to left, #242c36, #2f4c39)"
+                : "linear-gradient(to left, #242c36, #AA4344)",
+            transition: "0.5s",
+            border: "2px solid #808080",
+            cursor: "pointer",
+          }}
+          marginBottom='5px'
+        >
+          <Flex>
+            <Center>
+              <Tooltip label={props.match.hero.name}>
+                <Image w='130px' minW='130px' objectFit='contain' paddingRight='30px' src={props.match.hero.img} alt={props.match.hero.name} />
+              </Tooltip>
+            </Center>
+            <Center>
+              <Wrap>
                 <Center>
-                  <Heading
-                    _hover={{
-                      color: "#808080",
-                      transition: "0.3s",
-                    }}
-                    color={calcImpact(props.match.impact) == "S+" ? "gold" : "#ffffff"}
-                    size='md'
-                    marginLeft='0.5em'
-                    sx={calcImpact(props.match.impact) == "S+" ? { textShadow: "1px 1px 20px #fff, 1px 1px 20px #ccc;" } : ""}
-                  >
-                    {calcImpact(props.match.impact)}
-                  </Heading>
+                  <Flex w='7em' paddingRight='10px'>
+                    <Center>
+                      <Link href={"/player/" + props.match.player_id} passHref legacyBehavior>
+                        <a rel='noopener noreferrer'>
+                          <Heading
+                            _hover={{
+                              color: "#808080",
+                              transition: "0.3s",
+                            }}
+                            size='md'
+                          >
+                            {props.match.username}
+                          </Heading>
+                        </a>
+                      </Link>
+                    </Center>
+                    <Spacer />
+                  </Flex>
                 </Center>
-              </Flex>
-              <Center>
-                <Box w='7em' paddingRight='10px' paddingLeft='10px'>
-                  <Text fontWeight='bold' textAlign='center'>
-                    {props.match.kills}/{props.match.deaths}/{props.match.assists}
+                <Center>
+                  <Box w='3em'>
+                    <Heading size='md'>{makeWinnerText(props.match.winner)}</Heading>
+                  </Box>
+                </Center>
+                <Flex w='1em' paddingRight='10px'>
+                  <Center>
+                    <Heading
+                      _hover={{
+                        color: "#808080",
+                        transition: "0.3s",
+                      }}
+                      color={calcImpact(props.match.impact) == "S+" ? "gold" : "#ffffff"}
+                      size='md'
+                      marginLeft='0.5em'
+                      sx={calcImpact(props.match.impact) == "S+" ? { textShadow: "1px 1px 20px #fff, 1px 1px 20px #ccc;" } : ""}
+                    >
+                      {calcImpact(props.match.impact)}
+                    </Heading>
+                  </Center>
+                </Flex>
+                <Center>
+                  <Box w='7em' paddingRight='10px' paddingLeft='10px'>
+                    <Text fontWeight='bold' textAlign='center'>
+                      {props.match.kills}/{props.match.deaths}/{props.match.assists}
+                    </Text>
+                    <Text textAlign='center'>
+                      {Math.floor(props.match.duration / 60)}:
+                      {Math.round(props.match.duration % 60) >= 10
+                        ? Math.round(props.match.duration % 60)
+                        : "0" + Math.round(props.match.duration % 60)}
+                    </Text>
+                  </Box>
+                </Center>
+                <Box bg='#212121'>
+                  <Box>
+                    <Wrap spacing='0px'>
+                      {makeItemBox(props.match.items[0])}
+                      {makeItemBox(props.match.items[1])}
+                      {makeItemBox(props.match.items[2])}
+                    </Wrap>
+                  </Box>
+                  <Box>
+                    <Wrap spacing='0px'>
+                      {makeItemBox(props.match.items[3])}
+                      {makeItemBox(props.match.items[4])}
+                      {makeItemBox(props.match.items[5])}
+                    </Wrap>
+                  </Box>
+                </Box>
+                <Center>
+                  <Box w='3em'>{makeNeutralBox(props.match.items[6])}</Box>
+                </Center>
+                <Center>
+                  <Box w='2em'>{makeAghBox(props.match.aghanims_scepter, props.match.aghanims_shard)}</Box>
+                </Center>
+                <Box paddingRight='10px' paddingLeft='10px'>
+                  <Text color='#ef3a1b' fontWeight='bold' textAlign='right'>
+                    <Link href={"https://www.dotabuff.com/matches/" + props.match.match_id} passHref legacyBehavior>
+                      <a target='_blank' rel='noopener noreferrer'>
+                        <Image src='/dotabuff-logo.png' alt='Dotabuff' boxSize='1.5em' display='inline-block' verticalAlign='middle' />
+                      </a>
+                    </Link>
                   </Text>
-                  <Text textAlign='center'>
-                    {Math.floor(props.match.duration / 60)}:
-                    {Math.round(props.match.duration % 60) >= 10 ? Math.round(props.match.duration % 60) : "0" + Math.round(props.match.duration % 60)}
+                  <Text color='#00c59e' fontWeight='bold' textAlign='right'>
+                    <Link href={"https://www.opendota.com/matches/" + props.match.match_id} passHref legacyBehavior>
+                      <a target='_blank' rel='noopener noreferrer'>
+                        <Image src='/opendota-logo.png' alt='OpenDota' boxSize='1.5em' display='inline-block' verticalAlign='middle' />
+                      </a>
+                    </Link>
                   </Text>
                 </Box>
-              </Center>
-              <Box bg='#212121'>
-                <Box>
-                  <Wrap spacing='0px'>
-                    {makeItemBox(props.match.items[0])}
-                    {makeItemBox(props.match.items[1])}
-                    {makeItemBox(props.match.items[2])}
-                  </Wrap>
-                </Box>
-                <Box>
-                  <Wrap spacing='0px'>
-                    {makeItemBox(props.match.items[3])}
-                    {makeItemBox(props.match.items[4])}
-                    {makeItemBox(props.match.items[5])}
-                  </Wrap>
-                </Box>
-              </Box>
-              <Center>
-                <Box w='3em'>{makeNeutralBox(props.match.items[6])}</Box>
-              </Center>
-              <Center>
-                <Box w='2em'>{makeAghBox(props.match.aghanims_scepter, props.match.aghanims_shard)}</Box>
-              </Center>
-              <Box paddingRight='10px' paddingLeft='10px'>
-                <Text color='#ef3a1b' fontWeight='bold' textAlign='right'>
-                  <Link href={"https://www.dotabuff.com/matches/" + props.match.match_id} passHref legacyBehavior>
-                    <a target='_blank' rel='noopener noreferrer'>
-                      <Image src='/dotabuff-logo.png' alt='Dotabuff' boxSize='1.5em' display='inline-block' verticalAlign='middle' />
-                    </a>
-                  </Link>
-                </Text>
-                <Text color='#00c59e' fontWeight='bold' textAlign='right'>
-                  <Link href={"https://www.opendota.com/matches/" + props.match.match_id} passHref legacyBehavior>
-                    <a target='_blank' rel='noopener noreferrer'>
-                      <Image src='/opendota-logo.png' alt='OpenDota' boxSize='1.5em' display='inline-block' verticalAlign='middle' />
-                    </a>
-                  </Link>
-                </Text>
-              </Box>
-              <Center>
-                <Box w='8em'>
-                  <Text> {calculateTime(props.match.start_time, props.match.duration)}</Text>
-                </Box>
-              </Center>
-            </Wrap>
-          </Center>
-        </Flex>
-      </Box>
+                <Center>
+                  <Box w='8em'>
+                    <Text> {calculateTime(props.match.start_time, props.match.duration)}</Text>
+                  </Box>
+                </Center>
+              </Wrap>
+            </Center>
+          </Flex>
+        </Box>
+      </MatchModal>
     );
   }
 }

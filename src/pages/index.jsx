@@ -1,13 +1,8 @@
-import { Box, Button, Center, Select, Stack, Text, Wrap } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
 import GetMatchHelper from "@/components/GetMatchHelper";
-import { BrowserView, MobileView } from "react-device-detect";
-import Navbar from "@/components/Navbar";
-import PageButtons from "@/components/PageButtons";
-import { useRouter } from "next/router";
 import Statbox from "@/components/Statbox";
+import { Box, Center, Stack, Wrap } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { useSyncExternalStore } from "react";
 
 export default function HomePage() {
   function useWindowSize() {
@@ -32,7 +27,7 @@ export default function HomePage() {
     }, []);
     return windowSize;
   }
-  var width = useWindowSize().width
+  var width = useWindowSize().width;
 
   if (width >= 1100) {
     return (
@@ -40,16 +35,19 @@ export default function HomePage() {
         <Helmet>
           <title>Who&apos;s Playing</title>
         </Helmet>
-          <Center margin={5}>
-            <Wrap>
-            <GetMatchHelper playerid='all' pageNumber='0' />
+        <Center margin={5}>
+          <Wrap>
+            <Box padding={3}>
+              <GetMatchHelper playerid='all' pageNumber='0' />
+            </Box>
+            <Box paddingTop={3}>
               <Stack w={430}>
-                <Statbox type='player' days='14' limit="10" title='Player Stats' />
-                <Statbox type='hero' days='14' limit="10" title='Hero Stats'/>
+                <Statbox type='player' days='14' limit='10' title='Player Stats' />
+                <Statbox type='hero' days='14' limit='10' title='Hero Stats' />
               </Stack>
-            </Wrap>
-          </Center>
-         
+            </Box>
+          </Wrap>
+        </Center>
       </>
     );
   } else {
@@ -58,13 +56,13 @@ export default function HomePage() {
         <Helmet>
           <title>Who&apos;s Playing</title>
         </Helmet>
-          <Center margin={5}>
-            <Wrap>
-              <Statbox type='player' days='14' limit="10"  title='Player Stats' />
-              <Statbox type='hero' days='14' limit="10"  title='Hero Stats'/>
-            </Wrap>
-          </Center>
-          <GetMatchHelper playerid='all' pageNumber='0' card='true' />
+        <Center margin={5}>
+          <Wrap w={430}>
+            <Statbox type='player' days='14' limit='10' title='Player Stats' />
+            <Statbox type='hero' days='14' limit='10' title='Hero Stats' />
+          </Wrap>
+        </Center>
+        <GetMatchHelper playerid='all' pageNumber='0' card='true' />
       </>
     );
   }
