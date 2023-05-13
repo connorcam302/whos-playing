@@ -1,22 +1,15 @@
-import Head from "@/app/head";
 import {
   Box,
-  Center,
-  Divider,
-  Grid,
+  Center, Grid,
   GridItem,
   Heading,
   Link,
-  Progress,
-  Select,
-  SimpleGrid,
-  Spacer,
+  Progress, Spacer,
   Spinner,
   Stack,
   Text,
   Tooltip,
-  Wrap,
-  WrapItem,
+  Wrap
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { React, useEffect, useState } from "react";
@@ -123,8 +116,8 @@ function makeBars(stats, props, width) {
     bars.push(
       <GridItem colSpan={width <= 1100 ? 8 : 4}>
         {props.type == "player" ? (
-          <Link href={"/player/" + stats[index].id} passHref legacyBehavior>
-            <a rel='noopener noreferrer'>
+          <Link href={"/player/" + stats[index].id}  >
+            <a rel='noopener noreferrer' passHref legacyBehavior>
               <Text
                 fontSize='md'
                 style={{
