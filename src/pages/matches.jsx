@@ -1,10 +1,8 @@
-import { Box, Button, Select, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
 import GetMatchHelper from "@/components/GetMatchHelper";
-import { BrowserView, MobileView } from "react-device-detect";
-import Navbar from "@/components/Navbar";
 import PageButtons from "@/components/PageButtons";
+import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 
 export default function MatchPage() {

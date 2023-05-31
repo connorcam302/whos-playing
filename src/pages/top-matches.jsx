@@ -1,8 +1,6 @@
-import { Box, Button, Center, Heading, Select, Text, Wrap } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Center, Heading, Text } from "@chakra-ui/react";
+import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
-import Navbar from "@/components/Navbar";
-import Statbox from "@/components/Statbox";
 import { Helmet } from "react-helmet";
 
 export default function MatchPage() {

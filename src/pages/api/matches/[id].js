@@ -14,7 +14,6 @@ export default async function handler({ query: { id } }, res) {
 
   let matchData = await fetchMatchData(id);
   matchData = matchData.result;
-  console.log(matchData)
   
   matchData.players.map((player) => {
     let playerInfo = players.data.find((element) => element.id == player.account_id);

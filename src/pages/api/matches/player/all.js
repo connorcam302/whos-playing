@@ -93,7 +93,7 @@ async function getMatchData() {
       data.data[index].rank = data.data[index].matches.rank;
       data.data[index].duration = data.data[index].matches.duration;
       delete data.data[index].matches;
-  
+
       data.data[index].username = data.data[index].players.username
       delete data.data[index].players
     }
