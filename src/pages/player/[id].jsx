@@ -1,7 +1,7 @@
-import GetMatchHelper from "@/components/GetMatchHelper";
-import PageButtons from "@/components/PageButtons";
-import { PlayerWinChart } from "@/components/PlayerWinChart";
-import Statbox from "@/components/Statbox";
+import GetMatchHelper from "../../components/GetMatchHelper";
+import PageButtons from "../../components/PageButtons";
+import { PlayerWinChart } from "../../components/PlayerWinChart";
+import Statbox from "../../components/Statbox";
 import { Box, Center, Heading, Spacer, Spinner, Stack, Text, Wrap } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
