@@ -1,4 +1,4 @@
-import Statbox from "@/components/Statbox";
+import Statbox from "../components/Statbox";
 import { Center, Wrap } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";

@@ -1,5 +1,5 @@
-import GetMatchHelper from "@/components/GetMatchHelper";
-import Statbox from "@/components/Statbox";
+import GetMatchHelper from "../components/GetMatchHelper";
+import Statbox from "../components/Statbox";
 import { Box, Center, Stack, Wrap } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
