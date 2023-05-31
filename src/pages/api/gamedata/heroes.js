@@ -1,8 +1,8 @@
 import heroesJson from "../../../data/heroes.json";
 
-import { NextResponse } from 'next/server';
+// import { NextResponse } from 'next/server';
 
-export const runtime = 'experimental-edge';
+// export const runtime = 'experimental-edge';
 
 export default async function handler(req, res) {
   let time = new Date();
