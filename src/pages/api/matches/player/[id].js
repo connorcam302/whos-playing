@@ -67,7 +67,7 @@ export default async function handler({ query: { id, page } }, res) {
   if (matchData.length > 0) {
     var sortedMatches = matchData.sort((a, b) => b.start_time + b.duration - (a.start_time + a.duration));
 
-    if (page !== undefined) {
+    if (typeof page !== 'undefined') {
       sortedMatches = sortedMatches.slice(page * 20, page * 20 + 20);
     }
 
@@ -83,7 +83,8 @@ export default async function handler({ query: { id, page } }, res) {
 }
 
 async function getMatchData(id) {
-  var data = await supabase.from("match_data").select("*, matches(*), players(*)").eq("player_id", id);
+  if(typeof page !== 'undefined') var page = -1
+  var data = await supabase.from("match_data").select("*, matches(*), players(*)").eq("player_id", id).limit((page == -1 ? 500 : page+1*20));
   if (data.error == null && data.data.length > 0) {
     for (let index = 0; index < data.data.length; index++) {
       data.data[index].start_time = data.data[index].matches.start_time;

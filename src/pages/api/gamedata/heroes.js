@@ -1,6 +1,10 @@
 import heroesJson from "../../../data/heroes.json";
 
-export default async function handler(req, res) {
+import { NextResponse } from 'next/server';
+
+export const runtime = 'experimental-edge';
+
+export default function MyEdgeFunction(request, context) {
   let time = new Date();
 
   var heroes = [];
@@ -9,8 +13,8 @@ export default async function handler(req, res) {
   }
 
   if (heroes.length > 0) {
-    res.status(200).json(heroes);
+    return NextResponse.json(heroes)
   } else {
-    res.status(404).json({ message: `Heroes file not found` });
+    return NextResponse.json({status: 404, message: `Heroes file not found`});
   }
 }
