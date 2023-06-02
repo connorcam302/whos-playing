@@ -85,7 +85,7 @@ const GPM = (props) => {
                           }}
                           size="lg"
                         >
-                          Sighboys
+                          {gpm.username}
                         </Heading>
                       </a>
                     </Link>
