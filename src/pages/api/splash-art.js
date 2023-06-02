@@ -1,11 +1,9 @@
 const images = [
   "leshrac.png",
   "misc10.png",
-  "misc11.png",
   "misc12.png",
   "misc13.png",
   "misc2.png",
-  "misc4.png",
   "misc7.png",
   "misc8.png",
   "misc9.png",
