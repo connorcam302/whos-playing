@@ -39,7 +39,6 @@ async function getMatchData(id, date) {
     }
     return await data;
   } else {
-    console.log(data);
     return -1;
   }
 }

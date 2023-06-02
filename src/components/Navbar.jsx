@@ -17,29 +17,55 @@ import {
   Center,
   Spacer,
   background,
+  Wrap
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import {
+  HamburgerIcon,
+  CloseIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+} from "@chakra-ui/icons";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import router, { useRouter } from "next/router";
 import { redirect } from "next/navigation";
 
-import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu } from "react-icons/fi";
+import {
+  FiHome,
+  FiTrendingUp,
+  FiCompass,
+  FiStar,
+  FiSettings,
+  FiMenu,
+} from "react-icons/fi";
 import { IoIosStats, IoIosApps } from "react-icons/io";
 import { AiFillStar } from "react-icons/ai";
-import { FaQuoteLeft} from "react-icons/fa";
+import { FaQuoteLeft } from "react-icons/fa";
+import { GiPodium } from "react-icons/gi";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   return (
     <Box>
-      <Flex className='test' h='3px' bg='teal.500'></Flex>
-      <Flex bg='#1b263b' color='white' boxShadow='0 5px 9px -2px rgba(0,0,0,.8)' borderBottom={1} align={"center"}>
-        <Flex flex={{ base: 1, md: "auto" }} ml={{ base: -2 }} display={{ base: "flex", md: "none" }}>
+      <Flex className="test" h="3px" bg="teal.500"></Flex>
+      <Flex
+        bg="#1b263b"
+        color="white"
+        boxShadow="0 5px 9px -2px rgba(0,0,0,.8)"
+        borderBottom={1}
+        align={"center"}
+      >
+        <Flex
+          flex={{ base: 1, md: "auto" }}
+          ml={{ base: -2 }}
+          display={{ base: "flex", md: "none" }}
+        >
           &nbsp; &nbsp;
           <IconButton
             onClick={onToggle}
-            icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
+            icon={
+              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+            }
             variant={"ghost"}
             aria-label={"Toggle Navigation"}
           />
@@ -120,111 +146,151 @@ const DesktopNav = () => {
     });
     console.log(router.pathname);
     return (
-      <Stack direction='row'>
-        <Center>
-          <Button
-            as={"a"}
-            w='7.5em'
-            h='3.5em'
-            paddingTop={2}
-            bg='#1b263b'
-            borderBottom='3px solid'
-            borderColor={router.pathname == "/" ? "teal.500" : "#1b263b"}
-            borderRadius={0}
-            _hover={{
-              background: "#111826",
-              transition: "0.3s",
-              borderBottom: router.pathname == "/" ? "3px solid teal.500" : "3px solid #111826",
-            }}
-            href={"/"}
-          >
-            <FiHome/> &nbsp; Home
-          </Button>
-        </Center>
-        <Center>
-          <Button
-            as={"a"}
-            w='7.5em'
-            h='3.5em'
-            paddingTop={2}
-            bg='#1b263b'
-            borderBottom='3px solid'
-            borderColor={router.pathname == "/matches" ? "teal.500" : "#1b263b"}
-            borderRadius={0}
-            _hover={{
-              background: "#111826",
-              transition: "0.3s",
-              borderBottom: router.pathname == "/matches" ? "3px solid teal.500" : "3px solid #111826",
-            }}
-            href={"/matches"}
-          >
-            <IoIosApps/> &nbsp; Matches
-          </Button>
-        </Center>
-        <Center>
-          <Box w='20em' marginLeft={2} marginRight={2} paddingTop={1}>
-            <Select
-              options={options}
-              placeholder='Search Player'
-              styles={customStyles}
-              theme={(theme) => ({
-                ...theme,
-                borderRadius: 0,
-                colors: {
-                  ...theme.colors,
-                  text: "#3599B8",
-                  font: "#3599B8",
-                  primary25: "#3599B8",
-                  primary: "white",
-                  neutral80: "white",
-                  color: "black",
-                },
-              })}
-              onChange={(e) => (window.location.href = `/player/${e.value}`)}
-            />
-          </Box>
-        </Center>
-        <Center>
-          <Button
-            as={"a"}
-            w='7.5em'
-            h='3.5em'
-            paddingTop={2}
-            bg='#1b263b'
-            borderBottom='3px solid'
-            borderColor={router.pathname == "/stats" ? "teal.500" : "#1b263b"}
-            borderRadius={0}
-            _hover={{
-              background: "#111826",
-              transition: "0.3s",
-              borderBottom: router.pathname == "/stats" ? "3px solid teal.500" : "3px solid #111826",
-            }}
-            href={"/stats"}
-          >
-            <IoIosStats/>  &nbsp; Stats
-          </Button>
-        </Center>
-        <Center>
-          <Button
-            as={"a"}
-            w='7.5em'
-            h='3.5em'
-            paddingTop={2}
-            bg='#1b263b'
-            borderBottom='3px solid'
-            borderColor={router.pathname == "/about" ? "teal.500" : "#1b263b"}
-            borderRadius={0}
-            _hover={{
-              background: "#111826",
-              transition: "0.3s",
-              borderBottom: router.pathname == "/about" ? "3px solid teal.500" : "3px solid #111826",
-            }}
-            href={"/about"}
-          >
-            <FaQuoteLeft/> &nbsp; About
-          </Button>
-        </Center>
-      </Stack>
+        <Stack direction="row">
+          <Center>
+            <Button
+              as={"a"}
+              w="10em"
+              h="3.5em"
+              paddingTop={2}
+              bg="#1b263b"
+              borderBottom="3px solid"
+              borderColor={router.pathname == "/" ? "teal.500" : "#1b263b"}
+              borderRadius={0}
+              _hover={{
+                background: "#111826",
+                transition: "0.3s",
+                borderBottom:
+                  router.pathname == "/"
+                    ? "3px solid teal.500"
+                    : "3px solid #111826",
+              }}
+              href={"/"}
+            >
+              <FiHome /> &nbsp; Home
+            </Button>
+          </Center>
+          <Center>
+            <Button
+              as={"a"}
+              w="10em"
+              h="3.5em"
+              paddingTop={2}
+              bg="#1b263b"
+              borderBottom="3px solid"
+              borderColor={
+                router.pathname == "/matches" ? "teal.500" : "#1b263b"
+              }
+              borderRadius={0}
+              _hover={{
+                background: "#111826",
+                transition: "0.3s",
+                borderBottom:
+                  router.pathname == "/matches"
+                    ? "3px solid teal.500"
+                    : "3px solid #111826",
+              }}
+              href={"/matches"}
+            >
+              <IoIosApps /> &nbsp; Matches
+            </Button>
+          </Center>
+          <Center>
+            <Button
+              as={"a"}
+              w="10em"
+              h="3.5em"
+              paddingTop={2}
+              bg="#1b263b"
+              borderBottom="3px solid"
+              borderColor={router.pathname == "/stats" ? "teal.500" : "#1b263b"}
+              borderRadius={0}
+              _hover={{
+                background: "#111826",
+                transition: "0.3s",
+                borderBottom:
+                  router.pathname == "/stats"
+                    ? "3px solid teal.500"
+                    : "3px solid #111826",
+              }}
+              href={"/stats"}
+            >
+              <IoIosStats /> &nbsp; Stats
+            </Button>
+          </Center>
+          <Center>
+            <Button
+              as={"a"}
+              w="10em"
+              h="3.5em"
+              paddingTop={2}
+              bg="#1b263b"
+              borderBottom="3px solid"
+              borderColor={
+                router.pathname == "/leaderboard" ? "teal.500" : "#1b263b"
+              }
+              borderRadius={0}
+              _hover={{
+                background: "#111826",
+                transition: "0.3s",
+                borderBottom:
+                  router.pathname == "/leaderboard"
+                    ? "3px solid teal.500"
+                    : "3px solid #111826",
+              }}
+              href={"/leaderboard"}
+            >
+              <GiPodium /> &nbsp; Leaderboard
+            </Button>
+          </Center>
+          <Center>
+            <Button
+              as={"a"}
+              w="10em"
+              h="3.5em"
+              paddingTop={2}
+              bg="#1b263b"
+              borderBottom="3px solid"
+              borderColor={router.pathname == "/about" ? "teal.500" : "#1b263b"}
+              borderRadius={0}
+              _hover={{
+                background: "#111826",
+                transition: "0.3s",
+                borderBottom:
+                  router.pathname == "/about"
+                    ? "3px solid teal.500"
+                    : "3px solid #111826",
+              }}
+              href={"/about"}
+            >
+              <FaQuoteLeft /> &nbsp; About
+            </Button>
+          </Center>
+          <Spacer />
+          <Center>
+            <Box w="20em" marginLeft={2} marginRight={2} paddingTop={1}>
+              <Select
+                options={options}
+                placeholder="Search Player"
+                styles={customStyles}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 0,
+                  colors: {
+                    ...theme.colors,
+                    text: "#3599B8",
+                    font: "#3599B8",
+                    primary25: "#3599B8",
+                    primary: "white",
+                    neutral80: "white",
+                    color: "black",
+                  },
+                })}
+                onChange={(e) => (window.location.href = `/player/${e.value}`)}
+              />
+            </Box>
+          </Center>
+        </Stack>
     );
   }
 };
@@ -286,7 +352,7 @@ const MobileNav = () => {
         ...base,
         // kill the white space on first and last option
         padding: 0,
-        height: "10em"
+        height: "10em",
       }),
     };
     var options = [];
@@ -297,10 +363,10 @@ const MobileNav = () => {
     return (
       <Stack spacing={0}>
         <Center bg="#1b263b" paddingTop={3} paddingBottom={3}>
-          <Box w='80%' marginLeft={2} marginRight={2} >
+          <Box w="80%" marginLeft={2} marginRight={2}>
             <Select
               options={options}
-              placeholder='Search Player'
+              placeholder="Search Player"
               styles={customStyles}
               theme={(theme) => ({
                 ...theme,
@@ -322,61 +388,84 @@ const MobileNav = () => {
         <Center>
           <Button
             as={"a"}
-            color='white'
-            w='100%'
-            h='3em'
-            bg='#1b263b'
+            color="white"
+            w="100%"
+            h="3em"
+            bg="#1b263b"
             backgroundColor={router.pathname == "/" ? "teal.500" : "#1b263b"}
-            _hover={{backgroundColor: "teal.500"}}
+            _hover={{ backgroundColor: "teal.500" }}
             borderRadius={0}
             href={"/"}
           >
-            <FiHome/> &nbsp; Home
+            <FiHome /> &nbsp; Home
           </Button>
         </Center>
         <Center>
           <Button
             as={"a"}
-            color='white'
-            w='100%'
-            h='3em'
-            bg='#1b263b'
-            backgroundColor={router.pathname == "/matches" ? "teal.500" : "#1b263b"}
-            _hover={{backgroundColor: "teal.500"}}
+            color="white"
+            w="100%"
+            h="3em"
+            bg="#1b263b"
+            backgroundColor={
+              router.pathname == "/matches" ? "teal.500" : "#1b263b"
+            }
+            _hover={{ backgroundColor: "teal.500" }}
             borderRadius={0}
             href={"/matches"}
           >
-            <IoIosApps/> &nbsp; Matches
+            <IoIosApps /> &nbsp; Matches
           </Button>
         </Center>
         <Center>
           <Button
             as={"a"}
-            color='white'
-            w='100%'
-            h='3em'
-            bg='#1b263b'
-            backgroundColor={router.pathname == "/stats" ? "teal.500" : "#1b263b"}
-            _hover={{backgroundColor: "teal.500"}}
+            color="white"
+            w="100%"
+            h="3em"
+            bg="#1b263b"
+            backgroundColor={
+              router.pathname == "/stats" ? "teal.500" : "#1b263b"
+            }
+            _hover={{ backgroundColor: "teal.500" }}
             borderRadius={0}
             href={"/stats"}
           >
-            <IoIosStats/>  &nbsp; Stats
+            <IoIosStats /> &nbsp; Stats
           </Button>
         </Center>
         <Center>
           <Button
             as={"a"}
-            color='white'
-            w='100%'
-            h='3em'
-            bg='#1b263b'
-            backgroundColor={router.pathname == "/about" ? "teal.500" : "#1b263b"}
-            _hover={{backgroundColor: "teal.500"}}
+            color="white"
+            w="100%"
+            h="3em"
+            bg="#1b263b"
+            backgroundColor={
+              router.pathname == "/stats" ? "teal.500" : "#1b263b"
+            }
+            _hover={{ backgroundColor: "teal.500" }}
+            borderRadius={0}
+            href={"/loaderboard"}
+          >
+            <GiPodium /> &nbsp; Leaderboard
+          </Button>
+        </Center>
+        <Center>
+          <Button
+            as={"a"}
+            color="white"
+            w="100%"
+            h="3em"
+            bg="#1b263b"
+            backgroundColor={
+              router.pathname == "/about" ? "teal.500" : "#1b263b"
+            }
+            _hover={{ backgroundColor: "teal.500" }}
             borderRadius={0}
             href={"/about"}
           >
-            <FaQuoteLeft/> &nbsp; About
+            <FaQuoteLeft /> &nbsp; About
           </Button>
         </Center>
       </Stack>
@@ -399,14 +488,29 @@ const MobileNavItem = ({ label, children, href }) => {
           textDecoration: "none",
         }}
       >
-        <Text fontWeight={600} color='gray.200'>
+        <Text fontWeight={600} color="gray.200">
           {label}
         </Text>
-        {children && <Icon as={ChevronDownIcon} transition={"all .25s ease-in-out"} transform={isOpen ? "rotate(180deg)" : ""} w={6} h={6} />}
+        {children && (
+          <Icon
+            as={ChevronDownIcon}
+            transition={"all .25s ease-in-out"}
+            transform={isOpen ? "rotate(180deg)" : ""}
+            w={6}
+            h={6}
+          />
+        )}
       </Flex>
 
       <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
-        <Stack mt={2} pl={4} borderLeft={1} borderStyle={"solid"} borderColor='gray.700' align={"start"}>
+        <Stack
+          mt={2}
+          pl={4}
+          borderLeft={1}
+          borderStyle={"solid"}
+          borderColor="gray.700"
+          align={"start"}
+        >
           {children &&
             children.map((child) => (
               <Link key={child.label} py={2} href={child.href}>
