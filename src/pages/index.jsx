@@ -1,5 +1,6 @@
-import GetMatchHelper from "@/components/GetMatchHelper";
-import Statbox from "@/components/Statbox";
+import GetMatchHelper from "../components/GetMatchHelper";
+import Statbox from "../components/Statbox";
+import Feature from "../components/Feature";
 import { Box, Center, Stack, Wrap } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
@@ -35,6 +36,7 @@ export default function HomePage() {
         <Helmet>
           <title>Who&apos;s Playing</title>
         </Helmet>
+        <Feature/>
         <Center margin={5}>
           <Wrap>
             <Box padding={3}>

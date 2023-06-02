@@ -1,13 +1,11 @@
-import { Box, Center, Divider, Heading, Spacer, Spinner, Stack, Text, Wrap } from "@chakra-ui/react";
+import GetMatchHelper from "../../components/GetMatchHelper";
+import PageButtons from "../../components/PageButtons";
+import { PlayerWinChart } from "../../components/PlayerWinChart";
+import Statbox from "../../components/Statbox";
+import { Box, Center, Heading, Spacer, Spinner, Stack, Text, Wrap } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import GetMatchHelper from "@/components/GetMatchHelper";
 import { Helmet } from "react-helmet";
-import Navbar from "@/components/Navbar";
-import Head from "@/app/head";
-import PageButtons from "@/components/PageButtons";
-import { PlayerWinChart } from "@/components/PlayerWinChart";
-import Statbox from "@/components/Statbox";
 
 export default function PlayerPage() {
   const router = useRouter();

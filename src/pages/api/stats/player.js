@@ -47,6 +47,3 @@ export default async function handler({ query: { limit, days} }, res) {
 
   res.status(200).send(players);
 }
-
-1682681994734;
-1682884764;

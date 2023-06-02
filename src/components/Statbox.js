@@ -176,7 +176,7 @@ function makeBars(stats, props, width) {
 }
 
 function getColor(value) {
-  if (value < 45) return "red";
+  if (value <= 45) return "red";
   if (value < 55 && value > 45) return "yellow";
-  if (value > 55) return "green";
+  if (value >= 55) return "green";
 }

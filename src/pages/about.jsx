@@ -1,10 +1,8 @@
-import { Box, Button, Center, Code, Heading, Link, LinkOverlay, ListItem, Select, Spacer, Stack, Text, UnorderedList, Wrap } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import Navbar from "@/components/Navbar";
-import Statbox from "@/components/Statbox";
-import { Helmet } from "react-helmet";
+import { Box, Center, Heading, Link, ListItem, Stack, Text, UnorderedList } from "@chakra-ui/react";
 import Image from "next/image";
+import React from "react";
 import { CopyBlock, dracula } from "react-code-blocks";
+import { Helmet } from "react-helmet";
 
 var code = `// Javascript
 

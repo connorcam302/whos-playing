@@ -64,10 +64,6 @@ export default function MatchRow(props) {
                 <Flex w='1em' paddingRight='10px'>
                   <Center>
                     <Heading
-                      _hover={{
-                        color: "#808080",
-                        transition: "0.3s",
-                      }}
                       color={calcImpact(props.match.impact) == "S+" ? "gold" : "#ffffff"}
                       size='md'
                       marginLeft='0.5em'

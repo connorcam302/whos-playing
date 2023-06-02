@@ -38,7 +38,6 @@ const nextFontBold = Inter({
   subsets: ['latin'],
 });
 
-
 const theme = extendTheme({
   colors: colors,
   styles: {
