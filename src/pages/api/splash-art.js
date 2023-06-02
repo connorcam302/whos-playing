@@ -118,8 +118,9 @@ export default async function handler(req, res) {
   );
   const imageBuffer = fs.readFileSync(filePath);
   if (images.length > 0) {
-    res.setHeader("Content-Type", "image/png");
-    res.send(imageBuffer);
+    // res.setHeader("Content-Type", "image/png");
+    // res.send(imageBuffer);
+    res.status(200).json(images[Math.floor(Math.random() * images.length)])
   } else {
     res.status(404).json({ message: `No images found.` });
   }

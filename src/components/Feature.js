@@ -23,10 +23,27 @@ const Feature = (props) => {
     fetchDescending();
   }, []);
 
+  const [image, setImage] = useState([]);
+  const fetchImage = () => {
+    fetch(`/api/splash-art`)
+      .then((res) => res.json())
+      .then((data) => {
+        setImage(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    fetchImage();
+  }, []);
+
+  console.log(image)
+
   return (
     <Center boxShadow="0 5px 15px -2px rgba(0,0,0,.8)">
       <Box
-        backgroundImage={"/api/splash-art"}
+        backgroundImage={`heroes/${image}`}
         backgroundPosition={"center"}
         w={"100%"}
         h="25em"
