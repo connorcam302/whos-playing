@@ -43,7 +43,7 @@ const Feature = (props) => {
   return (
     <Center boxShadow="0 5px 15px -2px rgba(0,0,0,.8)">
       <Box
-        backgroundImage={`heroes/${image}`}
+        backgroundImage={`/api/splash-art`}
         backgroundPosition={"center"}
         w={"100%"}
         h="25em"
