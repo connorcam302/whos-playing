@@ -1,9 +1,20 @@
-import { Box, Center, Flex, Heading, Image, Spacer, Text, Tooltip, Wrap } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  Heading,
+  Image,
+  Spacer,
+  Text,
+  Tooltip,
+  Wrap,
+} from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { BsFillPersonFill } from "react-icons/bs";
 import MatchModal from "./MatchModal";
+import ImpactTooltip from "./ImpactTooltip";
 
 export default function MatchRow(props) {
   if (props.match.status != 404) {
@@ -16,7 +27,7 @@ export default function MatchRow(props) {
               ? "linear-gradient(to left, #242c36, #242c36, #2f4c39)"
               : "linear-gradient(to left, #242c36, #242c36, #AA4344)"
           }
-          border='2px'
+          border="2px"
           _hover={{
             background:
               props.match.winner == true
@@ -26,27 +37,38 @@ export default function MatchRow(props) {
             border: "2px solid #808080",
             cursor: "pointer",
           }}
-          marginBottom='5px'
+          marginBottom="5px"
         >
           <Flex>
             <Center>
               <Tooltip label={props.match.hero.name}>
-                <Image w='130px' minW='130px' objectFit='contain' paddingRight='30px' src={props.match.hero.img} alt={props.match.hero.name} />
+                <Image
+                  w="130px"
+                  minW="130px"
+                  objectFit="contain"
+                  paddingRight="30px"
+                  src={props.match.hero.img}
+                  alt={props.match.hero.name}
+                />
               </Tooltip>
             </Center>
             <Center>
               <Wrap>
                 <Center>
-                  <Flex w='7em' paddingRight='10px'>
+                  <Flex w="7em" paddingRight="10px">
                     <Center>
-                      <Link href={"/player/" + props.match.player_id} passHref legacyBehavior>
-                        <a rel='noopener noreferrer'>
+                      <Link
+                        href={"/player/" + props.match.player_id}
+                        passHref
+                        legacyBehavior
+                      >
+                        <a rel="noopener noreferrer">
                           <Heading
                             _hover={{
                               color: "#808080",
                               transition: "0.3s",
                             }}
-                            size='md'
+                            size="md"
                           >
                             {props.match.username}
                           </Heading>
@@ -57,28 +79,44 @@ export default function MatchRow(props) {
                   </Flex>
                 </Center>
                 <Center>
-                  <Box w='3em'>
-                    <Heading size='md'>{makeWinnerText(props.match.winner)}</Heading>
+                  <Box w="3em">
+                    <Heading size="md">
+                      {makeWinnerText(props.match.winner)}
+                    </Heading>
                   </Box>
                 </Center>
-                <Flex w='1em' paddingRight='10px'>
-                  <Center>
-                    <Heading
-                      color={calcImpact(props.match.impact) == "S+" ? "gold" : "#ffffff"}
-                      size='md'
-                      marginLeft='0.5em'
-                      sx={calcImpact(props.match.impact) == "S+" ? { textShadow: "1px 1px 20px #fff, 1px 1px 20px #ccc;" } : ""}
-                    >
-                      {calcImpact(props.match.impact)}
-                    </Heading>
-                  </Center>
+                <Flex w="1em" paddingRight="10px">
+                  <Tooltip label={"Impact Score: "+props.match.impact}>
+                    <Center>
+                      <Heading
+                        color={
+                          calcImpact(props.match.impact) == "S+"
+                            ? "gold"
+                            : "#ffffff"
+                        }
+                        size="md"
+                        marginLeft="0.5em"
+                        sx={
+                          calcImpact(props.match.impact) == "S+"
+                            ? {
+                                textShadow:
+                                  "1px 1px 20px #fff, 1px 1px 20px #ccc;",
+                              }
+                            : ""
+                        }
+                      >
+                        {calcImpact(props.match.impact)}
+                      </Heading>
+                    </Center>
+                  </Tooltip>
                 </Flex>
                 <Center>
-                  <Box w='7em' paddingRight='10px' paddingLeft='10px'>
-                    <Text fontWeight='bold' textAlign='center'>
-                      {props.match.kills}/{props.match.deaths}/{props.match.assists}
+                  <Box w="7em" paddingRight="10px" paddingLeft="10px">
+                    <Text fontWeight="bold" textAlign="center">
+                      {props.match.kills}/{props.match.deaths}/
+                      {props.match.assists}
                     </Text>
-                    <Text textAlign='center'>
+                    <Text textAlign="center">
                       {Math.floor(props.match.duration / 60)}:
                       {Math.round(props.match.duration % 60) >= 10
                         ? Math.round(props.match.duration % 60)
@@ -86,16 +124,16 @@ export default function MatchRow(props) {
                     </Text>
                   </Box>
                 </Center>
-                <Box bg='#212121'>
+                <Box bg="#212121">
                   <Box>
-                    <Wrap spacing='0px'>
+                    <Wrap spacing="0px">
                       {makeItemBox(props.match.items[0])}
                       {makeItemBox(props.match.items[1])}
                       {makeItemBox(props.match.items[2])}
                     </Wrap>
                   </Box>
                   <Box>
-                    <Wrap spacing='0px'>
+                    <Wrap spacing="0px">
                       {makeItemBox(props.match.items[3])}
                       {makeItemBox(props.match.items[4])}
                       {makeItemBox(props.match.items[5])}
@@ -103,30 +141,67 @@ export default function MatchRow(props) {
                   </Box>
                 </Box>
                 <Center>
-                  <Box w='3em'>{makeNeutralBox(props.match.items[6])}</Box>
+                  <Box w="3em">{makeNeutralBox(props.match.items[6])}</Box>
                 </Center>
                 <Center>
-                  <Box w='2em'>{makeAghBox(props.match.aghanims_scepter, props.match.aghanims_shard)}</Box>
+                  <Box w="2em">
+                    {makeAghBox(
+                      props.match.aghanims_scepter,
+                      props.match.aghanims_shard
+                    )}
+                  </Box>
                 </Center>
-                <Box paddingRight='10px' paddingLeft='10px'>
-                  <Text color='#ef3a1b' fontWeight='bold' textAlign='right'>
-                    <Link href={"https://www.dotabuff.com/matches/" + props.match.match_id} passHref legacyBehavior>
-                      <a target='_blank' rel='noopener noreferrer'>
-                        <Image src='/dotabuff-logo.png' alt='Dotabuff' boxSize='1.5em' display='inline-block' verticalAlign='middle' />
+                <Box paddingRight="10px" paddingLeft="10px">
+                  <Text color="#ef3a1b" fontWeight="bold" textAlign="right">
+                    <Link
+                      href={
+                        "https://www.dotabuff.com/matches/" +
+                        props.match.match_id
+                      }
+                      passHref
+                      legacyBehavior
+                    >
+                      <a target="_blank" rel="noopener noreferrer">
+                        <Image
+                          src="/dotabuff-logo.png"
+                          alt="Dotabuff"
+                          boxSize="1.5em"
+                          display="inline-block"
+                          verticalAlign="middle"
+                        />
                       </a>
                     </Link>
                   </Text>
-                  <Text color='#00c59e' fontWeight='bold' textAlign='right'>
-                    <Link href={"https://www.opendota.com/matches/" + props.match.match_id} passHref legacyBehavior>
-                      <a target='_blank' rel='noopener noreferrer'>
-                        <Image src='/opendota-logo.png' alt='OpenDota' boxSize='1.5em' display='inline-block' verticalAlign='middle' />
+                  <Text color="#00c59e" fontWeight="bold" textAlign="right">
+                    <Link
+                      href={
+                        "https://www.opendota.com/matches/" +
+                        props.match.match_id
+                      }
+                      passHref
+                      legacyBehavior
+                    >
+                      <a target="_blank" rel="noopener noreferrer">
+                        <Image
+                          src="/opendota-logo.png"
+                          alt="OpenDota"
+                          boxSize="1.5em"
+                          display="inline-block"
+                          verticalAlign="middle"
+                        />
                       </a>
                     </Link>
                   </Text>
                 </Box>
                 <Center>
-                  <Box w='8em'>
-                    <Text> {calculateTime(props.match.start_time, props.match.duration)}</Text>
+                  <Box w="8em">
+                    <Text>
+                      {" "}
+                      {calculateTime(
+                        props.match.start_time,
+                        props.match.duration
+                      )}
+                    </Text>
                   </Box>
                 </Center>
               </Wrap>
@@ -140,9 +215,9 @@ export default function MatchRow(props) {
 
 function makeWinnerText(bool) {
   if (bool) {
-    return <Text color='green'>WIN</Text>;
+    return <Text color="green">WIN</Text>;
   } else {
-    return <Text color='red'>LOSS</Text>;
+    return <Text color="red">LOSS</Text>;
   }
 }
 
@@ -167,12 +242,12 @@ function calculateTime(epoch, duration) {
 
 function makeItemBox(item) {
   if (item.id == 0) {
-    return <Box bg='radial-gradient(#333333, #1a1a1a);' w='2.3em' />;
+    return <Box bg="radial-gradient(#333333, #1a1a1a);" w="2.3em" />;
   } else {
     return (
       <Tooltip label={item.name}>
-        <Box bg='#212121'>
-          <Image src={item.img} alt={item.name} overflow='hidden' w='2.3em' />
+        <Box bg="#212121">
+          <Image src={item.img} alt={item.name} overflow="hidden" w="2.3em" />
         </Box>
       </Tooltip>
     );
@@ -181,12 +256,22 @@ function makeItemBox(item) {
 
 function makeNeutralBox(item) {
   if (item.id == 0) {
-    return <Box bg='radial-gradient(#8D99AE, #212121);' w='2em' borderRadius={500} />;
+    return (
+      <Box bg="radial-gradient(#8D99AE, #212121);" w="2em" borderRadius={500} />
+    );
   } else {
     return (
       <Tooltip label={item.name}>
         <Box>
-          <Image src={item.img} alt={item.name} objectFit='cover' overflow='hidden' w='2em' h='2em' borderRadius={500} />
+          <Image
+            src={item.img}
+            alt={item.name}
+            objectFit="cover"
+            overflow="hidden"
+            w="2em"
+            h="2em"
+            borderRadius={500}
+          />
         </Box>
       </Tooltip>
     );
@@ -211,29 +296,29 @@ function makeAghBox(scepter, shard) {
   if (scepter == 0 && shard == 0) {
     return (
       <Box>
-        <Image src='/scepter_0.png' />
-        <Image src='/shard_0.png' />
+        <Image src="/scepter_0.png" />
+        <Image src="/shard_0.png" />
       </Box>
     );
   } else if (scepter == 1 && shard == 0) {
     return (
       <Box>
-        <Image src='/scepter_1.png' />
-        <Image src='/shard_0.png' />
+        <Image src="/scepter_1.png" />
+        <Image src="/shard_0.png" />
       </Box>
     );
   } else if (scepter == 0 && shard == 1) {
     return (
       <Box>
-        <Image src='/scepter_0.png' />
-        <Image src='/shard_1.png' />
+        <Image src="/scepter_0.png" />
+        <Image src="/shard_1.png" />
       </Box>
     );
   } else {
     return (
       <Box>
-        <Image src='/scepter_1.png' />
-        <Image src='/shard_1.png' />
+        <Image src="/scepter_1.png" />
+        <Image src="/shard_1.png" />
       </Box>
     );
   }

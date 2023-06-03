@@ -17,7 +17,7 @@ async function getMatchData() {
     .from("match_data")
     .select("*, matches!inner(*), players(*)")
     .gte("matches.start_time", Math.floor(d.valueOf() / 1000))
-    .order("kills", { ascending: false })
+    .order("impact", { ascending: true })
     .limit(3);
   if (data.error == null && data.data.length > 0) {
     for (let index = 0; index < data.data.length; index++) {

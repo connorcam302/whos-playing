@@ -141,7 +141,7 @@ export default function PlayerPage() {
                   <Spacer />
                 </Stack>
               </Stack>
-              <Statbox type='hero' days='14' limit='8' title='Hero Stats' player={router.query.id} />
+              <Statbox type='hero' days='31' limit='8' title='Hero Stats' player={router.query.id} />
             </Wrap>
           </Center>
           <GetMatchHelper key={page} playerid={router.query.id} pageNumber={page} />
@@ -176,7 +176,7 @@ export default function PlayerPage() {
                   <Spacer />
                 </Stack>
                 <Box w='22.5em'>
-                  <Statbox type='hero' days='14' limit='8' title='Hero Stats' player={router.query.id} />
+                  <Statbox type='hero' days='31' limit='8' title='Hero Stats' player={router.query.id} />
                 </Box>
               </Wrap>
           </Center>

@@ -6,6 +6,8 @@ import Descending from "./featureBoxes/Descending";
 import GPM from "./featureBoxes/GPM";
 import Impact from "./featureBoxes/Impact";
 import Kills from "./featureBoxes/Kills";
+import LowestImpact from "./featureBoxes/LowestImpact";
+import Assists from "./featureBoxes/Assists";
 
 const Feature = (props) => {
   const [descending, setDescending] = useState([]);
@@ -46,15 +48,17 @@ const Feature = (props) => {
         backgroundImage={`/api/splash-art`}
         backgroundPosition={"center"}
         w={"100%"}
-        h="25em"
+        h="35em"
       >
         <Center h={"100%"} backgroundColor={"rgba(0,0,0,0.75)"}>
-          <Wrap w={"60em"} spacing="50px" justify="center" padding="1em">
+          <Wrap w={"80em"} spacing="50px" justify="center" padding="1em">
             <Kills />
+            <Deaths />
             <Impact />
             <Climbing />
-            <Deaths />
             <GPM />
+            <Assists/>
+            <LowestImpact/>
             <Descending />
           </Wrap>
         </Center>

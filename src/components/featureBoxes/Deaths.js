@@ -11,6 +11,7 @@ import {
   Wrap,
   Spacer,
   Spinner,
+  Divider,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { React, useEffect, useState } from "react";
@@ -45,10 +46,10 @@ const Deaths = (props) => {
     </FeatureBox>;
   } else {
     return (
-      <MatchModal matchid={deaths.match_id}>
-        <FeatureBox>
+      <FeatureBox>
+        <MatchModal matchid={deaths[0].match_id}>
           <Box
-            backgroundImage={heroMap.get(deaths.hero_id).img}
+            backgroundImage={heroMap.get(deaths[0].hero_id).img}
             backgroundPosition={"center"}
             backgroundSize={"100%"}
             backgroundRepeat={"no-repeat"}
@@ -72,7 +73,7 @@ const Deaths = (props) => {
                 <Wrap paddingLeft={"0.5em"} paddingRight={"0.5em"}>
                   <Center>
                     <Link
-                      href={"/player/" + deaths.player_id}
+                      href={"/player/" + deaths[0].player_id}
                       passHref
                       legacyBehavior
                     >
@@ -85,19 +86,108 @@ const Deaths = (props) => {
                           }}
                           size="lg"
                         >
-                          {deaths.username}
+                          {deaths[0].username}
                         </Heading>
                       </a>
                     </Link>
                   </Center>
                   <Spacer />
-                  <Heading textColor="red">{deaths.deaths}</Heading>
+                  <Heading textColor="red">{deaths[0].deaths}</Heading>
                 </Wrap>
               </Stack>
             </Box>
           </Box>
-        </FeatureBox>
-      </MatchModal>
+        </MatchModal>
+        <Stack spacing={"0"}>
+          <MatchModal matchid={deaths[1].match_id}>
+            <Wrap
+              padding={"0.5em"}
+              paddingLeft={"1em"}
+              paddingRight={"1em"}
+              _hover={{
+                backgroundColor: "#0c0f12",
+                transition: "0.3s",
+                cursor: "pointer",
+              }}
+            >
+              <Center w={"3em"}>
+                <Image src={heroMap.get(deaths[1].hero_id).img} />
+              </Center>
+              <Center>
+              <Link
+                    href={"/player/" + deaths[1].player_id}
+                    passHref
+                    legacyBehavior
+                  >
+                    <a rel="noopener noreferrer">
+                      <Heading
+                        _hover={{
+                          color: "#808080",
+                          transition: "0.3s",
+                          textDecoration: "none",
+                        }}
+                        size="md"
+                      >
+                        {deaths[1].username}
+                      </Heading>
+                    </a>
+                  </Link>
+              </Center>
+              <Spacer />
+              <Center>
+                <Heading size="md" textColor={"red"}>
+                  {deaths[1].deaths}
+                </Heading>
+              </Center>
+            </Wrap>
+          </MatchModal>
+          <Box paddingLeft={"0.5em"} paddingRight={"0.5em"}>
+            <Divider />
+          </Box>
+          <MatchModal matchid={deaths[2].match_id}>
+            <Wrap
+              padding={"0.5em"}
+              paddingLeft={"1em"}
+              paddingRight={"1em"}
+              _hover={{
+                backgroundColor: "#0c0f12",
+                transition: "0.3s",
+                cursor: "pointer",
+              }}
+            >
+              <Center w={"3em"}>
+                <Image src={heroMap.get(deaths[2].hero_id).img} />
+              </Center>
+              <Center>
+              <Link
+                    href={"/player/" + deaths[2].player_id}
+                    passHref
+                    legacyBehavior
+                  >
+                    <a rel="noopener noreferrer">
+                      <Heading
+                        _hover={{
+                          color: "#808080",
+                          transition: "0.3s",
+                          textDecoration: "none",
+                        }}
+                        size="md"
+                      >
+                        {deaths[2].username}
+                      </Heading>
+                    </a>
+                  </Link>
+              </Center>
+              <Spacer />
+              <Center>
+                <Heading size="md" textColor={"red"}>
+                  {deaths[2].deaths}
+                </Heading>
+              </Center>
+            </Wrap>
+          </MatchModal>
+        </Stack>
+      </FeatureBox>
     );
   }
 };
