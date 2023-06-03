@@ -14,7 +14,6 @@ import React from "react";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { BsFillPersonFill } from "react-icons/bs";
 import MatchModal from "./MatchModal";
-import ImpactTooltip from "./ImpactTooltip";
 
 export default function MatchRow(props) {
   if (props.match.status != 404) {
