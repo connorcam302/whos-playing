@@ -11,6 +11,8 @@ import {
   Wrap,
   Spacer,
   Spinner,
+  Tooltip,
+  Divider,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { React, useEffect, useState } from "react";
@@ -45,10 +47,11 @@ const Impact = (props) => {
     </FeatureBox>;
   } else {
     return (
-      <MatchModal matchid={impact.match_id}>
+      
         <FeatureBox>
+          <MatchModal matchid={impact[0].match_id}>
           <Box
-            backgroundImage={heroMap.get(impact.hero_id).img}
+            backgroundImage={heroMap.get(impact[0].hero_id).img}
             backgroundPosition={"center"}
             backgroundSize={"100%"}
             backgroundRepeat={"no-repeat"}
@@ -72,7 +75,7 @@ const Impact = (props) => {
                 <Wrap paddingLeft={"0.5em"} paddingRight={"0.5em"}>
                   <Center>
                     <Link
-                      href={"/player/" + impact.player_id}
+                      href={"/player/" + impact[0].player_id}
                       passHref
                       legacyBehavior
                     >
@@ -85,34 +88,162 @@ const Impact = (props) => {
                           }}
                           size="lg"
                         >
-                          {impact.username}
+                          {impact[0].username}
                         </Heading>
                       </a>
                     </Link>
                   </Center>
                   <Spacer />
-                  <Heading
-                    color={
-                      calcImpact(impact.impact) == "S+" ? "gold" : "#ffffff"
-                    }
-                    size="xl"
-                    sx={
-                      calcImpact(impact.impact) == "S+"
-                        ? {
-                            textShadow: "1px 1px 12px #fff, 1px 1px 12px #ccc;",
-                          }
-                        : ""
-                    }
-                    padding="0.12em"
-                  >
-                    {calcImpact(impact.impact)}
-                  </Heading>
+                  <Tooltip label={"Impact Score: " + impact[0].impact}>
+                    <Heading
+                      color={
+                        calcImpact(impact[0].impact) == "S+"
+                          ? "gold"
+                          : "#ffffff"
+                      }
+                      size="xl"
+                      sx={
+                        calcImpact(impact[0].impact) == "S+"
+                          ? {
+                              textShadow:
+                                "1px 1px 12px #fff, 1px 1px 12px #ccc;",
+                            }
+                          : ""
+                      }
+                      padding="0.12em"
+                    >
+                      {calcImpact(impact[0].impact)}
+                    </Heading>
+                  </Tooltip>
                 </Wrap>
               </Stack>
             </Box>
           </Box>
+          </MatchModal>
+          <Stack spacing={"0"}>
+            <MatchModal matchid={impact[1].match_id}>
+              <Wrap
+                padding={"0.5em"}
+                paddingLeft={"1em"}
+                paddingRight={"1em"}
+                _hover={{
+                  backgroundColor: "#0c0f12",
+                  transition: "0.3s",
+                  cursor: "pointer",
+                }}
+              >
+                <Center w={"3em"}>
+                  <Image src={heroMap.get(impact[1].hero_id).img} />
+                </Center>
+                <Center>
+                  <Link
+                    href={"/player/" + impact[1].player_id}
+                    passHref
+                    legacyBehavior
+                  >
+                    <a rel="noopener noreferrer">
+                      <Heading
+                        _hover={{
+                          color: "#808080",
+                          transition: "0.3s",
+                          textDecoration: "none",
+                        }}
+                        size="md"
+                      >
+                        {impact[1].username}
+                      </Heading>
+                    </a>
+                  </Link>
+                </Center>
+                <Spacer />
+                <Center>
+                  <Tooltip label={"Impact Score: " + impact[1].impact}>
+                    <Heading
+                      color={
+                        calcImpact(impact[1].impact) == "S+"
+                          ? "gold"
+                          : "#ffffff"
+                      }
+                      size="md"
+                      sx={
+                        calcImpact(impact[1].impact) == "S+"
+                          ? {
+                              textShadow:
+                                "1px 1px 12px #fff, 1px 1px 12px #ccc;",
+                            }
+                          : ""
+                      }
+                    >
+                      {calcImpact(impact[1].impact)}
+                    </Heading>
+                  </Tooltip>
+                </Center>
+              </Wrap>
+            </MatchModal>
+            <Box paddingLeft={"0.5em"} paddingRight={"0.5em"}>
+              <Divider />
+            </Box>
+            <MatchModal matchid={impact[2].match_id}>
+              <Wrap
+                padding={"0.5em"}
+                paddingLeft={"1em"}
+                paddingRight={"1em"}
+                _hover={{
+                  backgroundColor: "#0c0f12",
+                  transition: "0.3s",
+                  cursor: "pointer",
+                }}
+              >
+                <Center w={"3em"}>
+                  <Image src={heroMap.get(impact[2].hero_id).img} />
+                </Center>
+                <Center>
+                  <Link
+                    href={"/player/" + impact[2].player_id}
+                    passHref
+                    legacyBehavior
+                  >
+                    <a rel="noopener noreferrer">
+                      <Heading
+                        _hover={{
+                          color: "#808080",
+                          transition: "0.3s",
+                          textDecoration: "none",
+                        }}
+                        size="md"
+                      >
+                        {impact[2].username}
+                      </Heading>
+                    </a>
+                  </Link>
+                </Center>
+                <Spacer />
+                <Center>
+                  <Tooltip label={"Impact Score: " + impact[2].impact}>
+                    <Heading
+                      color={
+                        calcImpact(impact[2].impact) == "S+"
+                          ? "gold"
+                          : "#ffffff"
+                      }
+                      size="md"
+                      sx={
+                        calcImpact(impact[2].impact) == "S+"
+                          ? {
+                              textShadow:
+                                "1px 1px 12px #fff, 1px 1px 12px #ccc;",
+                            }
+                          : ""
+                      }
+                    >
+                      {calcImpact(impact[2].impact)}
+                    </Heading>
+                  </Tooltip>
+                </Center>
+              </Wrap>
+            </MatchModal>
+          </Stack>
         </FeatureBox>
-      </MatchModal>
     );
   }
 };

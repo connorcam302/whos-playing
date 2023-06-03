@@ -11,6 +11,7 @@ import {
   Wrap,
   Spacer,
   Spinner,
+  Divider,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { React, useEffect, useState } from "react";
@@ -45,10 +46,10 @@ const GPM = (props) => {
     </FeatureBox>;
   } else {
     return (
-      <MatchModal matchid={gpm.match_id}>
+      <MatchModal matchid={gpm[0].match_id}>
         <FeatureBox>
           <Box
-            backgroundImage={heroMap.get(gpm.hero_id).img}
+            backgroundImage={heroMap.get(gpm[0].hero_id).img}
             backgroundPosition={"center"}
             backgroundSize={"100%"}
             backgroundRepeat={"no-repeat"}
@@ -72,7 +73,7 @@ const GPM = (props) => {
                 <Wrap paddingLeft={"0.5em"} paddingRight={"0.5em"}>
                   <Center>
                     <Link
-                      href={"/player/" + gpm.player_id}
+                      href={"/player/" + gpm[0].player_id}
                       passHref
                       legacyBehavior
                     >
@@ -85,17 +86,106 @@ const GPM = (props) => {
                           }}
                           size="lg"
                         >
-                          {gpm.username}
+                          {gpm[0].username}
                         </Heading>
                       </a>
                     </Link>
                   </Center>
                   <Spacer />
-                  <Heading textColor={"GoldenRod"}>{gpm.gold_per_min}</Heading>
+                  <Heading textColor={"GoldenRod"}>{gpm[0].gold_per_min}</Heading>
                 </Wrap>
               </Stack>
             </Box>
           </Box>
+          <Stack spacing={"0"}>
+            <MatchModal matchid={gpm[1].match_id}>
+              <Wrap
+                padding={"0.5em"}
+                paddingLeft={"1em"}
+                paddingRight={"1em"}
+                _hover={{
+                  backgroundColor: "#0c0f12",
+                  transition: "0.3s",
+                  cursor: "pointer",
+                }}
+              >
+                <Center w={"3em"}>
+                  <Image src={heroMap.get(gpm[1].hero_id).img} />
+                </Center>
+                <Center>
+                  <Link
+                    href={"/player/" + gpm[1].player_id}
+                    passHref
+                    legacyBehavior
+                  >
+                    <a rel="noopener noreferrer">
+                      <Heading
+                        _hover={{
+                          color: "#808080",
+                          transition: "0.3s",
+                          textDecoration: "none",
+                        }}
+                        size="md"
+                      >
+                        {gpm[1].username}
+                      </Heading>
+                    </a>
+                  </Link>
+                </Center>
+                <Spacer />
+                <Center>
+                  <Heading size="md" textColor={"GoldenRod"}>
+                    {gpm[1].gold_per_min}
+                  </Heading>
+                </Center>
+              </Wrap>
+            </MatchModal>
+            <Box paddingLeft={"0.5em"} paddingRight={"0.5em"}>
+              <Divider />
+            </Box>
+            <MatchModal matchid={gpm[2].match_id}>
+              <Wrap
+                padding={"0.5em"}
+                paddingLeft={"1em"}
+                paddingRight={"1em"}
+                _hover={{
+                  backgroundColor: "#0c0f12",
+                  transition: "0.3s",
+                  cursor: "pointer",
+                }}
+              >
+                <Center w={"3em"}>
+                  <Image src={heroMap.get(gpm[2].hero_id).img} />
+                </Center>
+                <Center>
+                  <Link
+                    href={"/player/" + gpm[2].player_id}
+                    passHref
+                    legacyBehavior
+                  >
+                    <a rel="noopener noreferrer">
+                      <Heading
+                        _hover={{
+                          color: "#808080",
+                          transition: "0.3s",
+                          textDecoration: "none",
+                        }}
+                        size="md"
+                      >
+                        {gpm[2].username}
+                      </Heading>
+                    </a>
+                  </Link>
+                </Center>
+                <Spacer />
+                <Center>
+                  <Heading size="md" textColor={"GoldenRod"}>
+                    {gpm[2].gold_per_min}
+                  </Heading>
+                </Center>
+              </Wrap>
+            </MatchModal>
+          </Stack>
         </FeatureBox>
       </MatchModal>
     );

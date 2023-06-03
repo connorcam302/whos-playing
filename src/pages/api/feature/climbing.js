@@ -13,11 +13,13 @@ export default async function handler(req, res) {
     newData.map((player) => {
       data.push(player.value);
     });
-    let largest = findBiggest(data);
-    largest.username = players.filter(
-      (player) => player.id == largest.id
-    )[0].username;
-    res.status(200).json(largest);
+    data.map(
+      (player) =>
+        (player.username = players.filter(
+          (player2) => player2.id == player.id
+        )[0].username)
+    );
+    res.status(200).json(sortBySumOfProperties(data, 'wins', 'losses').reverse().slice(0, 3));
   });
 }
 
@@ -46,27 +48,25 @@ async function getWinLoss(id) {
     }
   }
 
-  var player = {id: id, wins:0 , losses:0};
+  var player = { id: id, wins: 0, losses: 0 };
 
   player.wins = allMatches.filter((match) => match.winner).length;
   player.losses = allMatches.filter((match) => !match.winner).length;
 
-  return player
+  return player;
 }
 
-function findBiggest(array) {
-  let maxCombination = -Infinity;
-  let maxObject = null;
+function sortBySumOfProperties(arr, prop1, prop2) {
+  return arr.sort((a, b) => {
+    const sumA = a[prop1] - a[prop2];
+    const sumB = b[prop1] - b[prop2];
 
-  for (let i = 0; i < array.length; i++) {
-    const object = array[i];
-    const combination = object.wins - object.losses;
-
-    if (combination > maxCombination) {
-      maxCombination = combination;
-      maxObject = object;
+    if (sumA < sumB) {
+      return -1; // a should come before b
+    } else if (sumA > sumB) {
+      return 1; // b should come before a
+    } else {
+      return 0; // sums are equal
     }
-  }
-
-  return maxObject;
+  });
 }

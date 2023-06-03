@@ -6,7 +6,7 @@ dotenv.config();
 
 export default async function handler(req, res) {
   let data = await getMatchData();
-  res.status(200).json(data[0]);
+  res.status(200).json(data);
 }
 
 async function getMatchData() {
@@ -18,7 +18,7 @@ async function getMatchData() {
     .select("*, matches!inner(*), players(*)")
     .gte("matches.start_time", Math.floor(d.valueOf() / 1000))
     .order("deaths", { ascending: false })
-    .limit(1);
+    .limit(3);
   if (data.error == null && data.data.length > 0) {
     for (let index = 0; index < data.data.length; index++) {
       data.data[index].start_time = data.data[index].matches.start_time;
