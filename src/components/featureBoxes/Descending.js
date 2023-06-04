@@ -58,7 +58,7 @@ const Descending = (props) => {
           <Stack>
             <Heading size={"xl"} textAlign={"center"}>
               <Link
-                href={"/player/" + descending[1].player_id}
+                href={"/player/" + descending[0].id}
                 passHref
                 legacyBehavior
               >
@@ -105,7 +105,7 @@ const Descending = (props) => {
           >
             <Center>
               <Link
-                href={"/player/" + descending[1].player_id}
+                href={"/player/" + descending[1].id}
                 passHref
                 legacyBehavior
               >
@@ -146,7 +146,7 @@ const Descending = (props) => {
           >
             <Center>
               <Link
-                href={"/player/" + descending[2].player_id}
+                href={"/player/" + descending[2].id}
                 passHref
                 legacyBehavior
               >
