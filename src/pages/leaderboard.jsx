@@ -97,7 +97,7 @@ export default function MatchPage() {
           ))}
         </Stack>
       </Center>
-    </>
+    </>)
 }
 const ranks = [];
 ranks["11"] = "SeasonalRank1-1.png";
