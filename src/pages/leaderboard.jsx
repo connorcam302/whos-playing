@@ -42,40 +42,39 @@ export default function MatchPage() {
 
   const [players, setPlayers] = useState([]);
   const [loaded, setLoaded] = useState([]);
-  // const getLeaderboard = () => {
-  //   fetch(`/api/leaderboard`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setPlayers(data);
-  //       setLoaded(true);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+  const getLeaderboard = () => {
+    fetch(`/api/leaderboard`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPlayers(data);
+        setLoaded(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   useEffect(() => {
-    setPlayers(list);
+    // getLeaderboard();
+    setPlayers([
+      { id: 312271581, name: "Sighboys", rank: 80, leaderboard: 3358 },
+      { id: 231268625, name: "Matthew", rank: 80 },
+      { id: 80370391, name: "Bingham", rank: 80 },
+      { id: 131178836, name: "Harry", rank: 80 },
+      { id: 294548916, name: "Colfox", rank: 71 },
+      { id: 229886086, name: "Callum", rank: 65 },
+      { id: 106505218, name: "Tom", rank: 64 },
+      { id: 313381411, name: "Brock", rank: 63 },
+      { id: 110099229, name: "Dom", rank: 61 },
+      { id: 132022693, name: "Steve", rank: 54 },
+      { id: 110022302, name: "Evan", rank: 52 },
+      { id: 198739564, name: "Sam", rank: 44 },
+      { id: 258517108, name: "Frenchy", rank: 42 },
+      { id: 100848859, name: "Liam", rank: 42 },
+      { id: 80321157, name: "Joe", rank: 34 },
+      { id: 328412884, name: "Shane", rank: -1 },
+      { id: 132939229, name: "Phil", rank: -1 },
+    ]);
   }, []);
-
-  let list = [
-    { id: 312271581, name: "Sighboys", rank: 80, leaderboard: 3397 },
-    { id: 231268625, name: "Matthew", rank: 80 },
-    { id: 80370391, name: "Bingham", rank: 80 },
-    { id: 131178836, name: "Harry", rank: 80 },
-    { id: 294548916, name: "Colfox", rank: 71 },
-    { id: 229886086, name: "Callum", rank: 71 },
-    { id: 106505218, name: "Tom", rank: 64 },
-    { id: 313381411, name: "Brock", rank: 63 },
-    { id: 110099229, name: "Dom", rank: 61 },
-    { id: 132022693, name: "Steve", rank: 54 },
-    { id: 198739564, name: "Sam", rank: 42 },
-    { id: 100848859, name: "Liam", rank: 41 },
-    { id: 80321157, name: "Joe", rank: 34 },
-    { id: 328412884, name: "Shane", rank: -1 },
-    { id: 258517108, name: "Frenchy", rank: -1 },
-    { id: 132939229, name: "Phil", rank: -1 },
-    { id: 110022302, name: "Evan", rank: -1 },
-  ];
 
   return (
     <>
@@ -109,7 +108,9 @@ export default function MatchPage() {
                   h={"3.5em"}
                 >
                   <Center paddingTop="2.1em">
-                    <Text fontWeight="bold" textShadow="2px 2px 10px black">{player.leaderboard}</Text>
+                    <Text fontWeight="bold" textShadow="2px 2px 10px black">
+                      {player.leaderboard}
+                    </Text>
                   </Center>
                 </Box>
               </Center>
@@ -119,16 +120,6 @@ export default function MatchPage() {
       </Center>
     </>
   );
-  //   } else {
-  //     return (
-  //       <>
-  //         <Helmet>
-  //           <title>Leaderboard</title>
-  //         </Helmet>
-  //         <Center margin={5}></Center>
-  //       </>
-  //     );
-  //   }
 }
 const ranks = [];
 ranks["11"] = "SeasonalRank1-1.png";
