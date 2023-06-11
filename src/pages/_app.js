@@ -6,6 +6,7 @@ import { Inter } from '@next/font/google';
 
 // 1. Import the extendTheme function
 import { extendTheme } from "@chakra-ui/react";
+import { Footer } from "../components/Footer";
 
 // 2. Extend the theme to include custom colors, fonts, etc
 const colors = {
@@ -76,6 +77,7 @@ function MyApp({ Component, pageProps }) {
       <ChakraProvider theme={theme}>
         <Navbar />
         <Component {...pageProps} />
+        <Footer />
         <Analytics />
       </ChakraProvider>
     </main>
