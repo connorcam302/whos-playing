@@ -55,7 +55,7 @@ const Climbing = (props) => {
           <Stack>
             <Heading size={"xl"} textAlign={"center"}>
             <Link
-                href={"/player/" + climbing[1].id}
+                href={"/player/" + climbing[0].id}
                 passHref
                 legacyBehavior
               >
