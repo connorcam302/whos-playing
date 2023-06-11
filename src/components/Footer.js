@@ -56,7 +56,7 @@ export const Footer = () => (
         />
       </Wrap>
       <Text fontSize="sm" color="white" textAlign={"center"}>
-        &copy; {new Date().getFullYear()} whos-playing | Connor Campbell
+        whos-playing | Connor Campbell
       </Text>
     </Stack>
   </Container>
