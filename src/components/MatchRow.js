@@ -78,7 +78,7 @@ export default function MatchRow(props) {
                   </Flex>
                 </Center>
                 <Center>
-                  <Box w="3em">
+                  <Box w="4em">
                     <Heading size="md">
                       {makeWinnerText(props.match.winner)}
                     </Heading>

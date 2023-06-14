@@ -12,6 +12,7 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 
@@ -95,7 +96,17 @@ export default function MatchPage() {
                 <Heading textAlign={"right"}>{`${index + 1}. `}</Heading>
               </Center>
               <Center paddingLeft={"0.5em"}>
-                <Heading>{player.name}</Heading>
+                <Link href={`/player/${player.id}`}>
+                  <Heading
+                    _hover={{
+                      color: "#808080",
+                      transition: "0.3s",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {player.name}
+                  </Heading>
+                </Link>
               </Center>
               <Spacer />
               <Center paddingTop={"0.2em"} paddingBottom={"0.2em"} w={"4em"}>
