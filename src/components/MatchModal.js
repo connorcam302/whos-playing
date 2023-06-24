@@ -524,7 +524,7 @@ function MatchModal(props) {
                             <Td padding="2px" isNumeric>
                               <Center>
                                 <Tooltip
-                                  label={calcImpactNum(player, data.duration)}
+                                  label={"Impact Score: " + calcImpactNum(player, data.duration)}
                                 >
                                   <Text
                                     color={
