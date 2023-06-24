@@ -859,10 +859,10 @@ function calcImpact(impact) {
   if (impact > 30) {
     return "F+";
   }
-  if (impact > 25) {
+  if (impact >= 20) {
     return "F";
   }
-  if (impact >= 20) {
+  if (impact < 20) {
     return "F-";
   } else {
     return "Error";
