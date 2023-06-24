@@ -12,6 +12,7 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 
@@ -54,26 +55,26 @@ export default function MatchPage() {
       });
   };
   useEffect(() => {
-    // getLeaderboard();
-    setPlayers([
-      { id: 312271581, name: "Sighboys", rank: 80, leaderboard: 3358 },
-      { id: 231268625, name: "Matthew", rank: 80 },
-      { id: 80370391, name: "Bingham", rank: 80 },
-      { id: 131178836, name: "Harry", rank: 80 },
-      { id: 294548916, name: "Colfox", rank: 71 },
-      { id: 229886086, name: "Callum", rank: 65 },
-      { id: 106505218, name: "Tom", rank: 64 },
-      { id: 313381411, name: "Brock", rank: 63 },
-      { id: 110099229, name: "Dom", rank: 61 },
-      { id: 132022693, name: "Steve", rank: 54 },
-      { id: 110022302, name: "Evan", rank: 52 },
-      { id: 198739564, name: "Sam", rank: 44 },
-      { id: 258517108, name: "Frenchy", rank: 42 },
-      { id: 100848859, name: "Liam", rank: 42 },
-      { id: 80321157, name: "Joe", rank: 34 },
-      { id: 328412884, name: "Shane", rank: -1 },
-      { id: 132939229, name: "Phil", rank: -1 },
-    ]);
+    getLeaderboard();
+    // setPlayers([
+    //   { id: 312271581, name: "Sighboys", rank: 80, leaderboard: 3358 },
+    //   { id: 231268625, name: "Matthew", rank: 80 },
+    //   { id: 80370391, name: "Bingham", rank: 80 },
+    //   { id: 131178836, name: "Harry", rank: 80 },
+    //   { id: 294548916, name: "Colfox", rank: 71 },
+    //   { id: 229886086, name: "Callum", rank: 65 },
+    //   { id: 106505218, name: "Tom", rank: 64 },
+    //   { id: 313381411, name: "Brock", rank: 63 },
+    //   { id: 110099229, name: "Dom", rank: 61 },
+    //   { id: 132022693, name: "Steve", rank: 54 },
+    //   { id: 110022302, name: "Evan", rank: 52 },
+    //   { id: 198739564, name: "Sam", rank: 44 },
+    //   { id: 258517108, name: "Frenchy", rank: 42 },
+    //   { id: 100848859, name: "Liam", rank: 42 },
+    //   { id: 80321157, name: "Joe", rank: 34 },
+    //   { id: 328412884, name: "Shane", rank: -1 },
+    //   { id: 132939229, name: "Phil", rank: -1 },
+    // ]);
   }, []);
 
   return (
@@ -95,7 +96,17 @@ export default function MatchPage() {
                 <Heading textAlign={"right"}>{`${index + 1}. `}</Heading>
               </Center>
               <Center paddingLeft={"0.5em"}>
-                <Heading>{player.name}</Heading>
+                <Link href={`/player/${player.id}`}>
+                  <Heading
+                    _hover={{
+                      color: "#808080",
+                      transition: "0.3s",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {player.name}
+                  </Heading>
+                </Link>
               </Center>
               <Spacer />
               <Center paddingTop={"0.2em"} paddingBottom={"0.2em"} w={"4em"}>

@@ -75,7 +75,7 @@ const Statbox = (props) => {
             </Text>
           </Center>
         </Wrap>
-        <Box bg='#242c36' padding='15px' paddingTop='5px' maxWidth={500}>
+        <Box bg='#242c36' padding='15px' paddingTop='5px'>
           <Stack>{makeBars(stats, props, width)}</Stack>
         </Box>
       </Box>
