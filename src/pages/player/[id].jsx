@@ -180,6 +180,7 @@ export default function PlayerPage() {
                 </Box>
               </Wrap>
           </Center>
+          <Box h={"0.5em"}/>
           <GetMatchHelper key={page} playerid={router.query.id} pageNumber={page} card='true' />
           <PageButtons increase={increasePage} decrease={decreasePage} />
         </>

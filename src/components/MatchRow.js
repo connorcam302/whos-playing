@@ -85,24 +85,23 @@ export default function MatchRow(props) {
                   </Box>
                 </Center>
                 <Flex w="1em" paddingRight="10px">
-                  <Tooltip label={"Impact Score: "+props.match.impact}>
+                  <Tooltip label={"Impact Score: " + props.match.impact}>
                     <Center>
                       <Heading
                         color={
-                          calcImpact(props.match.impact) == "S+"
-                            ? "gold"
-                            : "#ffffff"
+                          {
+                            "S+": "gold",
+                            "F-": "#B7791F",
+                          }[calcImpact(props.match.impact)] || "#ffffff"
                         }
                         size="md"
-                        marginLeft="0.5em"
-                        sx={
-                          calcImpact(props.match.impact) == "S+"
-                            ? {
-                                textShadow:
-                                  "1px 1px 20px #fff, 1px 1px 20px #ccc;",
-                              }
-                            : ""
-                        }
+                        sx={{
+                          textShadow:
+                            {
+                              "S+": "1px 1px 12px #fff, 1px 1px 12px #ccc;",
+                              "F-": "1px 1px 12px #B7791F, 1px 1px 12px #B7791F;",
+                            }[calcImpact(props.match.impact)] || "",
+                        }}
                       >
                         {calcImpact(props.match.impact)}
                       </Heading>
@@ -195,7 +194,6 @@ export default function MatchRow(props) {
                 <Center>
                   <Box w="8em">
                     <Text>
-                      {" "}
                       {calculateTime(
                         props.match.start_time,
                         props.match.duration
@@ -402,11 +400,20 @@ function calcImpact(impact) {
   if (impact > 40) {
     return "D+";
   }
-  if (impact >= 35) {
+  if (impact > 35) {
     return "D";
   }
-  if (impact < 35) {
+  if (impact > 35) {
     return "D-";
+  }
+  if (impact > 30) {
+    return "F+";
+  }
+  if (impact > 25) {
+    return "F";
+  }
+  if (impact >= 20) {
+    return "F-";
   } else {
     return "Error";
   }

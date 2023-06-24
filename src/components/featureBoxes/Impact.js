@@ -295,6 +295,15 @@ function calcImpact(impact) {
   }
   if (impact < 35) {
     return "D-";
+  }
+  if (impact >= 30) {
+    return "F+";
+  }
+  if (impact >= 25) {
+    return "F";
+  }
+  if (impact >= 20) {
+    return "F-";
   } else {
     return "Error";
   }
