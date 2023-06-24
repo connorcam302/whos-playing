@@ -121,7 +121,7 @@ export default function MatchCard(props) {
             legacyBehavior
           >
             <a rel="noopener noreferrer">
-              <Flex w="4em">
+              <Flex w="6em">
                 <Center>
                   <Heading size="sm" textAlign={"left"}>
                     {props.match.username}
@@ -161,7 +161,7 @@ export default function MatchCard(props) {
         <Center>
           <Stack spacing={"0"}>
             <Center>
-              <Text textAlign="center" fontSize="sm">
+              <Text textAlign="center" fontSize="sm" fontWeight="bold" >
                 {props.match.kills}/{props.match.deaths}/{props.match.assists}
               </Text>
             </Center>
