@@ -144,7 +144,7 @@ const DesktopNav = () => {
     players.map((player) => {
       options.push({ value: player.id, label: player.username });
     });
-    console.log(router.pathname);
+    
     return (
         <Stack direction="row">
           <Center>
@@ -359,7 +359,6 @@ const MobileNav = () => {
     players.map((player) => {
       options.push({ value: player.id, label: player.username });
     });
-    console.log(router.pathname);
     return (
       <Stack spacing={0}>
         <Center bg="#1b263b" paddingTop={3} paddingBottom={3}>

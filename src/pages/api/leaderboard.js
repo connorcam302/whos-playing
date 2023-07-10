@@ -9,7 +9,6 @@ export default async function handler({ query: {} }, res) {
   players = players.data;
   let data = await players.map((player) => getPlayerData(player.id));
   Promise.allSettled(data).then((newData) => {
-    console.log(newData);
     let trimmedData = newData.map((obj) => ({
       id: obj.value.steamAccount.id,
       name: players.filter(

@@ -8,8 +8,8 @@ dotenv.config();
 
 const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 
-export default async function handler({ query: { id, page } }, res) {
-  var matchData = await getMatchData(id);
+export default async function handler({ query: { id, page, hero } }, res) {
+  var matchData = await getMatchData(id, hero);
   if (matchData !== -1) {
     for (let index = 0; index < matchData.length; index++) {
       matchData[index].hero = heroMap.get(matchData[index].hero_id);
@@ -81,16 +81,39 @@ export default async function handler({ query: { id, page } }, res) {
         status: 404,
       });
     }
+  } else {
+    res.status(404).json({
+      message: `No matches found.`,
+      status: 404,
+    });
   }
 }
 
-async function getMatchData(id) {
-  if (typeof page !== "undefined") var page = -1;
-  var data = await supabase
-    .from("match_data")
-    .select("*, matches(*), players(*)")
-    .eq("player_id", id)
-    .limit(page == -1 ? 500 : page + 1 * 20);
+async function getMatchData(id, hero) {
+  if (typeof page == "undefined") var page = -1;
+  if (
+    typeof hero == "undefined" ||
+    hero == "all" ||
+    hero == "" ||
+    hero == "undefined"
+  )
+    var hero = -1;
+  console.log(id, page, hero);
+  var data =
+    hero !== -1
+      ? await supabase
+          .from("match_data")
+          .select("*, matches(*), players(*)")
+          .eq("hero_id", hero)
+          .eq("player_id", id)
+          .order("match_id", { ascending: false })
+          .limit(page === -1 ? 500 : page + 1 * 20)
+      : await supabase
+          .from("match_data")
+          .select("*, matches(*), players(*)")
+          .eq("player_id", id)
+          .order("match_id", { ascending: false })
+          .limit(page === -1 ? 500 : page + 1 * 20);
   if (data.error == null && data.data.length > 0) {
     for (let index = 0; index < data.data.length; index++) {
       data.data[index].start_time = data.data[index].matches.start_time;

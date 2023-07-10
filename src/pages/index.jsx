@@ -12,6 +12,7 @@ import Assists from "../components/featureBoxes/Assists";
 import { Box, Center, Stack, Wrap } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import FilterBox from "../components/FilterBox";
 
 export default function HomePage() {
   function useWindowSize() {
@@ -38,6 +39,15 @@ export default function HomePage() {
   }
   var width = useWindowSize().width;
 
+  const [hero, setHero] = useState("all");
+  const [player, setPlayer] = useState("all");
+  const [refresh, setRefresh] = useState("all");
+
+  useEffect(() => {
+    console.log("refreshing");
+    setRefresh(0);
+  }, [refresh]);
+
   if (width >= 1100) {
     return (
       <>
@@ -48,7 +58,13 @@ export default function HomePage() {
         <Center margin={5}>
           <Wrap>
             <Box padding={3}>
-              <GetMatchHelper playerid="all" pageNumber="0" />
+              <FilterBox
+                heroState={setHero}
+                playerState={setPlayer}
+                refreshButton={setRefresh}
+                playerOption={true}
+              />
+              <GetMatchHelper playerid={player} heroid={hero} pageNumber="0" refresh={refresh}/>
             </Box>
             <Box paddingTop={3}>
               <Stack w={430}>
@@ -73,7 +89,13 @@ export default function HomePage() {
         </Helmet>
         <Box h={"1em"} />
         <Stack>
-          <GetMatchHelper playerid="all" pageNumber="0" card="true" />
+          <FilterBox
+            heroState={setHero}
+            playerState={setPlayer}
+            refreshButton={setRefresh}
+            playerOption={true}
+          />
+          <GetMatchHelper playerid={player} heroid={hero} pageNumber="0" card="true" refresh={refresh}/>
           <Statbox type="player" days="14" limit="10" title="Player Stats" />
           <Statbox type="hero" days="14" limit="10" title="Hero Stats" />
           <Stack align={"center"}>

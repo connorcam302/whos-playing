@@ -1,6 +1,6 @@
 import { React } from "react";
 import MatchCard from "./MatchCard";
-import { Box, Center, Flex, Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Wrap, WrapItem } from "@chakra-ui/react";
 import MatchRow from "./MatchRow";
 
 function AllMatchCard(props) {
@@ -8,8 +8,8 @@ function AllMatchCard(props) {
   const newCard = (match) => {
     if(displayCard) {
       return (
-        <WrapItem>
-          <MatchCard match={match} key={match.player_id + "-" + match.match_id} />
+        <WrapItem key={match.player_id + "-" + match.match_id}>
+          <MatchCard match={match}  />
         </WrapItem>
       )} else {
         return (
@@ -17,6 +17,11 @@ function AllMatchCard(props) {
         )
       }
   };
+  if(props.matches.status == 404) return (
+    <Center w={"54em"}>
+      <Heading>No matches found.</Heading>
+    </Center>
+  )
   
   if(displayCard) {
   return (
@@ -28,15 +33,3 @@ function AllMatchCard(props) {
   }
 }
 export default AllMatchCard;
-
-async function fetchHeroData() {
-  try {
-    const result = await fetch(
-      `https://raw.githubusercontent.com/odota/dotaconstants/master/build/heroes.json`
-    );
-    return await result.json();
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-}

@@ -2,7 +2,17 @@ import GetMatchHelper from "../../components/GetMatchHelper";
 import PageButtons from "../../components/PageButtons";
 import { PlayerWinChart } from "../../components/PlayerWinChart";
 import Statbox from "../../components/Statbox";
-import { Box, Center, Heading, Spacer, Spinner, Stack, Text, Wrap } from "@chakra-ui/react";
+import FilterBox from "../../components/FilterBox";
+import {
+  Box,
+  Center,
+  Heading,
+  Spacer,
+  Spinner,
+  Stack,
+  Text,
+  Wrap,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
@@ -51,6 +61,7 @@ export default function PlayerPage() {
   }, [router.isReady]);
 
   const [page, setPage] = useState(0);
+  console.log(page);
 
   const increasePage = () => {
     setPage(page + 1);
@@ -86,6 +97,18 @@ export default function PlayerPage() {
 
   var width = useWindowSize().width;
 
+  const [hero, setHero] = useState("all");
+  const [player, setPlayer] = useState("all");
+  const [refresh, setRefresh] = useState("all");
+
+  useEffect(() => {
+    setRefresh(0);
+  }, [refresh]);
+
+  useEffect(() => {
+    console.log(page);
+  }, [page]);
+
   if (!playerLoaded || !statLoaded) {
     return (
       <>
@@ -94,7 +117,7 @@ export default function PlayerPage() {
         </Helmet>
         <Center margin={5}>
           <Wrap>
-            <Spinner color='white' size='xl' />;
+            <Spinner color="white" size="xl" />;
           </Wrap>
         </Center>
       </>
@@ -121,31 +144,52 @@ export default function PlayerPage() {
           <Center margin={10}>
             <Wrap>
               <Stack>
-                <Wrap w='36em' bg='#242c36' padding='15px'>
+                <Wrap w="36em" bg="#242c36" padding="15px">
                   <Box>
-                    <Heading margin='4px'>{playerData.username}</Heading>
+                    <Heading margin="4px">{playerData.username}</Heading>
                   </Box>
                   <Spacer />
                   <Center>
-                    <Heading color='green.400'>{statData.wins}</Heading>
+                    <Heading color="green.400">{statData.wins}</Heading>
                     <Heading>-</Heading>
-                    <Heading color='red.500'>{statData.losses}</Heading>
+                    <Heading color="red.500">{statData.losses}</Heading>
                   </Center>
                 </Wrap>
-                <Stack w='36em' bg='#242c36' padding='15px' h='100%'>
+                <Stack w="36em" bg="#242c36" padding="15px" h="100%">
                   <Spacer />
                   <Center>
                     <Text>Last 14 Days</Text>
                   </Center>
-                  <PlayerWinChart id={router.query.id} h='100%' />
+                  <PlayerWinChart id={router.query.id} h="100%" />
                   <Spacer />
                 </Stack>
               </Stack>
-              <Statbox type='hero' days='31' limit='8' title='Hero Stats' player={router.query.id} />
+              <Statbox
+                type="hero"
+                days="31"
+                limit="8"
+                title="Hero Stats"
+                player={router.query.id}
+              />
             </Wrap>
           </Center>
-          <GetMatchHelper key={page} playerid={router.query.id} pageNumber={page} />
-          <PageButtons increase={increasePage} decrease={decreasePage} />
+          <Center>
+            <Stack>
+              <FilterBox
+                heroState={setHero}
+                playerState={setPlayer}
+                refreshButton={setRefresh}
+                playerOption={false}
+              />
+              <GetMatchHelper
+                key={page}
+                playerid={router.query.id}
+                heroid={hero}
+                pageNumber={page}
+              />
+              <PageButtons increase={increasePage} decrease={decreasePage} pageNumber={page}/>
+            </Stack>
+          </Center>
         </>
       );
     } else {
@@ -155,34 +199,54 @@ export default function PlayerPage() {
             <title>{playerData.username}</title>
           </Helmet>
           <Center>
-              <Wrap justify='center' marginTop={2}>
-                <Wrap w='22.5em' bg='#242c36' padding='15px'>
-                  <Box>
-                    <Heading margin='4px'>{playerData.username}</Heading>
-                  </Box>
-                  <Spacer />
-                  <Center>
-                    <Heading color='green.400'>{statData.wins}</Heading>
-                    <Heading>-</Heading>
-                    <Heading color='red.500'>{statData.losses}</Heading>
-                  </Center>
-                </Wrap>
-                <Stack w='22.5em' bg='#242c36' padding='15px' h='100%'>
-                  <Spacer />
-                  <Center>
-                    <Text>Last 14 Days</Text>
-                  </Center>
-                  <PlayerWinChart id={router.query.id} h='100%' />
-                  <Spacer />
-                </Stack>
-                <Box w='22.5em'>
-                  <Statbox type='hero' days='31' limit='8' title='Hero Stats' player={router.query.id} />
+            <Wrap justify="center" marginTop={2}>
+              <Wrap w="22.5em" bg="#242c36" padding="15px">
+                <Box>
+                  <Heading margin="4px">{playerData.username}</Heading>
                 </Box>
+                <Spacer />
+                <Center>
+                  <Heading color="green.400">{statData.wins}</Heading>
+                  <Heading>-</Heading>
+                  <Heading color="red.500">{statData.losses}</Heading>
+                </Center>
               </Wrap>
+              <Stack w="22.5em" bg="#242c36" padding="15px" h="100%">
+                <Spacer />
+                <Center>
+                  <Text>Last 14 Days</Text>
+                </Center>
+                <PlayerWinChart id={router.query.id} h="100%" />
+                <Spacer />
+              </Stack>
+              <Box w="22.5em">
+                <Statbox
+                  type="hero"
+                  days="31"
+                  limit="8"
+                  title="Hero Stats"
+                  player={router.query.id}
+                />
+              </Box>
+            </Wrap>
           </Center>
-          <Box h={"0.5em"}/>
-          <GetMatchHelper key={page} playerid={router.query.id} pageNumber={page} card='true' />
-          <PageButtons increase={increasePage} decrease={decreasePage} />
+          <Box h={"0.5em"} />
+          <Stack>
+            <FilterBox
+              heroState={setHero}
+              playerState={setPlayer}
+              refreshButton={setRefresh}
+              playerOption={true}
+            />
+            <GetMatchHelper
+              key={page}
+              playerid={router.query.id}
+              heroid={hero}
+              pageNumber={page}
+              card="true"
+            />
+            <PageButtons increase={increasePage} decrease={decreasePage} pageNumber={page}/>
+          </Stack>
         </>
       );
     }
