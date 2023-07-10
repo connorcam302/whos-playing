@@ -5,21 +5,47 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 export default async function handler(req, res) {
-  var players = await supabase.from("players").select("*");
-  players = players.data;
-  var playerData = players.map((x) => getWinLoss(x.id));
-  Promise.allSettled(playerData).then((newData) => {
-    let data = [];
-    newData.map((player) => {
-      data.push(player.value);
+  const getData = async () => {
+    var players = await supabase.from("players").select("*");
+    players = players.data;
+    var playerData = players.map((x) => getWinLoss(x.id));
+    let data = Promise.allSettled(playerData).then((newData) => {
+      let data = [];
+      newData.map((player) => {
+        data.push(player.value);
+      });
+      data.map(
+        (player) =>
+          (player.username = players.filter(
+            (player2) => player2.id == player.id
+          )[0].username)
+      );
+      console.log(sortBySumOfProperties(data, "wins", "losses").reverse().slice(0, 3))
+      return data;
     });
-    data.map(
-      (player) =>
-        (player.username = players.filter(
-          (player2) => player2.id == player.id
-        )[0].username)
-    );
-    res.status(200).json(sortBySumOfProperties(data, 'wins', 'losses').reverse().slice(0, 3));
+    return data;
+  };
+
+  return new Promise((resolve, reject) => {
+    getData()
+      .then((response) => {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Cache-Control", "max-age=180000");
+        res.end(
+          JSON.stringify(
+            sortBySumOfProperties(response, "wins", "losses")
+              .reverse()
+              .slice(0, 3)
+          )
+        );
+        resolve();
+      })
+      .catch((error) => {
+        res.json(error);
+        res.status(405).end();
+        resolve(); // in case something goes wrong in the catch block (as vijay commented)
+      });
   });
 }
 

@@ -8,7 +8,7 @@ const GetMatchHelper = (props) => {
   const [didTimeout, setDidTimeout] = useState(false);
 
   const getMatches = () => {
-    fetch(`/api/matches/player/${props.playerid}?page=${props.pageNumber}`)
+    fetch(`/api/matches/player/${props.playerid}?page=${props.pageNumber}&hero=${props.heroid}`)
       .then((res) => res.json())
       .then((data) => {
         setMatches(data);
@@ -19,8 +19,9 @@ const GetMatchHelper = (props) => {
       });
   };
   useEffect(() => {
+    console.log(`/api/matches/player/${props.playerid}?page=${props.pageNumber}&hero=${props.heroid}`)
     getMatches();
-  }, []);
+  }, [props.playerid, props.heroid, props.refresh]);
 
   setTimeout(function () {
     setDidTimeout(true);

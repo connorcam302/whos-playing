@@ -40,8 +40,6 @@ const Feature = (props) => {
     fetchImage();
   }, []);
 
-  console.log(image)
-
   return (
     <Center boxShadow="0 5px 15px -2px rgba(0,0,0,.8)">
       <Box
