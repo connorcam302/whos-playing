@@ -1,14 +1,22 @@
+import { NextResponse } from "next/server";
+
 const { createClient } = require("@supabase/supabase-js");
 const itemImport = require("../../../../data/itemMap");
 const itemMap = itemImport.itemMap;
 const heroImport = require("../../../../data/heroMap.js");
 const heroMap = heroImport.heroMap;
-const dotenv = require("dotenv");
-dotenv.config();
+
+export const config = {
+    runtime: 'experimental-edge',
+};
 
 const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 
-export default async function handler({ query: { page, hero } }, res) {
+export default async function handler(request) {
+    const params = new URL(request.url).searchParams;
+    const hero = params.get("hero")
+    const page = params.get("page")
+
     let time = new Date();
 
     var matchData = await getMatchData(hero);
@@ -75,17 +83,25 @@ export default async function handler({ query: { page, hero } }, res) {
         if (typeof page !== "undefined") {
             sortedMatches = sortedMatches.slice(page * 20, page * 20 + 20);
         }
-        res.status(200).send(sortedMatches);
+        //res.status(200).send(sortedMatches);
+        return new Response(
+            JSON.stringify(sortedMatches)
+        )
     } else {
-        res.status(404).json({
-            message: `No Matches Found.`,
-        });
+        return new Response(
+            JSON.stringify({
+                message: "No matches found",
+                status: 404
+            })
+        )
     }
 }
 
 async function getMatchData(hero) {
-    if (typeof page == "undefined") var page = -1;
-    if (typeof hero == "undefined" || hero == "all" || hero == "" || hero == "undefined") var hero = -1;
+    if (typeof page == "undefined" || typeof page == "null") var page = -1;
+    if (typeof hero == "undefined" || typeof hero == "null" || hero == null || hero == "all" || hero == "" || hero == "undefined") var hero = -1;
+    console.log(page)
+    console.log(hero)
     var data =
         hero !== -1
             ? await supabase
@@ -99,6 +115,7 @@ async function getMatchData(hero) {
                 .select("*, matches(*), players(*)")
                 .order("match_id", { ascending: false })
                 .limit(page === -1 ? 500 : page + 1 * 20);
+    console.log(data)
     if (data.error == null && data.data.length > 0) {
         for (let index = 0; index < data.data.length; index++) {
             data.data[index].start_time = data.data[index].matches.start_time;
