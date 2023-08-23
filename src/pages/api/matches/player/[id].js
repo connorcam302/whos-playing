@@ -100,7 +100,6 @@ export default async function handler(request) {
 async function getMatchData(id, hero) {
     if (typeof page == "undefined" || typeof page == "null") var page = -1;
     if (typeof hero == "undefined" || typeof hero == "null" || hero == null || hero == "all" || hero == "" || hero == "undefined") var hero = -1;
-    console.log(id, page, hero);
     var data =
         hero !== -1
             ? await supabase
