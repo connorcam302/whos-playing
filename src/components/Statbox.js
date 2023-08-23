@@ -14,6 +14,7 @@ import {
     Wrap,
     Flex,
     HStack,
+    SimpleGrid,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { React, useEffect, useState } from "react";
@@ -151,7 +152,6 @@ const Statbox = (props) => {
     useEffect(() => {
         fetchData();
         Cookies.set("days", days);
-        console.log(daysText, days);
     }, [days]);
 
     const customStyles = {
@@ -199,126 +199,7 @@ const Statbox = (props) => {
         { value: 92, label: "Last 3 Months" },
     ];
 
-    const makeBars = (stats, props, width) => {
-        let max = stats.reduce((maxMatches, currentUser) => Math.max(maxMatches, currentUser.wins + currentUser.losses), 0);
-        console.log(max)
-        let bars = [];
-        bars.push(
-            <GridItem colSpan={width <= 1100 ? 8 : 4} onClick={() => handlePrimaryFilter()}>
-                <HStack spacing="6px">
-                    <Text fontWeight="bold">{props.type == "player" ? "Player" : "Hero"}</Text>
-                    <Center>
-                        <Text fontWeight="bold">{primaryFilter}</Text>
-                    </Center>
-                </HStack>
-            </GridItem>
-        );
-        bars.push(<GridItem colSpan={1} />);
-        bars.push(
-            <GridItem colSpan={width <= 1100 ? 8 : 10} onClick={() => handleMatchesFilter()}>
-                <HStack spacing="6px">
-                    <Text fontWeight="bold">Matches</Text>
-                    <Center>
-                        <Text fontWeight="bold">{matchesFilter}</Text>
-                    </Center>
-                </HStack>
-            </GridItem>
-        );
-        bars.push(<GridItem colSpan={1} />);
-        bars.push(
-            <GridItem colSpan={width <= 1100 ? 8 : 10} onClick={() => handleWinRateFilter()}>
-                <HStack spacing="6px">
-                    <Text fontWeight="bold">Win Rate</Text>
-                    <Center>
-                        <Text fontWeight="bold">{winRateFilter}</Text>
-                    </Center>
-                </HStack>
-            </GridItem>
-        );
 
-        for (let index = 0; index < stats.length; index++) {
-            var matchValue = ((stats[index].wins + stats[index].losses) / max) * 100;
-            bars.push(
-                <GridItem colSpan={width <= 1100 ? 8 : 4}>
-                    {props.type == "player" ? (
-                        <Link href={"/player/" + stats[index].id}>
-                            <a rel="noopener noreferrer" passHref legacyBehavior>
-                                <Text
-                                    fontSize="md"
-                                    style={{
-                                        // do your styles depending on your needs.
-                                        display: "flex",
-                                        justifyContent: "left",
-                                        alignItems: "center",
-                                    }}
-                                    h="100%"
-                                    _hover={{
-                                        color: "#808080",
-                                        transition: "0.3s",
-                                    }}
-                                >
-                                    {stats[index].username}
-                                </Text>
-                            </a>
-                        </Link>
-                    ) : (
-                        <Tooltip label={stats[index].name}>
-                            <Image
-                                alt={stats[index].name}
-                                loader={() => stats[index].img}
-                                src={stats[index].img}
-                                width={70}
-                                height={90}
-                                style={{
-                                    height: "auto",
-                                    objectFit: "contain",
-                                    position: "relative",
-                                }}
-                                unoptimized
-                            />
-                        </Tooltip>
-                    )}
-                </GridItem>
-            );
-            bars.push(<GridItem colSpan={1} />);
-            bars.push(
-                <GridItem colSpan={width <= 1100 ? 8 : 10}>
-                    <Text fontSize="12pt">{stats[index].wins + stats[index].losses}</Text>
-                    <Progress
-                        size="xs"
-                        value={matchValue}
-                        colorScheme="teal"
-                        marginTop="9px"
-                    />
-                </GridItem>
-            );
-            bars.push(<GridItem colSpan={1} />);
-            var winRate =
-                stats[index].wins + stats[index].losses !== 0
-                    ? Math.round(
-                        (stats[index].wins / (stats[index].wins + stats[index].losses)) *
-                        100 *
-                        10
-                    ) / 10
-                    : 0;
-            bars.push(
-                <GridItem colSpan={width <= 1100 ? 8 : 10}>
-                    <Text fontSize="12pt">{winRate}%</Text>
-                    <Progress
-                        size="xs"
-                        value={winRate}
-                        colorScheme={getColor(winRate)}
-                        marginTop="9px"
-                    />
-                </GridItem>
-            );
-        }
-        return (
-            <Grid templateColumns="repeat(26, 1fr)" gap={2}>
-                {bars}
-            </Grid>
-        );
-    }
 
     function useWindowSize() {
         const [windowSize, setWindowSize] = useState({
@@ -344,6 +225,30 @@ const Statbox = (props) => {
         return windowSize;
     }
     var width = useWindowSize().width;
+
+    const makeBar = (width, colour) => {
+        return (
+            <Wrap>
+                <Box w={`${width}%`} sx={{ backgroundColor: colour }} />
+                <Box w={`${100 - width}%`} sx={{ backgroundColor: white }} />
+            </Wrap>
+        )
+    }
+
+    const makeStatDisplay = () => {
+        let bars = []
+        let max = stats.reduce((maxMatches, currentUser) => Math.max(maxMatches, currentUser.wins + currentUser.losses), 0);
+        console.log(stats)
+        if (props.type == "player") {
+            stats.map((stat, i) => {
+                bars.push(<GridItem><Text>{stat.username}</Text></GridItem>)
+                bars.push(<GridItem>{makeBar()}</GridItem>)
+                bars.push(<GridItem>{makeBar()}</GridItem>)
+            })
+        }
+
+        return bars
+    }
 
     if (loaded) {
         return (
@@ -383,7 +288,9 @@ const Statbox = (props) => {
                     </Center>
                 </Wrap>
                 <Box bg="#242c36" padding="15px" paddingTop="5px">
-                    <Stack>{makeBars(stats, props, width)}</Stack>
+                    <Grid templateColumns="repeat(3, 1fr)">
+                        {makeStatDisplay()}
+                    </Grid>
                 </Box>
             </Box>
         );
