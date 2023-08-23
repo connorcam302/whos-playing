@@ -100,8 +100,6 @@ export default async function handler(request) {
 async function getMatchData(hero) {
     if (typeof page == "undefined" || typeof page == "null") var page = -1;
     if (typeof hero == "undefined" || typeof hero == "null" || hero == null || hero == "all" || hero == "" || hero == "undefined") var hero = -1;
-    console.log(page)
-    console.log(hero)
     var data =
         hero !== -1
             ? await supabase
@@ -115,7 +113,6 @@ async function getMatchData(hero) {
                 .select("*, matches(*), players(*)")
                 .order("match_id", { ascending: false })
                 .limit(page === -1 ? 500 : page + 1 * 20);
-    console.log(data)
     if (data.error == null && data.data.length > 0) {
         for (let index = 0; index < data.data.length; index++) {
             data.data[index].start_time = data.data[index].matches.start_time;
