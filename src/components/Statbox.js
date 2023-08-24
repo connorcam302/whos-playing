@@ -227,23 +227,28 @@ const Statbox = (props) => {
     var width = useWindowSize().width;
 
     const makeBar = (width, colour) => {
+        console.log(width + '%')
         return (
-            <Wrap>
+            <Flex w='100%' h={1}>
                 <Box w={`${width}%`} sx={{ backgroundColor: colour }} />
-                <Box w={`${100 - width}%`} sx={{ backgroundColor: white }} />
-            </Wrap>
+                <Box w={`${100 - width}%`} sx={{ backgroundColor: '#f5f5f5' }} />
+            </Flex>
         )
     }
 
     const makeStatDisplay = () => {
-        let bars = []
+        let bars = [<GridItem key={`header-primary`} colSpan={3}><Text>{props.type == "player" ? "Player" : "Hero"}</Text></GridItem>,
+        <GridItem key={`header-matches`} colSpan={6}><Text>Matches</Text></GridItem>,
+        <GridItem key={`header-winrate`} colSpan={6}><Text>Win Rate</Text></GridItem>]
+
         let max = stats.reduce((maxMatches, currentUser) => Math.max(maxMatches, currentUser.wins + currentUser.losses), 0);
+
         console.log(stats)
         if (props.type == "player") {
             stats.map((stat, i) => {
-                bars.push(<GridItem><Text>{stat.username}</Text></GridItem>)
-                bars.push(<GridItem>{makeBar()}</GridItem>)
-                bars.push(<GridItem>{makeBar()}</GridItem>)
+                bars.push(<GridItem key={`${i}-primary`} colSpan={3} display="flex" alignItems="center"><Box><Text>{stat.username}</Text></Box></GridItem>)
+                bars.push(<GridItem key={`${i}-matches`} colSpan={6}><Text>{stat.wins + stat.losses}</Text>{makeBar(95, "red")}</GridItem >)
+                bars.push(<GridItem key={`${i}-winrate`} colSpan={6}><Text>{(Math.round((stat.wins / (stat.wins + stat.losses) * 100) * 100) / 100).toFixed(2)}%</Text>{makeBar(34, "green")}</GridItem>)
             })
         }
 
@@ -288,7 +293,7 @@ const Statbox = (props) => {
                     </Center>
                 </Wrap>
                 <Box bg="#242c36" padding="15px" paddingTop="5px">
-                    <Grid templateColumns="repeat(3, 1fr)">
+                    <Grid templateColumns="repeat(15, 1fr)" gap={3}>
                         {makeStatDisplay()}
                     </Grid>
                 </Box>
