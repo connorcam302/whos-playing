@@ -445,7 +445,7 @@ const MobileNav = () => {
             }
             _hover={{ backgroundColor: "teal.500" }}
             borderRadius={0}
-            href={"/loaderboard"}
+            href={"/leaderboard"}
           >
             <GiPodium /> &nbsp; Leaderboard
           </Button>

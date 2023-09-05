@@ -21,6 +21,30 @@ import { heroMap } from "../../data/heroMap";
 import MatchModal from "../MatchModal";
 
 const Kills = (props) => {
+  function useWindowSize() {
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+        height: undefined,
+    });
+
+    useEffect(() => {
+        function handleResize() {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
+
+        window.addEventListener("resize", handleResize);
+
+        handleResize();
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+    return windowSize;
+}
+var width = useWindowSize().width;
+
   const [kills, setKills] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const fetchKills = () => {
@@ -44,6 +68,107 @@ const Kills = (props) => {
         <Spinner size="xl" color="white" />
       </Center>
     </FeatureBox>;
+ } else {
+  if (width < 1100) {
+    return (
+      <FeatureBox>
+        <Heading textAlign={"center"}>Most kills</Heading>
+        <Stack spacing={1}>
+          <Flex>
+            <Box h={"3.5em"} w={"100%"} bg={"#242C36"}>
+              <Flex h={"3.5em"} pl={3} pr={3}>
+                <Center>
+                  <Link
+                    href={"/player/" + kills[0].player_id}
+                    passHref
+                    legacyBehavior
+                  >
+                    <a rel="noopener noreferrer">
+                      <Heading
+                        _hover={{
+                          color: "#808080",
+                          transition: "0.3s",
+                          textDecoration: "none",
+                        }}
+                      >
+                        {kills[0].username}
+                      </Heading>
+                    </a>
+                  </Link>
+                </Center>
+                <Spacer />
+                <Center>
+                  <Heading color={"GreenYellow"}>{kills[0].kills}</Heading>
+                </Center>
+              </Flex>
+            </Box>
+            <Image src={heroMap.get(kills[0].hero_id).img} h={"3.5em"} />
+          </Flex>
+          <Flex>
+            <Box h={"3.5em"} w={"100%"} bg={"#242C36"}>
+              <Flex h={"3.5em"} pl={3} pr={3}>
+                <Center>
+                  <Link
+                    href={"/player/" + kills[1].player_id}
+                    passHref
+                    legacyBehavior
+                  >
+                    <a rel="noopener noreferrer">
+                      <Heading
+                        _hover={{
+                          color: "#808080",
+                          transition: "0.3s",
+                          textDecoration: "none",
+                        }}
+                      >
+                        {kills[1].username}
+                      </Heading>
+                    </a>
+                  </Link>
+                </Center>
+                <Spacer />
+                <Center>
+                  <Heading color={"GreenYellow"}>{kills[1].kills}</Heading>
+                </Center>
+              </Flex>
+            </Box>
+            <Image src={heroMap.get(kills[1].hero_id).img} h={"3.5em"}/>
+            <Box w={10} />
+          </Flex>
+          <Flex>
+            <Box h={"3.5em"} w={"100%"} bg={"#242C36"}>
+              <Flex h={"3.5em"} pl={3} pr={3}>
+                <Center>
+                  <Link
+                    href={"/player/" + kills[2].player_id}
+                    passHref
+                    legacyBehavior
+                  >
+                    <a rel="noopener noreferrer">
+                      <Heading
+                        _hover={{
+                          color: "#808080",
+                          transition: "0.3s",
+                          textDecoration: "none",
+                        }}
+                      >
+                        {kills[2].username}
+                      </Heading>
+                    </a>
+                  </Link>
+                </Center>
+                <Spacer />
+                <Center>
+                  <Heading color={"GreenYellow"}>{kills[2].kills}</Heading>
+                </Center>
+              </Flex>
+            </Box>
+            <Image src={heroMap.get(kills[2].hero_id).img} h={"3.5em"}  />
+            <Box w={20} />
+          </Flex>
+        </Stack>
+      </FeatureBox>
+    );
   } else {
     return (
       <FeatureBox>
@@ -191,4 +316,6 @@ const Kills = (props) => {
     );
   }
 };
+}
+
 export default Kills;

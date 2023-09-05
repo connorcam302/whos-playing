@@ -22,6 +22,30 @@ import { heroMap } from "../../data/heroMap";
 import MatchModal from "../MatchModal";
 
 const Impact = (props) => {
+  function useWindowSize() {
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+        height: undefined,
+    });
+
+    useEffect(() => {
+        function handleResize() {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
+
+        window.addEventListener("resize", handleResize);
+
+        handleResize();
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+    return windowSize;
+}
+var width = useWindowSize().width;
+
   const [impact, setImpact] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const fetchImpact = () => {
@@ -46,33 +70,14 @@ const Impact = (props) => {
       </Center>
     </FeatureBox>;
   } else {
-    return (
-      
+    if (width < 1100) {
+      return (
         <FeatureBox>
-          <MatchModal matchid={impact[0].match_id}>
-          <Box
-            backgroundImage={heroMap.get(impact[0].hero_id).img}
-            backgroundPosition={"center"}
-            backgroundSize={"100%"}
-            backgroundRepeat={"no-repeat"}
-            sx={{ cursor: "pointer" }}
-            h={"8em"}
-          >
-            <Box
-              backgroundColor={"rgba(0,0,0,0.55)"}
-              padding={"0.5em"}
-              _hover={{
-                backgroundColor: "rgba(0,0,0,0.7)",
-                transition: "0.3s",
-              }}
-              h={"100%"}
-            >
-              <Stack>
-                <Center>
-                  <Heading>Most Impact</Heading>
-                </Center>
-                <Spacer />
-                <Wrap paddingLeft={"0.5em"} paddingRight={"0.5em"}>
+          <Heading textAlign={"center"}>Most impact</Heading>
+          <Stack spacing={1}>
+            <Flex>
+              <Box h={"3.5em"} w={"100%"} bg={"#242C36"}>
+                <Flex h={"3.5em"} pl={3} pr={3}>
                   <Center>
                     <Link
                       href={"/player/" + impact[0].player_id}
@@ -86,7 +91,6 @@ const Impact = (props) => {
                             transition: "0.3s",
                             textDecoration: "none",
                           }}
-                          size="lg"
                         >
                           {impact[0].username}
                         </Heading>
@@ -94,31 +98,131 @@ const Impact = (props) => {
                     </Link>
                   </Center>
                   <Spacer />
-                  <Tooltip label={"Impact Score: " + impact[0].impact}>
-                    <Heading
-                      color={
-                        calcImpact(impact[0].impact) == "S+"
-                          ? "gold"
-                          : "#ffffff"
-                      }
-                      size="xl"
-                      sx={
-                        calcImpact(impact[0].impact) == "S+"
-                          ? {
-                              textShadow:
-                                "1px 1px 12px #fff, 1px 1px 12px #ccc;",
-                            }
-                          : ""
-                      }
-                      padding="0.12em"
+                  <Center>
+                    <Heading color={"#a375f2"}>{impact[0].impact}</Heading>
+                  </Center>
+                </Flex>
+              </Box>
+              <Image src={heroMap.get(impact[0].hero_id).img} h={"3.5em"} />
+            </Flex>
+            <Flex>
+              <Box h={"3.5em"} w={"100%"} bg={"#242C36"}>
+                <Flex h={"3.5em"} pl={3} pr={3}>
+                  <Center>
+                    <Link
+                      href={"/player/" + impact[1].player_id}
+                      passHref
+                      legacyBehavior
                     >
-                      {calcImpact(impact[0].impact)}
-                    </Heading>
-                  </Tooltip>
-                </Wrap>
-              </Stack>
+                      <a rel="noopener noreferrer">
+                        <Heading
+                          _hover={{
+                            color: "#808080",
+                            transition: "0.3s",
+                            textDecoration: "none",
+                          }}
+                        >
+                          {impact[1].username}
+                        </Heading>
+                      </a>
+                    </Link>
+                  </Center>
+                  <Spacer />
+                  <Center>
+                    <Heading color={"#a375f2"}>{impact[1].impact}</Heading>
+                  </Center>
+                </Flex>
+              </Box>
+              <Image src={heroMap.get(impact[1].hero_id).img} h={"3.5em"} />
+              <Box w={10} />
+            </Flex>
+            <Flex>
+              <Box h={"3.5em"} w={"100%"} bg={"#242C36"}>
+                <Flex h={"3.5em"} pl={3} pr={3}>
+                  <Center>
+                    <Link
+                      href={"/player/" + impact[2].player_id}
+                      passHref
+                      legacyBehavior
+                    >
+                      <a rel="noopener noreferrer">
+                        <Heading
+                          _hover={{
+                            color: "#808080",
+                            transition: "0.3s",
+                            textDecoration: "none",
+                          }}
+                        >
+                          {impact[2].username}
+                        </Heading>
+                      </a>
+                    </Link>
+                  </Center>
+                  <Spacer />
+                  <Center>
+                    <Heading color={"#a375f2"}>{impact[2].impact}</Heading>
+                  </Center>
+                </Flex>
+              </Box>
+              <Image src={heroMap.get(impact[2].hero_id).img} h={"3.5em"} />
+              <Box w={20} />
+            </Flex>
+          </Stack>
+        </FeatureBox>
+      );
+    } else {
+      return (
+        <FeatureBox>
+          <MatchModal matchid={impact[0].match_id}>
+            <Box
+              backgroundImage={heroMap.get(impact[0].hero_id).img}
+              backgroundPosition={"center"}
+              backgroundSize={"100%"}
+              backgroundRepeat={"no-repeat"}
+              sx={{ cursor: "pointer" }}
+              h={"8em"}
+            >
+              <Box
+                backgroundColor={"rgba(0,0,0,0.55)"}
+                padding={"0.5em"}
+                _hover={{
+                  backgroundColor: "rgba(0,0,0,0.7)",
+                  transition: "0.3s",
+                }}
+                h={"100%"}
+              >
+                <Stack>
+                  <Center>
+                    <Heading>Most Impact</Heading>
+                  </Center>
+                  <Spacer />
+                  <Wrap paddingLeft={"0.5em"} paddingRight={"0.5em"}>
+                    <Center>
+                      <Link
+                        href={"/player/" + impact[0].player_id}
+                        passHref
+                        legacyBehavior
+                      >
+                        <a rel="noopener noreferrer">
+                          <Heading
+                            _hover={{
+                              color: "#808080",
+                              transition: "0.3s",
+                              textDecoration: "none",
+                            }}
+                            size="lg"
+                          >
+                            {impact[0].username}
+                          </Heading>
+                        </a>
+                      </Link>
+                    </Center>
+                    <Spacer />
+                    <Heading color={"#a375f2"} size="md">{impact[0].impact}</Heading>
+                  </Wrap>
+                </Stack>
+              </Box>
             </Box>
-          </Box>
           </MatchModal>
           <Stack spacing={"0"}>
             <MatchModal matchid={impact[1].match_id}>
@@ -157,26 +261,7 @@ const Impact = (props) => {
                 </Center>
                 <Spacer />
                 <Center>
-                  <Tooltip label={"Impact Score: " + impact[1].impact}>
-                    <Heading
-                      color={
-                        calcImpact(impact[1].impact) == "S+"
-                          ? "gold"
-                          : "#ffffff"
-                      }
-                      size="md"
-                      sx={
-                        calcImpact(impact[1].impact) == "S+"
-                          ? {
-                              textShadow:
-                                "1px 1px 12px #fff, 1px 1px 12px #ccc;",
-                            }
-                          : ""
-                      }
-                    >
-                      {calcImpact(impact[1].impact)}
-                    </Heading>
-                  </Tooltip>
+                <Heading color={"#a375f2"} size="md">{impact[1].impact}</Heading>
                 </Center>
               </Wrap>
             </MatchModal>
@@ -219,32 +304,14 @@ const Impact = (props) => {
                 </Center>
                 <Spacer />
                 <Center>
-                  <Tooltip label={"Impact Score: " + impact[2].impact}>
-                    <Heading
-                      color={
-                        calcImpact(impact[2].impact) == "S+"
-                          ? "gold"
-                          : "#ffffff"
-                      }
-                      size="md"
-                      sx={
-                        calcImpact(impact[2].impact) == "S+"
-                          ? {
-                              textShadow:
-                                "1px 1px 12px #fff, 1px 1px 12px #ccc;",
-                            }
-                          : ""
-                      }
-                    >
-                      {calcImpact(impact[2].impact)}
-                    </Heading>
-                  </Tooltip>
+                <Heading color={"#a375f2"} size="md">{impact[2].impact}</Heading>
                 </Center>
               </Wrap>
             </MatchModal>
           </Stack>
         </FeatureBox>
-    );
+      );
+    }
   }
 };
 

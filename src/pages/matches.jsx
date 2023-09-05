@@ -50,7 +50,6 @@ export default function MatchPage() {
   const [refresh, setRefresh] = useState("all");
 
   useEffect(() => {
-    console.log("refreshing");
     setRefresh(0);
   }, [refresh]);
 

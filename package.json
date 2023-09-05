@@ -47,7 +47,9 @@
     "react-dom": "18.2.0",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.8.0",
+    "react-responsive-carousel": "^3.2.23",
     "react-table": "^7.8.0",
+    "swiper": "^10.2.0",
     "valve-steam-web-api": "^1.2.1"
   }
 }

@@ -20,7 +20,6 @@ export default async function handler(req, res) {
             (player2) => player2.id == player.id
           )[0].username)
       );
-      console.log(sortBySumOfProperties(data, "wins", "losses").reverse().slice(0, 3))
       return data;
     });
     return data;
