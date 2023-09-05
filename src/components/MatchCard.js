@@ -17,134 +17,136 @@ import React from "react";
 
 export default function MatchCard(props) {
     return (
-        <Flex
-            w={"100vw"}
-            bg={
-                props.match.winner == true
-                    ? "linear-gradient(to left, #242c36, #242c36, #2f4c39,#2f4c39)"
-                    : "linear-gradient(to left, #242c36, #242c36, #AA4344,#AA4344)"
-            }
-        >
-            <Image
-                height="2.8em"
-                src={props.match.hero.img}
-                alt={props.match.hero.name}
-                sx={{ margin: 0 }}
-            />
-            <Flex w={"100%"} paddingLeft={1}>
-                <Center>
-                    <Link
-                        href={"/player/" + props.match.player_id}
-                        passHref
-                        legacyBehavior
-                    >
-                        <a rel="noopener noreferrer">
-                            <Flex w="5em">
-                                <Center>
-                                    <Stack spacing={0}>
-                                        <Heading size="sm" textAlign={"left"}>
-                                            {props.match.username}
-                                        </Heading>
-                                        <Text fontSize={10} color={'#cccccc'}>{calculateTime(props.match.start_time, props.match.duration)}
-                                        </Text>
-                                    </Stack>
-                                </Center>
-                                <Spacer />
-                            </Flex>
-                        </a>
-                    </Link>
-                </Center>
-                <Center w={"2em"}>
-                    <Tooltip label={"Impact Score: " + props.match.impact}>
-                        <Center>
-                            <Heading
-                                color={
-                                    {
-                                        "S+": "gold",
-                                        "F-": "#B7791F",
-                                    }[calcImpact(props.match.impact)] || "#ffffff"
-                                }
-                                size="sm"
-                                sx={{
-                                    textShadow:
+        <Link href={"https://dotabuff.com/matches/" + props.match.match_id}>
+            <Flex
+                w={"100vw"}
+                bg={
+                    props.match.winner == true
+                        ? "linear-gradient(to left, #242c36, #242c36, #2f4c39,#2f4c39)"
+                        : "linear-gradient(to left, #242c36, #242c36, #AA4344,#AA4344)"
+                }
+            >
+                <Image
+                    height="2.8em"
+                    src={props.match.hero.img}
+                    alt={props.match.hero.name}
+                    sx={{ margin: 0 }}
+                />
+                <Flex w={"100%"} paddingLeft={1}>
+                    <Center>
+                        <Link
+                            href={"/player/" + props.match.player_id}
+                            passHref
+                            legacyBehavior
+                        >
+                            <a rel="noopener noreferrer">
+                                <Flex w="5em">
+                                    <Center>
+                                        <Stack spacing={0}>
+                                            <Heading size="sm" textAlign={"left"}>
+                                                {props.match.username}
+                                            </Heading>
+                                            <Text fontSize={10} color={'#cccccc'}>{calculateTime(props.match.start_time, props.match.duration)}
+                                            </Text>
+                                        </Stack>
+                                    </Center>
+                                    <Spacer />
+                                </Flex>
+                            </a>
+                        </Link>
+                    </Center>
+                    <Center w={"2em"}>
+                        <Tooltip label={"Impact Score: " + props.match.impact}>
+                            <Center>
+                                <Heading
+                                    color={
                                         {
-                                            "S+": "1px 1px 12px #fff, 1px 1px 12px #ccc;",
-                                            "F-": "1px 1px 12px #B7791F, 1px 1px 12px #B7791F;",
-                                        }[calcImpact(props.match.impact)] || "",
-                                }}
-                                textAlign={"center"}
-                            >
-                                {calcImpact(props.match.impact)}
-                            </Heading>
-                        </Center>
-                    </Tooltip>
-                </Center>
-                <Spacer />
-                <Center>
-                    <Stack spacing={"0"}>
+                                            "S+": "gold",
+                                            "F-": "#B7791F",
+                                        }[calcImpact(props.match.impact)] || "#ffffff"
+                                    }
+                                    size="sm"
+                                    sx={{
+                                        textShadow:
+                                            {
+                                                "S+": "1px 1px 12px #fff, 1px 1px 12px #ccc;",
+                                                "F-": "1px 1px 12px #B7791F, 1px 1px 12px #B7791F;",
+                                            }[calcImpact(props.match.impact)] || "",
+                                    }}
+                                    textAlign={"center"}
+                                >
+                                    {calcImpact(props.match.impact)}
+                                </Heading>
+                            </Center>
+                        </Tooltip>
+                    </Center>
+                    <Spacer />
+                    <Center>
+                        <Stack spacing={"0"}>
+                            <Center>
+                                <HStack spacing={0}>
+                                    <Text textAlign="center" fontSize="xs" fontWeight="bold">
+                                        {props.match.kills}
+                                    </Text>
+                                    <Text textAlign="center" fontSize="xs" fontWeight="bold" >
+                                        /
+                                    </Text>
+                                    <Text textAlign="center" fontSize="xs" fontWeight="bold">
+                                        {props.match.deaths}
+                                    </Text>
+                                    <Text textAlign="center" fontSize="xs" fontWeight="bold" >
+                                        /
+                                    </Text>
+                                    <Text textAlign="center" fontSize="xs" fontWeight="bold">
+                                        {props.match.assists}
+                                    </Text>
+                                </HStack>
+                            </Center>
+                            <Center>
+                                <Text textAlign="center" fontSize="xs">
+                                    {Math.floor(props.match.duration / 60)}:
+                                    {Math.round(props.match.duration % 60) > 10
+                                        ? Math.round(props.match.duration % 60)
+                                        : "0" + Math.round(props.match.duration % 60)}
+                                </Text>
+                            </Center>
+                        </Stack>
+                    </Center>
+                    <Spacer />
+                    <Box bg="#212121">
+                        <Box>
+                            <Wrap spacing="0px">
+                                {makeItemBox(props.match.items[0])}
+                                {makeItemBox(props.match.items[1])}
+                                {makeItemBox(props.match.items[2])}
+                            </Wrap>
+                        </Box>
+                        <Box>
+                            <Wrap spacing="0px">
+                                {makeItemBox(props.match.items[3])}
+                                {makeItemBox(props.match.items[4])}
+                                {makeItemBox(props.match.items[5])}
+                            </Wrap>
+                        </Box>
+                    </Box>
+                    <Stack spacing={'0.2'} w={"2em"}>
                         <Center>
-                            <HStack spacing={0}>
-                                <Text textAlign="center" fontSize="xs" fontWeight="bold">
-                                    {props.match.kills}
-                                </Text>
-                                <Text textAlign="center" fontSize="xs" fontWeight="bold" >
-                                    /
-                                </Text>
-                                <Text textAlign="center" fontSize="xs" fontWeight="bold">
-                                    {props.match.deaths}
-                                </Text>
-                                <Text textAlign="center" fontSize="xs" fontWeight="bold" >
-                                    /
-                                </Text>
-                                <Text textAlign="center" fontSize="xs" fontWeight="bold">
-                                    {props.match.assists}
-                                </Text>
-                            </HStack>
+                            <Box>{makeNeutralBox(props.match.items[6])}</Box>
                         </Center>
                         <Center>
-                            <Text textAlign="center" fontSize="xs">
-                                {Math.floor(props.match.duration / 60)}:
-                                {Math.round(props.match.duration % 60) > 10
-                                    ? Math.round(props.match.duration % 60)
-                                    : "0" + Math.round(props.match.duration % 60)}
-                            </Text>
+                            <Box>
+                                {makeAghBox(
+                                    props.match.aghanims_scepter,
+                                    props.match.aghanims_shard
+                                )}
+                            </Box>
                         </Center>
                     </Stack>
-                </Center>
+                </Flex>
                 <Spacer />
-                <Box bg="#212121">
-                    <Box>
-                        <Wrap spacing="0px">
-                            {makeItemBox(props.match.items[0])}
-                            {makeItemBox(props.match.items[1])}
-                            {makeItemBox(props.match.items[2])}
-                        </Wrap>
-                    </Box>
-                    <Box>
-                        <Wrap spacing="0px">
-                            {makeItemBox(props.match.items[3])}
-                            {makeItemBox(props.match.items[4])}
-                            {makeItemBox(props.match.items[5])}
-                        </Wrap>
-                    </Box>
-                </Box>
-                <Stack spacing={'0.2'} w={"2em"}>
-                    <Center>
-                        <Box>{makeNeutralBox(props.match.items[6])}</Box>
-                    </Center>
-                    <Center>
-                        <Box>
-                            {makeAghBox(
-                                props.match.aghanims_scepter,
-                                props.match.aghanims_shard
-                            )}
-                        </Box>
-                    </Center>
-                </Stack>
-            </Flex>
-            <Spacer />
 
-        </Flex>
+            </Flex>
+        </Link>
     );
 }
 
