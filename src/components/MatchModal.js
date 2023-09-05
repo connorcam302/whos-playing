@@ -139,7 +139,6 @@ function MatchModal(props) {
         );
     }
     if (loaded) {
-        console.log(data);
         return (
             <>
                 <Box onClick={onOpen}>{props.children}</Box>

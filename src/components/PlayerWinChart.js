@@ -27,7 +27,6 @@ export function PlayerWinChart(props) {
   var min = Math.abs(Math.min.apply(null, stats));
   var max = Math.max.apply(null, stats);
   var boundary = min > max ? min : max;
-  console.log(min, max, boundary);
   const labels = Object.keys(stats);
   const data = {
     labels,

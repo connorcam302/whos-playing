@@ -19,7 +19,6 @@ const GetMatchHelper = (props) => {
       });
   };
   useEffect(() => {
-    console.log(`/api/matches/player/${props.playerid}?page=${props.pageNumber}&hero=${props.heroid}`)
     getMatches();
   }, [props.playerid, props.heroid, props.refresh]);
 

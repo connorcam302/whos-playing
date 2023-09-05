@@ -54,7 +54,7 @@ const FeatureBox = (props) => {
     }, []);
     if (width >= 1100) {
         return (
-            <Box bg={"#161b21"} w={"15em"} boxShadow="0 5px 9px -2px rgba(0,0,0,.8)" p={20}>
+            <Box bg={"#161b21"} w={"15em"} boxShadow="0 5px 9px -2px rgba(0,0,0,.8)">
                 {props.children}
             </Box>
         );
