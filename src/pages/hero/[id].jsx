@@ -48,60 +48,73 @@ const HeroPage = () => {
         console.log(heroAbilities)
 
         let heroData = heroes.find((obj) => obj.name === `npc_dota_hero_${heroId}`)
-
+        console.log(heroData)
+        let heroColour = () => {
+            let colour;
+            switch (heroData.primary_attr) {
+                case "int":
+                    colour = "#049cb4";
+                    break;
+                case "agi":
+                    colour = "#00E400";
+                    break;
+                case "str":
+                    colour = "#FF1F00";
+                    break;
+                case "uni":
+                    colour = "#7636b5";
+                    break;
+            }
+            return colour;
+        }
         return (
             <Center>
                 <Stack>
                     <Box h={"3em"} />
                     <Wrap>
-                        <Center W={"20em"}>
+                        <Center W={"25em"}>
                             <Stack>
-                                <Box>
-                                    <Center h={"3em"}>
-                                        <Heading>{heroData.localized_name}</Heading>
+                                <Box w={"20em"}>
+                                <Center h={"3em"}>
+                                    <Heading>{heroData.localized_name}</Heading>
+                                </Center>
+                                <Flex>
+                                    <Center h={"20em"} w={"20em"} mx={"auto"} background={`linear-gradient(45deg, ${heroColour()}, 10%, rgb(36, 44, 54));`} >
+                                        <HeroVideo key={heroId} video={heroId} />
                                     </Center>
-                                    <Flex>
-                                        <Center h={"25em"} w={"100%"} mx={"auto"}
-                                            backgroundImage={"/heroes/misc9.png"}
-                                            backgroundPosition={"center"}
-                                            backgroundSize={"auto 100%"}
-                                            backgroundRepeat={"no-repeat"}
-                                            right={0} >
-                                            <HeroVideo key={heroId} video={heroId} />
-                                        </Center>
-                                    </Flex>
-                                </Box>
-                                <Wrap spacing="8px" align={"center"} justify={"center"}>{heroAbilities.map((ability) => {
-                                    return (
-                                        <Image key={ability.dname} width={"3em"} height={"3em"} src={`https://cdn.cloudflare.steamstatic.com${ability.img}`} />
-                                    )
-                                })}
-                                </Wrap>
-                            </Stack>
-                        </Center >
-                        <Box h={"32em"} overflow={"auto"} css={{
-                            '&::-webkit-scrollbar': {
-                                width: '4px',
-                            },
-                            '&::-webkit-scrollbar-track': {
-                                width: '6px',
-                            },
-                            '&::-webkit-scrollbar-thumb': {
-                                background: "grey",
-                                borderRadius: '24px',
-                            },
-                        }}>
-                            <Statbox type="player" days="14" title="Player Stats" />
-                        </Box>
-                    </Wrap>
-                </Stack>
+                                </Flex>
+                            </Box>
+                            <Wrap spacing="8px" align={"center"} justify={"center"}>{heroAbilities.map((ability) => {
+                                return (
+                                    <Image key={ability.dname} width={"3em"} height={"3em"} src={`https://cdn.cloudflare.steamstatic.com${ability.img}`} />
+                                )
+                            })}
+                            </Wrap>
+                        </Stack>
+                    </Center >
+                    <Box h={"32em"} overflow={"auto"} css={{
+                        '&::-webkit-scrollbar': {
+                            width: '4px',
+                        },
+                        '&::-webkit-scrollbar-track': {
+                            width: '6px',
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            background: "grey",
+                            borderRadius: '24px',
+                        },
+                    }}>
+                        <Statbox type="player" days="14" title="Player Stats" />
+                    </Box>
+                </Wrap>
+            </Stack>
             </Center >
         )
     } else {
-        return (
-            <Spinner size='xl' />
-        )
-    }
+    return (
+        <Spinner size='xl' />
+    )
+}
 }
 
 const HeroVideo = (props) => {
