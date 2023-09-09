@@ -74,7 +74,7 @@ const HeroPage = () => {
                     <Wrap>
                         <Center W={"25em"}>
                             <Stack>
-                                <Box w={20em}>
+                                <Box w={"20em"}>
                                 <Center h={"3em"}>
                                     <Heading>{heroData.localized_name}</Heading>
                                 </Center>
