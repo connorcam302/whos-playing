@@ -91,6 +91,7 @@ const Impact = (props) => {
                                                         transition: "0.3s",
                                                         textDecoration: "none",
                                                     }}
+
                                                 >
                                                     {impact[0].username}
                                                 </Heading>
@@ -218,7 +219,7 @@ const Impact = (props) => {
                                             </Link>
                                         </Center>
                                         <Spacer />
-                                        <Heading color={"#a375f2"} size="md">{impact[0].impact}</Heading>
+                                        <Heading color={"#a375f2"} size="lg">{impact[0].impact}</Heading>
                                     </Wrap>
                                 </Stack>
                             </Box>
