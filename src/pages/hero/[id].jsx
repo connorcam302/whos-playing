@@ -72,14 +72,14 @@ const HeroPage = () => {
                 <Stack>
                     <Box h={"3em"} />
                     <Wrap>
-                        <Center W={"20em"}>
+                        <Center W={"25em"}>
                             <Stack>
-                                <Box w={25e m}>
+                                <Box w={20em}>
                                 <Center h={"3em"}>
                                     <Heading>{heroData.localized_name}</Heading>
                                 </Center>
                                 <Flex>
-                                    <Center h={"25em"} w={"25em"} mx={"auto"} background={`linear-gradient(45deg, ${heroColour()}, 10%, rgb(36, 44, 54));`} >
+                                    <Center h={"20em"} w={"20em"} mx={"auto"} background={`linear-gradient(45deg, ${heroColour()}, 10%, rgb(36, 44, 54));`} >
                                         <HeroVideo key={heroId} video={heroId} />
                                     </Center>
                                 </Flex>
