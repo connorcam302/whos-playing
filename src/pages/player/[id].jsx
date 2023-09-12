@@ -170,6 +170,7 @@ export default function PlayerPage() {
                                 limit="8"
                                 title="Hero Stats"
                                 player={router.query.id}
+                                height={"30em"}
                             />
                         </Wrap>
                     </Center>
@@ -226,6 +227,7 @@ export default function PlayerPage() {
                                     limit="8"
                                     title="Hero Stats"
                                     player={router.query.id}
+                                    height={"16em"}
                                 />
                             </Box>
                         </Wrap>
