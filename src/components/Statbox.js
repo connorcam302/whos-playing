@@ -71,7 +71,7 @@ const Statbox = (props) => {
             if (counter % 3 == 0) {
                 setPrimaryFilter(<div />);
                 let newStats = [...stats].sort(
-                    (a, b) => a.wins + a.losses - (b.wins + b.losses)
+                    (a, b) => b.wins + b.losses - (a.wins + a.losses)
                 );
                 setStats(newStats);
             }
@@ -82,7 +82,7 @@ const Statbox = (props) => {
             }
             if (counter % 3 == 2) {
                 setPrimaryFilter(<AiFillCaretDown />);
-                let newStats = [...stats].sort((a, b) => a.name.localeCompare(b.name));
+                let newStats = [...stats].sort((a, b) => b.name.localeCompare(a.name));
                 setStats(newStats);
             }
         }
