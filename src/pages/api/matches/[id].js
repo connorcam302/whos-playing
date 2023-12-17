@@ -38,7 +38,7 @@ export default async function handler({ query: { id } }, res) {
         else {
             player.name = "Anonymous";
         }
-
+console.log(player.item_1, player.item_2, player.item_3, player.item_4,player.item_5,player.item_6) 
         player.items = [
             {
                 id: player.item_0,
