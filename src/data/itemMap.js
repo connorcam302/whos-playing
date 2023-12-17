@@ -2221,5 +2221,71 @@ itemMap.set(196, {
   name: "Diffusal Blade",
   img: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/diffusal_blade_2.png?3",
 });
+itemMap.set(1808, {
+  id: 1808,
+  name: "Khanda",
+  img: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/angels_demise.png",
+});
+itemMap.set(1806, {
+  id: 1806,
+  name: "Parasma",
+  img: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/devastator.png",
+});
+itemMap.set(1804, {
+  id: 1804,
+  name: "Roshan's Banner",
+  img: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/roshans_banner.png",
+});
+itemMap.set(1803, {
+  id: 1803,
+  name: "Doubloon",
+  img: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/doubloon.png",
+});
+itemMap.set(1802, {
+  id: 1802,
+  name: "Tiara Of Selemene",
+  img: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tiara_of_selemene.png",
+});
+itemMap.set(1168, {
+  id: 1168,
+  name: "Rattlecage",
+  img: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/rattlecage.png",
+});
+itemMap.set(1167, {
+  id: 1167,
+  name: "Light Collector",
+  img: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/light_collector.png",
+});
+itemMap.set(1161, {
+  id: 1161,
+  name: "Unwavering Condition",
+  img: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/unwavering_condition.png",
+});
+itemMap.set(1160, {
+  id: 1160,
+  name: "Aviana's Feather",
+  img: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/avianas_feather.png",
+});
+itemMap.set(1159, {
+  id: 1159,
+  name: "Nemesis Curse",
+  img: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nemesis_curse.png",
+});
+itemMap.set(1158, {
+  id: 1158,
+  name: "Whisper of the Dread",
+  img: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/whisper_of_the_dread.png",
+});
+itemMap.set(1157, {
+  id: 1157,
+  name: "Safety Bubble",
+  img: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/safety_bubble.png",
+});
+itemMap.set(1156, {
+  id: 1156,
+  name: "Ancient Guardian",
+  img: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ancient_guardian.png",
+});
+
 
 export { itemMap };
