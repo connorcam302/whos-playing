@@ -39,6 +39,7 @@ export default async function handler({ query: { id } }, res) {
             player.name = "Anonymous";
         }
 console.log(player.item_1, player.item_2, player.item_3, player.item_4,player.item_5,player.item_6) 
+        try {
         player.items = [
             {
                 id: player.item_0,
@@ -76,6 +77,9 @@ console.log(player.item_1, player.item_2, player.item_3, player.item_4,player.it
                 name: itemMap.get(player.item_neutral).name,
             },
         ];
+        } catch(e) {
+            throw new Error(player.item_1, player.item_2, player.item_3, player.item_4,player.item_5,player.item_6)
+        }
 
         player.hero_img = heroMap.get(player.hero_id).img;
         player.hero_name = heroMap.get(player.hero_id).name;
