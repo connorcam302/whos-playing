@@ -1,7 +1,7 @@
 const { createClient } = require("@supabase/supabase-js");
 const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 
-const itemImport = require("../../../data/itemMap");
+const itemImport = require("../../../data/itemMap.js");
 const itemMap = itemImport.itemMap;
 const heroImport = require("../../../data/heroMap.js");
 const heroMap = heroImport.heroMap;
@@ -10,11 +10,11 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const smurfs = new Map();
-smurfs.set(161841881, "Matthew 🎣")
-smurfs.set(453182851, "Bingham 🎣")
-smurfs.set(352601666, "Harry 🎣")
-smurfs.set(876958148, "Sighboys 🎣")
-smurfs.set(146446530, "Sighboys 🎣")
+smurfs.set(161841881, "Matthew")
+smurfs.set(453182851, "Bingham")
+smurfs.set(352601666, "Harry")
+smurfs.set(876958148, "Sighboys")
+smurfs.set(146446530, "Sighboys")
 
 
 
@@ -38,47 +38,47 @@ export default async function handler({ query: { id } }, res) {
         else {
             player.name = "Anonymous";
         }
-console.log(player.item_1, player.item_2, player.item_3, player.item_4,player.item_5,player.item_6) 
+        console.log(player.item_0, player.item_1, player.item_2, player.item_3, player.item_4, player.item_5)
         try {
-        player.items = [
-            {
-                id: player.item_0,
-                img: itemMap.get(player.item_0).img,
-                name: itemMap.get(player.item_0).name,
-            },
-            {
-                id: player.item_1,
-                img: itemMap.get(player.item_1).img,
-                name: itemMap.get(player.item_1).name,
-            },
-            {
-                id: player.item_2,
-                img: itemMap.get(player.item_2).img,
-                name: itemMap.get(player.item_2).name,
-            },
-            {
-                id: player.item_3,
-                img: itemMap.get(player.item_3).img,
-                name: itemMap.get(player.item_3).name,
-            },
-            {
-                id: player.item_4,
-                img: itemMap.get(player.item_4).img,
-                name: itemMap.get(player.item_4).name,
-            },
-            {
-                id: player.item_5,
-                img: itemMap.get(player.item_5).img,
-                name: itemMap.get(player.item_5).name,
-            },
-            {
-                id: player.item_neutral,
-                img: itemMap.get(player.item_neutral).img,
-                name: itemMap.get(player.item_neutral).name,
-            },
-        ];
-        } catch(e) {
-            throw new Error(player.item_1, player.item_2, player.item_3, player.item_4,player.item_5,player.item_6)
+            player.items = [
+                {
+                    id: player.item_0,
+                    img: itemMap.get(player.item_0).img,
+                    name: itemMap.get(player.item_0).name,
+                },
+                {
+                    id: player.item_1,
+                    img: itemMap.get(player.item_1).img,
+                    name: itemMap.get(player.item_1).name,
+                },
+                {
+                    id: player.item_2,
+                    img: itemMap.get(player.item_2).img,
+                    name: itemMap.get(player.item_2).name,
+                },
+                {
+                    id: player.item_3,
+                    img: itemMap.get(player.item_3).img,
+                    name: itemMap.get(player.item_3).name,
+                },
+                {
+                    id: player.item_4,
+                    img: itemMap.get(player.item_4).img,
+                    name: itemMap.get(player.item_4).name,
+                },
+                {
+                    id: player.item_5,
+                    img: itemMap.get(player.item_5).img,
+                    name: itemMap.get(player.item_5).name,
+                },
+                {
+                    id: player.item_neutral,
+                    img: itemMap.get(player.item_neutral).img,
+                    name: itemMap.get(player.item_neutral).name,
+                },
+            ];
+        } catch (e) {
+            throw new Error(player.item_1, player.item_2, player.item_3, player.item_4, player.item_5, player.item_6)
         }
 
         player.hero_img = heroMap.get(player.hero_id).img;
